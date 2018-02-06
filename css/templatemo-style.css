@@ -379,14 +379,12 @@ footer
     .pricing {
         margin-bottom: 20px;
     }
-    #feature img, #download img {
+    #feature img {
         margin-top: 30px;
     }
-    #feature1 img {
-        margin-bottom: 30px;
-    }
-    .contact .row div {
+    #contact .row div{
         margin: 0 auto;
+        width: 200px;
     }
 }
 @media screen and ( max-width: 767px ) {
@@ -405,8 +403,8 @@ footer
 /* start media 360 */
 @media screen and ( max-width: 360px ){
     .pricing
-        {
-            padding-bottom: 40px;
-        }
+    {
+        padding-bottom: 40px;
+    }
 }
 /* end media 360 */
