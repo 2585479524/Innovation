@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="keywords" content="">
 		<meta name="description" content="">
+		<link rel="shortcut icon" href="images/shortlogo.png" type="image/x-icon">
 
 		<!-- animate css -->
 		<link rel="stylesheet" href="css/animate.min.css">
@@ -23,6 +24,9 @@
 
 		<!-- custom css -->
 		<link rel="stylesheet" href="css/templatemo-style.css">
+
+		<link rel="stylesheet" href="css\main.css">
+
 
 	</head>
 	<body>
@@ -40,7 +44,9 @@
 						<span class="icon icon-bar"></span>
 						<span class="icon icon-bar"></span>
 					</button>
-					<a href="#" class="navbar-brand">青岛工学院</a>
+					<a href="#" class="navbar-brand">
+						<img src="images/logo.png" style="max-width:200px;margin-top:-7px;">
+					</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right text-uppercase">
@@ -62,7 +68,35 @@
 						<div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
 							<h1 class="text-upper">青岛工学院创新教育平台</h1>
 							<p class="tm-white">本平台针对软件工程专业大二、大三学生，提供计算机学科的专业课程及前沿课程，并能进行创新创业的实践训练。以专业促发展，以实践助创业，培养具备有较强软件开发能力和创新创业能力的应用型人才。</p>
-							<img src="images/software-img.png" class="img-responsive" alt="home img">
+							<div id="myCarousel" class="carousel slide">
+								<!-- 轮播（Carousel）指标 -->
+								<ol class="carousel-indicators">
+									<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+									<li data-target="#myCarousel" data-slide-to="1"></li>
+									<li data-target="#myCarousel" data-slide-to="2"></li>
+								</ol>
+								<!-- 轮播（Carousel）项目 -->
+								<div class="carousel-inner">
+									<div class="item active" >
+										<img src="images/a.jpg" alt="First slide" style="width:100%;height:400px;">
+									</div>
+									<div class="item">
+										<img src="images/b.jpg" alt="Second slide" style="width:100%;height:400px;">
+									</div>
+									<div class="item">
+										<img src="images/c.jpg" alt="Third slide" style="width:100%;height:400px;">
+									</div>
+								</div>
+								<!-- 轮播（Carousel）导航 -->
+								<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+									<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="height:356px;"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
 						</div>
 						<div class="col-md-1"></div>
 					</div>
@@ -71,26 +105,70 @@
 		</section>
 		<!-- end home -->
 		<!-- start divider -->
-		<section id="divider">
+
+		<br><br>
+		<section>
+		<div id="divider">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-						<i class="fa fa-laptop"></i>
-						<h3 class="text-uppercase">课程资源平台</h3>
-						<p>充分利用“互联网+”资源，实现资源的有效配置，具体实施时在课程教学中引入MOOC教学、SPOC教学等网络教学资源，推动创新创业教育优质课程资源信息化。在该平台中学生可以充分利用网络来学习专业知识，增强专业技能。 </p>
+					<div class="col-md-12 wow bounceIn">
+						<h2 class="text-uppercase">课程推荐</h2>
 					</div>
-					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-						<i class="fa fa-star"></i>
-						<h3 class="text-uppercase">创新创业平台</h3>
-						<p>学生可以在该子平台看到最新的创新创业动态，登录后可以发布创新创业项目，对于感兴趣的项目可以进行网上申请，系统平台可以完成对项目申报过程的追踪。在该平台中有相关的权限设定，普通的学生用户可以查看浏览相关信息。 </p>
-					</div>
-					<div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-						<i class="fa fa-font"></i>
-						<h3 class="text-uppercase">协同合作平台</h3>
-						<p>对于已经成功申请项目的学生，以项目负责人和项目组成员的身份进入该平台中的项目实践模拟区，在模拟区里学生可以通过项目创业计划书撰写，模式实践活动，让学生体验创业准备的各个环节。</p>
+					<br><br><br>
+					<div class="touch">
+						<div class="col-xs-3">
+							<div id="obj" class="thumbnail">
+								<div class="change1">
+									<img width="236px" height="136px" src="images/course1.jpg">
+								</div>
+								<div>
+									<h4>Linux</h4>
+									<p>进行至第一周</p>
+									<p>青岛工学院</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3">
+							<div id="obj" class="thumbnail">
+								<div class="change2">
+									<img width="236px" height="136px" src="images/course2.jpg">
+								</div>
+								<div>
+									<h4>Python</h4>
+									<p>进行至第一周</p>
+									<p>青岛工学院</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3">
+							<div id="obj" class="thumbnail">
+								<div class="change3">
+									<img width="236px" height="136px" src="images/course3.jpg">
+								</div>
+								<div>
+									<h4>数据结构</h4>
+									<p>进行至第一周</p>
+									<p>青岛工学院</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3">
+							<div id="obj" class="thumbnail">
+								<div class="change4">
+									<img width="236px" height="136px" src="images/course4.jpg">
+								</div>
+								<div>
+									<h4>C语言程序设计</h4>
+									<p>进行至第一周</p>
+									<p>青岛工学院</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
+		</div>
+		
 		</section>
 		<!-- end divider -->
 
@@ -177,8 +255,11 @@
 			<div class="overlay" style="padding-top: 20px; padding-bottom: 20px;">
 				<div class="container">
 					<div class="row">
+						<div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+							<img src="images/logo2.png" style="width:200px; height:50px;" alt="">
+						</div>
+						
 						<div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s">
-							<img src="images/logo.png" style="width:200px; height:50px;" alt="">
 							<address>
 								<p><i class="fa fa-desktop"></i>研发团队</p>
 								<p><i class="fa fa-weibo"></i> 官方微博</p>
@@ -219,37 +300,16 @@
 								</ul>
 							</div>
 						</div>
-						<!-- <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-							<div class="contact-form">
-								<form action="#" method="post">
-									<div class="col-md-6">
-										<input type="text" class="form-control" placeholder="Name">
-									</div>
-									<div class="col-md-6">
-										<input type="email" class="form-control" placeholder="Email">
-									</div>
-									<div class="col-md-12">
-										<input type="text" class="form-control" placeholder="Subject">
-									</div>
-									<div class="col-md-12">
-										<textarea class="form-control" placeholder="Message" rows="4"></textarea>
-									</div>
-									<div class="col-md-8">
-										<input type="submit" class="form-control text-uppercase" value="Send">
-									</div>
-								</form>
-							</div>
-						</div> -->
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- end contact -->
-
+		
 		<!-- start footer -->
 		<footer>
 			<div class="container">
-				<div></div>
+			<hr style="width: 100% ;height: 100%;">
 				<span class="info">
 					<span>平台公众号:xxxxxxxxx</span>
 					<span>管理员邮箱：xxxxxxxxx@163.com</span>
@@ -269,11 +329,7 @@
 		<script src="js/wow.min.js"></script>
 		<script src="js/jquery.singlePageNav.min.js"></script>
 		<script src="js/custom.js"></script>
-		<!-- <script src="js/jquery.zlight.menu.1.0.min.js"></script> -->
-		<!-- <script>
-			$(document).ready(function(){
-				$('#nav2').zlightMenu();
-			});
-		</script> -->
+		
+		<script src="js/main.js"></script>
 	</body>
 </html>
