@@ -6,3 +6,8 @@ $(function() {
         $("#obj").removeClass("box-shadow"); 
     });
 })
+
+$("#myCarousel").carousel({
+    interval:4000,
+});
+  
