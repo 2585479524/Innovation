@@ -56,10 +56,10 @@ export default {
   },
   methods: {
     changeTabbar(selection, row) {
-     // console.log(selection);
+      // console.log(selection);
       if (selection == 1) {
         this.$router.push({ name: "coursestudents" });
-      } 
+      }
     }
   }
 };

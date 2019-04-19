@@ -1,33 +1,28 @@
 <template>
-
-         <Header style="background-color: #fff;" >
-            <div class="Header-div">
-            <div class="Header-logo">
-                 <img src="@/assets/classpage/classlogo.png" style="max-width:200px;">
-                 
-            </div>
-            <div class="Header-login" >
-                <router-link to='/classpage'>首页 |</router-link>
-                <router-link to=''>个人中心</router-link>
-            </div>
-        </div>
-        </Header>
-
+  <Header style="background-color: #fff;">
+    <div class="Header-div">
+      <div class="Header-logo">
+        <img src="@/assets/classpage/classlogo.png" style="max-width:200px;">
+      </div>
+      <div class="Header-login">
+        <router-link to="/classpage">首页 |</router-link>
+        <router-link to>个人中心</router-link>
+      </div>
+    </div>
+  </Header>
 </template>
 
 <script>
-    export default {
-        data(){
-            return{
-                
-            }
-        },
-        methods:{
-            login(){
-                this.$emit('show-login',true);
-            }
-        }
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    login() {
+      this.$emit("show-login", true);
     }
+  }
+};
 </script>
 
 <style scoped>
@@ -46,7 +41,7 @@
   height: 64px;
   width: 50%;
   text-align: center;
-  margin-top:-5px;
+  margin-top: -5px;
 }
 .Header-login {
   height: 64px;

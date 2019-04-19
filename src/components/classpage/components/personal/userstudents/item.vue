@@ -33,7 +33,8 @@
             <br>
             <Card dis-hover style="width:315px">
               <div>
-                <span>未答题：
+                <span>
+                  未答题：
                   <Icon type="ios-checkmark" v-model="tubiao"></Icon>
                 </span>
                 <span>

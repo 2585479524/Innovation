@@ -4,18 +4,16 @@
       <el-col :span="23" class="pos-order" id="order-list">
         <div class="often-goods-list">
           <ul>
-            <li v-for="goods in oftenGoods" :key="goods.id">  
+            <li v-for="goods in oftenGoods" :key="goods.id">
               <img class="o-price" :src="goods.Img">
               <div class="often-Name">
-                  <h3>{{goods.goodsName}}</h3>
+                <h3>{{goods.goodsName}}</h3>
               </div>
               <div class="often-button">
-                  <el-button type="text" @click="open">点击查看成绩是否及格</el-button> 
+                <el-button type="text" @click="open">点击查看成绩是否及格</el-button>
               </div>
             </li>
-
           </ul>
-          
         </div>
       </el-col>
     </el-row>
@@ -29,7 +27,6 @@ import con3 from "@/assets/course3.jpg";
 export default {
   data() {
     return {
-      
       oftenGoods: [
         {
           goodsId: 1,
@@ -70,18 +67,18 @@ export default {
     };
   },
   methods: {
-      open() {
-        this.$alert('已及格', '您的成绩', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
-      }
+    open() {
+      this.$alert("已及格", "您的成绩", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.$message({
+            type: "info",
+            message: `action: ${action}`
+          });
+        }
+      });
     }
+  }
 };
 </script>
 
@@ -101,11 +98,11 @@ export default {
   margin: 10px;
   background-color: #fff;
 }
-.often-Name{
-    text-align: center;
+.often-Name {
+  text-align: center;
 }
-.often-button{
-    text-align: center;
+.often-button {
+  text-align: center;
 }
 .o-price {
   color: #58b7ff;

@@ -2,8 +2,8 @@
   <div>
     <Header class="v-navbar"></Header>
     <div class="content">
-      <Regist ></Regist>
-      <HomeSwiper ></HomeSwiper>
+      <Regist></Regist>
+      <HomeSwiper></HomeSwiper>
       <Divider class="v-divider"></Divider>
       <Feature class="v-feature"></Feature>
       <Pricing class="v-pricing"></Pricing>
@@ -31,8 +31,7 @@ export default {
     Feature,
     Pricing,
     FirstPageFooter
-  },
-
+  }
 };
 </script>
 
@@ -45,91 +44,90 @@ export default {
   position: relative;
   top: 100px;
 }
-.v-navbar{
-  position:fixed;
-  z-index:9999;
-  top:0px;
+.v-navbar {
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
 }
 
-.v-footer{
-  bottom:0px;
-  width:100%;
-  position:relative;  
-  clear:both;
-  top:100px;
+.v-footer {
+  bottom: 0px;
+  width: 100%;
+  position: relative;
+  clear: both;
+  top: 100px;
 }
-.v-divider{
-  height:100%;
+.v-divider {
+  height: 100%;
 }
-.v-feature{
-  width:100%;
-  margin-top:30px;  
-  height:100%;
-  padding:50px;
+.v-feature {
+  width: 100%;
+  margin-top: 30px;
+  height: 100%;
+  padding: 50px;
 }
-.v-pricing{
-  width:100%;
-  margin-top:30px;  
+.v-pricing {
+  width: 100%;
+  margin-top: 30px;
 }
 
-
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
   .container {
     width: 700px;
-    margin:0 auto;
+    margin: 0 auto;
   }
-  }
-  @media (min-width: 992px) {
+}
+@media (min-width: 992px) {
   .container {
     width: 900px;
-    margin:0 auto;
+    margin: 0 auto;
   }
- }
-  @media (min-width: 1200px) {
+}
+@media (min-width: 1200px) {
   .container {
     width: 1000px;
-    margin:0 auto;
+    margin: 0 auto;
   }
 }
 
-
-@media screen and ( max-width: 991px ) {
-    .templatemo-box {
-        margin-bottom: 30px;
-    }
-    #pricing .active {
-        bottom: 0;
-    }
-    .pricing {
-        margin-bottom: 20px;
-    }
-    #feature img {
-        margin-top: 30px;
-    }
-    #contact .row div{
-        margin: 0 auto;
-        width: 200px;
-    }
+@media screen and (max-width: 991px) {
+  .templatemo-box {
+    margin-bottom: 30px;
+  }
+  #pricing .active {
+    bottom: 0;
+  }
+  .pricing {
+    margin-bottom: 20px;
+  }
+  #feature img {
+    margin-top: 30px;
+  }
+  #contact .row div {
+    margin: 0 auto;
+    width: 200px;
+  }
 }
-@media screen and ( max-width: 767px ) {
-    .navbar-default .nav li a {
-        height: auto;
-        line-height: 2em;
-    }
-    #feature, #pricing, #download {
-        padding-top: 20px;
-        padding-bottom: 40px;
-    }
-    #contact .overlay {
-        padding-top: 40px;
-    }
+@media screen and (max-width: 767px) {
+  .navbar-default .nav li a {
+    height: auto;
+    line-height: 2em;
+  }
+  #feature,
+  #pricing,
+  #download {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+  #contact .overlay {
+    padding-top: 40px;
+  }
 }
 /* start media 360 */
-@media screen and ( max-width: 360px ){
-    .pricing
-    {
-        padding-bottom: 40px;
-    }
+@media screen and (max-width: 360px) {
+  .pricing {
+    padding-bottom: 40px;
+  }
 }
 /* end media 360 */
 </style>

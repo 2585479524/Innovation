@@ -58,7 +58,12 @@
               <!-- 插入测试 -->
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false; resetForm('ruleForm2')">取 消</el-button>
-                <el-button type="primary" @click="loginAction" :loading="openLoading"v-model="dialogFormVisible">登 录</el-button>
+                <el-button
+                  type="primary"
+                  @click="loginAction"
+                  :loading="openLoading"
+                  v-model="dialogFormVisible"
+                >登 录</el-button>
               </div>
             </el-dialog>
           </div>
@@ -95,7 +100,7 @@
                 </el-form-item>
 
                 <el-form-item label="邮箱" prop="email">
-                  <el-input type="Email" style="width:80%" v-model="registForm.email" ></el-input>
+                  <el-input type="Email" style="width:80%" v-model="registForm.email"></el-input>
                 </el-form-item>
 
                 <Select
@@ -113,7 +118,12 @@
               <!-- 插入测试 -->
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogSignup = false; resetForm('registForm')">取 消</el-button>
-                <el-button type="primary" :loading="registLoading" @click="registAction" v-model="dialogFormVisible">注册</el-button>
+                <el-button
+                  type="primary"
+                  :loading="registLoading"
+                  @click="registAction"
+                  v-model="dialogFormVisible"
+                >注册</el-button>
               </div>
             </el-dialog>
           </div>
@@ -175,7 +185,7 @@ export default {
         num: [{ validator: checkNum, trigger: "blur" }]
       },
       dialogTableVisible: false,
-      dialogFormVisible: '',
+      dialogFormVisible: "",
       dialogSignup: false,
       form: {
         name: "",
@@ -188,18 +198,17 @@ export default {
   },
   methods: {
     submitForm(formName) {
-
       this.$refs[formName].validate(valid => {
         if (valid) {
           //提交成功做的动作
           this.dialogFormVisible = false;
           return true;
         } else {
-          console.log("error submit!!"); 
+          console.log("error submit!!");
 
           return false;
         }
-      }); 
+      });
       //console.log(this.item)
       /*if (this.item == "学生") {
         this.$router.push({ name: "coursestudents" });
@@ -212,17 +221,16 @@ export default {
       this.$refs[formName].resetFields();
     },
     loginAction() {
-      if (this.submitForm('ruleForm2')) {
+      if (this.submitForm("ruleForm2")) {
         this.axiosLoginUser();
       }
     },
-     registAction() {
-       if (this.submitForm('registForm')) {
-         this.axiosRegistUser();
-       }
+    registAction() {
+      if (this.submitForm("registForm")) {
+        this.axiosRegistUser();
+      }
     },
     axiosLoginUser() {
-       
       axios({
         url: "http://39.107.102.246/user/login",
         method: "post",
@@ -233,35 +241,29 @@ export default {
         }
       })
         .then(response => {
-          console.log(response)
-          if(response.data.status == 0 && response.data.msg)
-          {
-            new Promise((resolve,reject)=>{
-                        localStorage.userInfo ={userName:this.username}
-                        setTimeout(() => {
-                            resolve()
-                        }, 500);
-                    }).then(()=>{
-                      alert('登陆成功')
-                       
-                    }).catch(err=>{
-                        
-                        console.log(err)
-                    })
-                       
-                    }else{
-                       alert('登陆失败')
-                        
-                    }
+          console.log(response);
+          if (response.data.status == 0 && response.data.msg) {
+            new Promise((resolve, reject) => {
+              localStorage.userInfo = { userName: this.username };
+              setTimeout(() => {
+                resolve();
+              }, 500);
+            })
+              .then(() => {
+                alert("登陆成功");
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            alert("登陆失败");
+          }
         })
         .catch(error => {
-         
-         console.log("用户名或密码错误!");
+          console.log("用户名或密码错误!");
         });
     },
     axiosRegistUser() {
-      
-      
       this.dialogFormVisible = false;
       axios({
         url: "http://39.107.102.246/user/register",
@@ -285,8 +287,7 @@ export default {
           console.log(error);
           alert("邮箱已被占用，注册失败!");
         });
-    },
-    
+    }
   }
 };
 </script>

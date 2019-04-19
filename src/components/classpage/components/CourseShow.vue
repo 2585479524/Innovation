@@ -2,15 +2,16 @@
   <div class="Content-list">
     <div class="Content-title">{{CourseClass}}</div>
     <div class="Content-Class">
-      <div @click="getclickId(index,i.title,i.url)"
+      <div
+        @click="getclickId(index,i.title,i.url)"
         v-for="(i,index) in course"
         :key="index"
-        class="Content-video-one">
+        class="Content-video-one"
+      >
         <img :src="i.url" class="course" alt>
         <p class="course-font">{{i.title}}</p>
         <p class="teacher-font">教师：{{i.teacher}}</p>
         <p class="teacher-font">简介：{{i.content}}</p>
-      
       </div>
     </div>
   </div>
@@ -31,9 +32,10 @@ export default {
   created() {
     var courses = this.courses;
     axios
-      .get('https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes')
+      .get(
+        "https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes"
+      )
       .then(response => {
-
         this.basis = response.data.data.basis;
         this.front = response.data.data.front;
         this.back = response.data.data.back;
@@ -53,9 +55,11 @@ export default {
       });
   },
   methods: {
-    getclickId(index, course,img) {
-      this.$router.push({name:'annoucement',params:{courseTitle:course,courseimg:img}
-      })
+    getclickId(index, course, img) {
+      this.$router.push({
+        name: "annoucement",
+        params: { courseTitle: course, courseimg: img }
+      });
     }
   }
 };
@@ -97,7 +101,7 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
-.Content-video-one img{
+.Content-video-one img {
   height: 160px;
   border-radius: 5px;
 }
@@ -109,7 +113,7 @@ export default {
   font-size: 22px;
   line-height: 30px;
 }
-.teacher-font{
+.teacher-font {
   font-size: 16px;
   line-height: 25px;
 }

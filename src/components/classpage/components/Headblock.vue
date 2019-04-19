@@ -41,7 +41,7 @@ export default {
   height: 64px;
   width: 50%;
   text-align: center;
-  margin-top:-5px;
+  margin-top: -5px;
 }
 .Header-login {
   height: 64px;

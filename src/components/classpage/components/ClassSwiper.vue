@@ -1,45 +1,44 @@
 <template>
-
-    <div class="container-container-home">
-      <div class="home-content">
-        <div class="kuang">
-          <!--左侧导航栏-->
-          <i-menu theme="dark" active-name="1" width="100%">
-            <menu-item name="1">
-              <icon type="md-document"/>前端
-            </menu-item>
-            <menu-item name="2">
-              <icon type="md-chatbubbles"/>后端
-            </menu-item>
-            <menu-item name="3">
-              <icon type="md-heart"/>PS
-            </menu-item>
-            <menu-item name="4">
-              <icon type="md-leaf"/>Linux
-            </menu-item>
-            <menu-item name="5">
-              <icon type="md-chatbubbles"/>Java
-            </menu-item>
-            <menu-item name="6">
-              <icon type="md-heart"/>Python
-            </menu-item>
-            <menu-item name="7">
-              <icon type="md-leaf"/>人工智能
-            </menu-item>
-          </i-menu>
-        </div>
+  <div class="container-container-home">
+    <div class="home-content">
+      <div class="kuang">
         <!--左侧导航栏-->
-        <div class="play">
-          <!--轮播器-->
-          <Carousel autoplay loop class="playing" v-if="img.length>1">
-            <carousel-item v-for="(item,index) in img" :key="index">
-              <div class="demo-carousel">
-                <img :src="item.url" width="100%" class="homeImg">
-              </div>
-            </carousel-item>
-          </Carousel>
-        </div>
+        <i-menu theme="dark" active-name="1" width="100%">
+          <menu-item name="1">
+            <icon type="md-document"/>前端
+          </menu-item>
+          <menu-item name="2">
+            <icon type="md-chatbubbles"/>后端
+          </menu-item>
+          <menu-item name="3">
+            <icon type="md-heart"/>PS
+          </menu-item>
+          <menu-item name="4">
+            <icon type="md-leaf"/>Linux
+          </menu-item>
+          <menu-item name="5">
+            <icon type="md-chatbubbles"/>Java
+          </menu-item>
+          <menu-item name="6">
+            <icon type="md-heart"/>Python
+          </menu-item>
+          <menu-item name="7">
+            <icon type="md-leaf"/>人工智能
+          </menu-item>
+        </i-menu>
       </div>
+      <!--左侧导航栏-->
+      <div class="play">
+        <!--轮播器-->
+        <Carousel autoplay loop class="playing" v-if="img.length>1">
+          <carousel-item v-for="(item,index) in img" :key="index">
+            <div class="demo-carousel">
+              <img :src="item.url" width="100%" class="homeImg">
+            </div>
+          </carousel-item>
+        </Carousel>
+      </div>
+    </div>
 
     <!--container-->
   </div>
@@ -57,16 +56,18 @@ export default {
       login: false
     };
   },
-   created() {
+  created() {
     axios
-      .get('https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/image')
+      .get(
+        "https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/image"
+      )
       .then(response => {
         //console.log(response);
 
         this.img = response.data.data.image;
       })
       .catch(error => {
-       // console.log(error);
+        // console.log(error);
         alert("网络错误，不能访问");
       });
   }
@@ -144,7 +145,7 @@ export default {
   overflow: hidden;
   box-shadow: 0px 2px 5px #888888;
 }
-.kuang{
+.kuang {
   width: 20%;
 }
 .play {
@@ -161,7 +162,7 @@ export default {
   width: 100%;
   height: 356px;
 }
-.demo-carousel{
-    width: 100%;
+.demo-carousel {
+  width: 100%;
 }
 </style>
