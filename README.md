@@ -3,6 +3,9 @@
 
 项目基于Vue CLI重新架构，需要卸载旧版的vue-cli，本项目统一使用node.js 10.15.3(LTS)
 
+- [x]重新部署
+- [ ]学习github
+
 #### 本项目使用的依赖 element-ui iview echarts axois 
 
 
