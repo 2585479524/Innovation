@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="body">
     <div class="direct">
       <Layout>
         <Header></Header>
@@ -17,15 +17,23 @@
                 <font size="3" color="black">
                   <br>
                   <div class="user">
-                    <img src="@/assets/images/timg.jpg">
+                    <img src="@/assets/personalimg/timg.jpg">
                   </div>
                   <br>
                   {{userName}}
                 </font>
               </menu-item>
-
               <menu-item name="1">
-                <font size="2" color="gray">我上的课</font>
+                <font size="2" color="gray">课程界面</font>
+              </menu-item>
+              <menu-item name="2">
+                <font size="2" color="gray">选课情况</font>
+              </menu-item>
+              <menu-item name="3">
+                <font size="2" color="gray">考试情况</font>
+              </menu-item>
+              <menu-item name="4">
+                <font size="2" color="gray">视频管理</font>
               </menu-item>
             </i-menu>
           </div>
@@ -39,11 +47,10 @@
 
 
 <script>
-import Header from "@/components/classpage/components/personal/personalheader";
-import Footer from "@/components/classpage/components/Footer";
-
+import Header from "@/components/classpage/personal/personalheader";
+import Footer from "@/components/classpage/Footer";
 export default {
-  name: "App",
+  name: "Teacher",
   data() {
     return {
       userName: "userName",
@@ -56,9 +63,14 @@ export default {
   },
   methods: {
     changeTabbar(selection, row) {
-      // console.log(selection);
       if (selection == 1) {
-        this.$router.push({ name: "coursestudents" });
+        this.$router.push({ name: "courseteacher" });
+      } else if (selection == 2) {
+        this.$router.push({ name: "cselection" });
+      } else if (selection == 3) {
+        this.$router.push({ name: "eselection" });
+      } else if (selection == 4) {
+        this.$router.push({ name: "coursevalue" });
       }
     }
   }
@@ -71,15 +83,7 @@ export default {
   margin-top: 70px;
   height: 600px;
 }
-.coursename {
-  width: 400px;
-  height: 50px;
-  font-size: 36px;
-  color: darkslategrey;
-  position: absolute;
-  margin-left: 1200px;
-  margin-top: 220px;
-}
+
 .user {
   width: 50px;
   height: 50px;

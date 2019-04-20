@@ -27,11 +27,11 @@
 
 <script>
 
-import Header from "@/components/classpage/components/Headblock";
-import ClassSwiper from "@/components/classpage/components/ClassSwiper";
-import Footer from "@/components/classpage/components/Footer";
-import Course from "@/components/classpage/components/CourseShow";
-import Sign from "@/components/classpage/components/sign/sign";
+import Header from "@/components/classpage/Headblock";
+import ClassSwiper from "@/components/classpage/ClassSwiper";
+import Footer from "@/components/classpage/Footer";
+import Course from "@/components/classpage/CourseShow";
+import Sign from "@/components/classpage/sign/sign";
 export default {
   name: "ClassPage",
   data() {

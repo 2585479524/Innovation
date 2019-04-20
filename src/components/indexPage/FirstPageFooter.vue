@@ -8,7 +8,7 @@
             <div class="row-footer">
               <div class="rowLeft">
                 <div class="col-md-12 wow fadeIn animated" data-wow-delay="0.6s">
-                  <img src="@/assets/logo2.png" style="width:200px; height:50px;" alt>
+                  <img src="@/assets/indeximg/logo2.png" style="width:200px; height:50px;" alt>
                 </div>
 
                 <div class="col-md-3 wow fadeInUp animated" data-wow-delay="0.6s">

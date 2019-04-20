@@ -3,14 +3,14 @@
     <div class="container container-divider">
       <div class="divider-content">
         <h2 class="h2-divider1">
-          <img class="study" src="@/assets/study.png">
+          <img class="study" src="@/assets/indeximg/study.png">
           {{ msg }}
         </h2>
 
         <div class="change">
           <div class="asd">
             <div class="picture">
-              <img width="234px" height="138px" src="@/assets/course1.jpg">
+              <img width="234px" height="138px" src="@/assets/indeximg/course1.jpg">
               <div class="write">
                 <h2 class="h2-divider2">Linux 入门实践</h2>
                 <h3>进行至第一周</h3>
@@ -24,7 +24,7 @@
 
           <div class="asd">
             <div class="picture">
-              <img width="235px" height="138px" src="@/assets/course2.jpg">
+              <img width="235px" height="138px" src="@/assets/indeximg/course2.jpg">
               <div class="write">
                 <h2 class="h2-divider2">Python 经典算术与应用</h2>
                 <h3>进行至第一周</h3>
@@ -38,7 +38,7 @@
 
           <div class="asd">
             <div class="picture">
-              <img width="234px" height="138px" src="@/assets/course3.jpg">
+              <img width="234px" height="138px" src="@/assets/indeximg/course3.jpg">
               <div class="write">
                 <h2 class="h2-divider2">数据结构 从入门到进阶</h2>
                 <h3>进行至第一周</h3>
@@ -52,7 +52,7 @@
 
           <div class="asd">
             <div class="picture">
-              <img width="235px" height="138px" src="@/assets/course4.jpg">
+              <img width="235px" height="138px" src="@/assets/indeximg/course4.jpg">
               <div class="write">
                 <h2 class="h2-divider2">C语言程序设计</h2>
                 <h3>进行至第一周</h3>

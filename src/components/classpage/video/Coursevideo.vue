@@ -18,9 +18,9 @@
   </div>
 </template>
 <script>
-import Header from "@/components/classpage/components/Headblock";
-import Footer from "@/components/classpage/components/Footer";
-import Courseleft from "@/components/classpage/components/Courseleft";
+import Header from "@/components/classpage/Headblock";
+import Footer from "@/components/classpage/Footer";
+import Courseleft from "@/components/classpage/video/Courseleft";
 
 export default {
   components: {

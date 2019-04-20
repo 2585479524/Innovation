@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import Header from "@/components/firstpage/components/Header";
-import Regist from "@/components/firstpage/components/Regist";
-import Divider from "@/components/firstpage/components/Divider";
-import Feature from "@/components/firstpage/components/Feature";
-import Pricing from "@/components/firstpage/components/Pricing";
-import FirstPageFooter from "@/components/firstpage/components/FirstPageFooter";
-import HomeSwiper from "@/components/firstpage/components/HomeSwiper";
+import Header from "@/components/indexPage/Header";
+import Regist from "@/components/indexPage/Regist";
+import Divider from "@/components/indexPage/Divider";
+import Feature from "@/components/indexPage/Feature";
+import Pricing from "@/components/indexPage/Pricing";
+import FirstPageFooter from "@/components/indexPage/FirstPageFooter";
+import HomeSwiper from "@/components/indexPage/HomeSwiper";
 
 export default {
   name: "Home",

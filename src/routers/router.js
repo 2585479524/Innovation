@@ -3,28 +3,28 @@ import Router from 'vue-router'
 
 //Pages
 import HOME from '@/views/Home'
-import ClassPage from '@/views/ClassPage'
+import ClassPage from '@/views/ClassHome'
 //longin
-import Signi from '@/components/classpage/components/sign/sign_in'
+import Signi from '@/components/classpage/sign/sign_in'
 //teaher
-import teacher from '@/components/classpage/components/personal/teacher'
-import courseteacher from '@/components/classpage/components/personal/userteacher/courseteacher'
-import cselection from '@/components/classpage/components/personal/userteacher/cselection'
-import eselection from '@/components/classpage/components/personal/userteacher/eselection'
-import tselection from '@/components/classpage/components/personal/userteacher/tselection'
-import coursevalue from '@/components/classpage/components/personal/userteacher/coursevalue'
-import exam from '@/components/classpage/components/personal/userteacher/exam'
-import uptest from '@/components/classpage/components/personal/userteacher/uptest'
+import teacher from '@/components/classpage/personal/teacher'
+import courseteacher from '@/components/classpage/personal/userteacher/courseteacher'
+import cselection from '@/components/classpage/personal/userteacher/cselection'
+import eselection from '@/components/classpage/personal/userteacher/eselection'
+import tselection from '@/components/classpage/personal/userteacher/tselection'
+import coursevalue from '@/components/classpage/personal/userteacher/coursevalue'
+import exam from '@/components/classpage/personal/userteacher/exam'
+import uptest from '@/components/classpage/personal/userteacher/uptest'
 //student
-import students from '@/components/classpage/components/personal/students'
-import coursestudents from '@/components/classpage/components/personal/userstudents/coursestudents'
+import students from '@/components/classpage/personal/students'
+import coursestudents from '@/components/classpage/personal/userstudents/coursestudents'
 //Coursevideo
-import Coursevideo from '@/components/classpage/components/Coursevideo'
-import annoucement from '@/components/classpage/components/part/annoucement'
-import list from '@/components/classpage/components/part/list'
-import test from '@/components/classpage/components/part/test'
-import item from '@/components/classpage/components/part/item'
-import score from '@/components/classpage/components/part/score'
+import Coursevideo from '@/components/classpage/video/Coursevideo'
+import annoucement from '@/components/classpage/part/annoucement'
+import list from '@/components/classpage/part/list'
+import test from '@/components/classpage/part/test'
+import item from '@/components/classpage/part/item'
+import score from '@/components/classpage/part/score'
 
 Vue.use(Router)
 
