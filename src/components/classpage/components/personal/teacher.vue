@@ -17,7 +17,7 @@
                 <font size="3" color="black">
                   <br>
                   <div class="user">
-                    <img src="@/components/classpage/images/timg.jpg">
+                    <img src="@/assets/images/timg.jpg">
                   </div>
                   <br>
                   {{userName}}
