@@ -5,7 +5,7 @@
       <div class="pricing-content">
         <div class="col-md-12 wow bounceIn">
           <h2 class="h2-divider1">
-            <img class="study" src="@/assets/study.png">
+            <img class="study" src="@/assets/indeximg/study.png">
             {{ msg }}
           </h2>
         </div>

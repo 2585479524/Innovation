@@ -15,9 +15,9 @@ export default {
   data() {
     return {
       list: [
-        { src: require("@/assets/a.jpg") },
-        { src: require("@/assets/b.jpg") },
-        { src: require("@/assets/c.jpg") }
+        { src: require("@/assets/indeximg/a.jpg") },
+        { src: require("@/assets/indeximg/b.jpg") },
+        { src: require("@/assets/indeximg/c.jpg") }
       ]
     };
   }

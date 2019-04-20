@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 export default {
   name: "app",
   data() {
@@ -47,7 +46,7 @@ export default {
     this.courseimg = this.$route.query.courseimg
       ? this.$route.query.courseimg
       : this.$route.params.courseimg;
-    this.getinfo();
+    
   },
   methods: {
     changeTabbar(selection, row) {
@@ -61,17 +60,7 @@ export default {
       }
     },
     getinfo() {
-      axios
-        .get("")
-        .then(response => {
-          //console.log(response);
-
-          this.courseimg = this.courseimg;
-        })
-        .catch(error => {
-          console.log(error);
-          alert("网络错误，不能访问");
-        });
+     
     }
   }
 };

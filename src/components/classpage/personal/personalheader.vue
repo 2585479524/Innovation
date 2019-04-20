@@ -6,10 +6,7 @@
       </div>
       <div class="Header-login">
         <router-link to="/classpage">首页 |</router-link>
-        <span @click="login">
-          <router-link to="/sign_in">个人中心</router-link>
-        </span>
-        <span @click="login"></span>
+        <router-link to="">个人中心</router-link>
       </div>
     </div>
   </Header>
@@ -17,6 +14,9 @@
 
 <script>
 export default {
+  data() {
+    return {};
+  },
   methods: {
     login() {
       this.$emit("show-login", true);
@@ -31,7 +31,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .Header-logo {
   color: rgb(8, 14, 8);

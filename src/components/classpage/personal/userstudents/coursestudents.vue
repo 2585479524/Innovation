@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import con1 from "@/assets/course1.jpg";
-import con2 from "@/assets/course2.jpg";
-import con3 from "@/assets/course3.jpg";
+import con1 from "@/assets/indeximg/course1.jpg";
+import con2 from "@/assets/indeximg/course2.jpg";
+import con3 from "@/assets/indeximg/course3.jpg";
 export default {
   data() {
     return {

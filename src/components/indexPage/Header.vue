@@ -4,7 +4,7 @@
       <div class="container container-navbar">
         <div class="navbar-header">
           <a href="http://a.rebright.top/#" class="navbar-brand">
-            <img src="@/assets/logo.png" style="max-width:200px;margin-top:-7px;">
+            <img src="@/assets/indeximg/logo.png" style="max-width:200px;margin-top:-7px;">
           </a>
         </div>
         <div class="navbar-footer" aria-expanded="false">
