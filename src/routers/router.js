@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-//FirstPage
-import HOME from '@/components/firstpage/Home'
-import ClassPage from '@/components/classpage/ClassPage'
+//Pages
+import HOME from '@/views/Home'
+import ClassPage from '@/views/ClassPage'
 //longin
 import Signi from '@/components/classpage/components/sign/sign_in'
 //teaher

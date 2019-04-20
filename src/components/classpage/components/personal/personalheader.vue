@@ -6,7 +6,7 @@
       </div>
       <div class="Header-login">
         <router-link to="/classpage">首页 |</router-link>
-        <router-link to>个人中心</router-link>
+        <router-link to="">个人中心</router-link>
       </div>
     </div>
   </Header>

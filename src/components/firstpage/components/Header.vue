@@ -3,8 +3,8 @@
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
       <div class="container container-navbar">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand">
-            <img src="@/assets/classpage/classlogo.png" style="max-width:200px;margin-top:-17px;">
+          <a href="http://a.rebright.top/#" class="navbar-brand">
+            <img src="@/assets/logo.png" style="max-width:200px;margin-top:-7px;">
           </a>
         </div>
         <div class="navbar-footer" aria-expanded="false">
@@ -12,8 +12,14 @@
             <li>
               <router-link to="/">首页</router-link>
             </li>
-            <li @click="login">
-              <router-link to="/sign_in">个人中心</router-link>
+            <li>
+              <router-link to="/classpage">课程资源平台</router-link>
+            </li>
+            <li>
+              <router-link to="#">创新创业平台</router-link>
+            </li>
+            <li>
+              <router-link to="#">协同合作平台</router-link>
             </li>
           </ul>
         </div>
@@ -24,13 +30,7 @@
 
 <script>
 export default {
-  name: "navigation",
-  methods: {
-    login() {
-      this.$emit("show-login", true);
-    }
-  }
-  
+  name: "navigation"
 };
 </script>
 
