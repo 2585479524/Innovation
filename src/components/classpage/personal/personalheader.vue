@@ -2,7 +2,7 @@
   <Header style="background-color: #fff;">
     <div class="Header-div">
       <div class="Header-logo">
-        <img src="@/assets/classpage/classlogo.png" style="max-width:200px;">
+        <img src="@/assets/classpageimg/classlogo.png" style="max-width:200px;">
       </div>
       <div class="Header-login">
         <router-link to="/classpage">首页 |</router-link>

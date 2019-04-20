@@ -28,7 +28,7 @@ export default {
       back: ""
     };
   },
-    created() {
+  created() {
     var courses = this.courses;
     axios
       .get(
@@ -38,23 +38,21 @@ export default {
         this.basis = response.data.data.basis;
         this.front = response.data.data.front;
         this.back = response.data.data.back;
-     
-       // console.log(response);
+
         if (courses == "basis") {
           this.course = this.basis;
-          //console.log(this.course);
         } else if (courses == "front") {
           this.course = this.front;
+        } else {
+          this.course = this.back;
         }
       })
       .catch(error => {
         console.log(error);
-        
       });
-       
   },
   props: ["CourseClass", "courses"],
- 
+
   methods: {
     getclickId(index, course, img) {
       this.$router.push({
