@@ -52,7 +52,9 @@
 </template>
 
 <script>
+import Vue from "vue";
 import axios from "axios";
+import api from "../../../../api/index.js"
 export default {
     data() {
         return {
@@ -77,10 +79,13 @@ export default {
                     this.rowtemplate.Id = this.rows.length + 1;
                     this.rows.push(this.rowtemplate);
                 }
-                axios.post('http://39.107.102.246/teacher/chapter',{
+                axios
+                .post(api.url+"/teacher/chapter",{
+                    params:{
                     course:'car.id',
                     name:'row.Name',
                     info:'row.Age'
+                    }
                 })
                 .then(function (response) {
                     console.log(response);
@@ -102,8 +107,11 @@ export default {
                 }
             },
             Edit: function (row) {
-                axios.put('http://39.107.102.246/teacher/chapter/row.Id',{
+                axios
+                .put(api.url+"/teacher/chapter/row.Id",{
+                    params:{
                     course:'car.id',
+                    }
                 })
                 .then(function (response) {
                     console.log(response);
