@@ -3,7 +3,7 @@
     <div class="imgDiv">
       <el-carousel height="380px" arrow="always">
         <el-carousel-item v-for="(item,index) in list" :key="index">
-          <img :src="item.src" style="max-width:1119px">
+          <img :src="item" style="max-width:1119px">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -11,17 +11,38 @@
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+import api from "../../api/index.js"
 export default {
   data() {
     return {
-      list: [
-        { src: require("@/assets/indeximg/a.jpg") },
-        { src: require("@/assets/indeximg/b.jpg") },
-        { src: require("@/assets/indeximg/c.jpg") }
-      ]
+      list: [],
     };
+  },
+  created:function() {
+    axios
+      .get(api.url+"/rotationPicture/list", {
+        params: {
+          tag: "index",
+        }
+    })
+    .then(res =>{
+      for(let i = 0; i<res.data.data.length; i++){
+        let imgUrl=
+          "http://39.107.102.246" +
+          res.data.data[i].mappingPath +
+          res.data.data[i].id +
+          "." +
+          res.data.data[i].suffix;
+          //this.list[i]=imgUrl;
+          Vue.set(this.list,i,imgUrl);
+      }
+    })
+    .catch(err => {})
   }
 };
+
 </script>
 
 <style>

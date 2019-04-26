@@ -56,7 +56,7 @@ export default {
   methods: {
     getclickId(index, course, img) {
       this.$router.push({
-        name: "annoucement",
+        name: "addcourse",
         params: { courseTitle: course, courseimg: img }
       });
     }
