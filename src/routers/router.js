@@ -20,6 +20,7 @@ import students from '@/components/classpage/personal/students'
 import coursestudents from '@/components/classpage/personal/userstudents/coursestudents'
 //Coursevideo
 import Coursevideo from '@/components/classpage/video/Coursevideo'
+import addcourse from '@/components/classpage/part/addcourse'
 import annoucement from '@/components/classpage/part/annoucement'
 import list from '@/components/classpage/part/list'
 import test from '@/components/classpage/part/test'
@@ -118,6 +119,12 @@ export default new Router({
           component: score
         },
       ]
-    }
+    },
+    {
+      path: '/coursevideo/addcourse',
+      name: 'addcourse',
+      component: addcourse
+  }
+
   ]
 })
