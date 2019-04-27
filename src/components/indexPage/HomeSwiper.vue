@@ -30,7 +30,7 @@ export default {
     .then(res =>{
       for(let i = 0; i<res.data.data.length; i++){
         let imgUrl=
-          "http://39.107.102.246" +
+          api.url +
           res.data.data[i].mappingPath +
           res.data.data[i].id +
           "." +
@@ -42,7 +42,6 @@ export default {
     .catch(err => {})
   }
 };
-
 </script>
 
 <style>

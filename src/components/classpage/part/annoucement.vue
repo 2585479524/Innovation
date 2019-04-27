@@ -30,7 +30,7 @@ export default {
     .then(res =>{
       for(let i = 0; i<res.data.data.length; i++){
         let affiche=
-          "http://39.107.102.246" +
+          api.url +
           res.data.data[i].content +
           res.data.data[i].createTime;
           //this.tableData[i]=affiche;
