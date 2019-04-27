@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routers/router'
 import store from './stores/store'
-import index from "./api"
 
 import iView from 'iview'; // 导入组件库
 import 'iview/dist/styles/iview.css'; // 导入样式
@@ -11,7 +10,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import echarts from 'echarts'
 
 Vue.config.productionTip = false
-Vue.prototype.$index = index
 
 Vue.use(ElementUI)
 Vue.use(iView)

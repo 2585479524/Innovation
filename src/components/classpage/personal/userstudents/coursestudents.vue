@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import api from "../../../../api/index.js"
 export default {
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
   },
   created:function(){
     axios
-    .get(this.$index.getCourseList)
+    .get(api.url+"/student/course/list")
     .then(Response => {
       console.log(Response);
       console.log(Response.data.status);
