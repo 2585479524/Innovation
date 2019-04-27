@@ -12,34 +12,32 @@
 
 <script>
 import Vue from "vue";
-import axios from "axios";
-import api from "../../api/index.js"
+import api from "../../api/index.js";
 export default {
   data() {
     return {
-      list: [],
+      list: []
     };
   },
-  created:function() {
-    axios
-      .get(api.url+"/rotationPicture/list", {
+  created: function() {
+    this.axios
+      .get("/rotationPicture/list", {
         params: {
-          tag: "index",
+          tag: "index"
         }
-    })
-    .then(res =>{
-      for(let i = 0; i<res.data.data.length; i++){
-        let imgUrl=
-          api.url +
-          res.data.data[i].mappingPath +
-          res.data.data[i].id +
-          "." +
-          res.data.data[i].suffix;
-          //this.list[i]=imgUrl;
-          Vue.set(this.list,i,imgUrl);
-      }
-    })
-    .catch(err => {})
+      })
+      .then(res => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          let imgUrl =
+            api.url +
+            res.data.data[i].mappingPath +
+            res.data.data[i].id +
+            "." +
+            res.data.data[i].suffix;
+          Vue.set(this.list, i, imgUrl);
+        }
+      })
+      .catch(err => {});
   }
 };
 </script>

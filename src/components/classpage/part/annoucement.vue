@@ -10,8 +10,6 @@
 </template>
 <script>
 import Vue from "vue";
-import axios from "axios";
-import api from "../../../api/index.js"
 export default {
   data() {
     return {
@@ -21,8 +19,8 @@ export default {
     };
   },
   created:function() {
-    axios
-      .get(api.url+"/course/notice", {
+    this.axios
+      .get("/course/notice", {
         params: {
           course:"81f88387543743328b30d7b299f33c01",
         }

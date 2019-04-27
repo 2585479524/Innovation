@@ -136,7 +136,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { setTimeout } from "timers";
 import { error } from "util";
 import store from "../../stores/store";
@@ -263,8 +262,8 @@ export default {
     },
 
     axiosLoginUser() {
-      axios({
-        url: "http://39.107.102.246/user/login",
+      this.axios({
+        url: "/user/login",
         method: "post",
         data: {
           name: this.loginForm.num,
@@ -311,8 +310,8 @@ export default {
         .catch();
     },
     axiosRegistUser() {
-      axios({
-        url: "http://39.107.102.246/user/register",
+      this.axios({
+        url: "/user/register",
         method: "post",
         data: {
           name: this.registForm.num,

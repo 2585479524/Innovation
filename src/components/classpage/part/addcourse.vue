@@ -24,7 +24,6 @@
 <script>
 import Header from "@/components/classpage/Headblock";
 import Footer from "@/components/classpage/Footer";
-import axios from 'axios'
 export default {
     components: {
     Header, 
@@ -48,18 +47,18 @@ export default {
         getclickId(index, course,img) {
             this.$router.push({name:'annoucement',params:{courseTitle:course,courseimg:img}})
         },
-        getinfo() {
-            axios
-                .get('https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes')
-                .then(response => {
-          //console.log(response) 
-                    this.courseimg=this.courseimg
-                })
-                .catch(error => {
-                    console.log(error);
-                    alert("网络错误，不能访问");
-          });
-    }
+        // getinfo() {
+        //     axios
+        //         .get('https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes')
+        //         .then(response => {
+        //   //console.log(response) 
+        //             this.courseimg=this.courseimg
+        //         })
+        //         .catch(error => {
+        //             console.log(error);
+        //             alert("网络错误，不能访问");
+        //   });
+    // }
   }
 
 }

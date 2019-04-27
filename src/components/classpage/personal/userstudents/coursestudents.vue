@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import api from "../../../../api/index.js"
 export default {
   data() {
     return {
@@ -30,8 +28,8 @@ export default {
     };
   },
   created:function(){
-    axios
-    .get(api.url+"/student/course/list")
+    this.axios
+    .get("/student/course/list")
     .then(Response => {
       console.log(Response);
       console.log(Response.data.status);

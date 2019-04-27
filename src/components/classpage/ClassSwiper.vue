@@ -30,13 +30,11 @@
       <!--左侧导航栏-->
       <div class="play">
         <!--轮播器-->
-        <Carousel autoplay loop class="playing" v-if="img.length>1">
-          <carousel-item v-for="(item,index) in img" :key="index">
-            <div class="demo-carousel">
-              <img :src="item.url" width="100%" class="homeImg">
-            </div>
-          </carousel-item>
-        </Carousel>
+        <el-carousel height="380px" arrow="always">
+        <el-carousel-item v-for="(item,index) in list" :key="index">
+          <img :src="item" style="width:100%">
+        </el-carousel-item>
+      </el-carousel>
       </div>
     </div>
 
@@ -46,30 +44,36 @@
 </template>
 
 <script>
-import axios from "axios";
+import Vue from "vue";
+import api from "../../api/index.js";
 export default {
   name: "HomeSwiper",
   data() {
     return {
-      img: [],
+      list: [],
       course: "",
       login: false
     };
   },
   created() {
-    axios
-      .get(
-        "https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/image"
-      )
-      .then(response => {
-        //console.log(response);
-
-        this.img = response.data.data.image;
+    this.axios
+      .get("/rotationPicture/list", {
+        params: {
+          tag: "index"
+        }
       })
-      .catch(error => {
-        // console.log(error);
-        alert("网络错误，不能访问");
-      });
+      .then(res => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          let imgUrl =
+            api.url +
+            res.data.data[i].mappingPath +
+            res.data.data[i].id +
+            "." +
+            res.data.data[i].suffix;
+          Vue.set(this.list, i, imgUrl);
+        }
+      })
+      .catch(err => {});
   }
 };
 </script>

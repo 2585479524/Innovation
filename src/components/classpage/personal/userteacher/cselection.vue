@@ -75,15 +75,15 @@ export default {
       ],
       num: "100人",
       methods: {
-        //发送ajax请求
-        send() {
-          axios({
-            method: "get",
-            url: ""
-          }).then(function(res) {
-            console.log(res.data.name);
-          });
-        }
+        // //发送ajax请求
+        // send() {
+        //   axios({
+        //     method: "get",
+        //     url: ""
+        //   }).then(function(res) {
+        //     console.log(res.data.name);
+        //   });
+        // }
       }
     };
   }

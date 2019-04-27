@@ -5,12 +5,10 @@
 import axios from 'axios'
 import { Loading, Message } from 'element-ui'
 
-// 超时时间
-axios.defaults.timeout = 5000
-
 axios.defaults.withCredentials = true
+
 axios.defaults.baseURL = 'http://39.107.102.246'
-var loadinginstace
+// var loadinginstace
 
 // http请求拦截器
 axios.interceptors.request.use(config => {
