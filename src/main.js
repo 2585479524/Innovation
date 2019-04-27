@@ -5,6 +5,7 @@ import store from './stores/store'
 
 import iView from 'iview'; // 导入组件库
 import 'iview/dist/styles/iview.css'; // 导入样式
+
 import elementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -18,6 +19,14 @@ Vue.use(elementUI)
 Vue.use(iView)
 Vue.use(echarts)
 Vue.use(http)
+
+
+Vue.prototype.$elementMessage = function (msg,t) {
+  this.$message({
+    message: msg,
+    type: t
+  })
+}
 
 new Vue({
     router,

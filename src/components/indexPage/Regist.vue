@@ -2,7 +2,17 @@
   <div class="hello">
     <div class="container container-home">
       <div>
-        <div class="sign">
+        <div class="sign-success" v-if="loginIsOk">
+          <div class="login-success-message">欢迎{{$store.state.userName}}</div>
+          <el-button
+            class="login-exit-button"
+            type="primary"
+            size="mini"
+            round
+            @click="Loginexit"
+          >退出登录</el-button>
+        </div>
+        <div class="sign" v-else>
           <div class="sign-login">
             <el-button
               class="login"
@@ -15,21 +25,20 @@
             <el-dialog title="登录" :visible.sync="dialogFormVisible" center width="30%">
               <!-- 插入测试 -->
               <el-form
-                :model="ruleForm2"
+                :model="loginForm"
                 status-icon
-                :rules="rules2"
-                ref="ruleForm2"
+                ref="loginForm"
                 label-width="100px"
                 class="demo-ruleForm"
               >
                 <el-form-item label="账号" prop="num">
-                  <el-input v-model.number="ruleForm2.num" style="width:80%"></el-input>
+                  <el-input v-model.number="loginForm.num" style="width:80%"></el-input>
                 </el-form-item>
 
                 <el-form-item label="密码" prop="pass">
                   <el-input
                     type="password"
-                    v-model="ruleForm2.pass"
+                    v-model="loginForm.pass"
                     auto-complete="off"
                     style="width:80%"
                   ></el-input>
@@ -48,7 +57,7 @@
                 <br>
                 <div class="secret">
                   <el-form-item label="记住密码" prop="delivery" class="secret-el">
-                    <el-switch v-model="ruleForm2.delivery"></el-switch>
+                    <el-switch v-model="loginForm.delivery"></el-switch>
                   </el-form-item>
                   <span>
                     <a>忘记密码？</a>
@@ -57,10 +66,10 @@
               </el-form>
               <!-- 插入测试 -->
               <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false; resetForm('ruleForm2')">取 消</el-button>
+                <el-button @click="dialogFormVisible = false; resetForm('loginForm')">取 消</el-button>
                 <el-button
                   type="primary"
-                  @click="loginAction"
+                  @click="LoginSubmit('loginForm')"
                   :loading="openLoading"
                   v-model="dialogFormVisible"
                 >登 录</el-button>
@@ -100,18 +109,9 @@
                 </el-form-item>
 
                 <el-form-item label="邮箱" prop="email">
-                  <el-input type="Email" style="width:80%" v-model="registForm.email"></el-input>
+                  <el-input type="Email" style="width:80%" v-model.email="registForm.email"></el-input>
                 </el-form-item>
 
-                <Select
-                  class="select"
-                  prefix="ios-pricetag"
-                  placeholder="请选择你的身份"
-                  style="width:72.5%"
-                  v-model="item"
-                >
-                  <Option v-for="item in cityList" :value="item" :key="item">{{ item }}</Option>
-                </Select>
                 <br>
                 <br>
               </el-form>
@@ -121,8 +121,8 @@
                 <el-button
                   type="primary"
                   :loading="registLoading"
-                  @click="registAction"
-                  v-model="dialogFormVisible"
+                  @click="submitForm('registForm');"
+                  v-model="dialogSignup"
                 >注册</el-button>
               </div>
             </el-dialog>
@@ -137,39 +137,63 @@
 
 <script>
 import axios from "axios";
+import { setTimeout } from "timers";
+import { error } from "util";
+import store from "../../stores/store";
+import { mapState, mapMutations } from "vuex";
+import { open } from "fs";
+
 export default {
   name: "Regist",
   data() {
     var checkNum = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("账号不能为空"));
-      }
       setTimeout(() => {
         if (!Number.isInteger(value)) {
           callback(new Error("请输入数字值"));
         } else {
-          var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-          if (!myreg.test(value)) {
+          var regmyreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+          if (!regmyreg.test(value)) {
             callback(new Error("请输入正确的手机号码"));
           } else {
             callback();
           }
         }
-      }, 1000);
+      }, 300);
     };
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        callback();
+      if (!value) {
+        return callback(new Error("密码不能为空"));
       }
+      setTimeout(() => {
+        var regpassword = /\w{6,16}/;
+        if (this.value != "" && !regpassword.test(value)) {
+          callback(new Error("密码由字母数字下划线组成6-16位"));
+        } else {
+          callback();
+        }
+      }, 300);
     };
+    var validateEmail = (rule, value, callback) => {
+      if (value === "") {
+        return callback(new Error("邮箱不能为空"));
+      }
+      setTimeout(() => {
+        var regemail = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+        if (this.value != "" && !regemail.test(value)) {
+          callback(new Error("请输入正确的邮箱"));
+        } else {
+          callback();
+        }
+      }, 300);
+    };
+
     return {
       cityList: ["学生", "教师"],
       item: "",
+      loginIsOk: false,
       openLoading: false,
       registLoading: false,
-      ruleForm2: {
+      loginForm: {
         pass: "",
         num: "",
         delivery: false
@@ -180,12 +204,18 @@ export default {
         email: ""
       },
       rules2: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-
-        num: [{ validator: checkNum, trigger: "blur" }]
+        pass: [
+          { required: true, message: "密码不能为空", trigger: "blur" },
+          { validator: validatePass, trigger: "blur" }
+        ],
+        num: [
+          { required: true, message: "请输入账号", trigger: "blur" },
+          { validator: checkNum, trigger: "blur" }
+        ],
+        email: [{ validator: validateEmail, trigger: "blur" }]
       },
-      dialogTableVisible: false,
-      dialogFormVisible: "",
+
+      dialogFormVisible: false,
       dialogSignup: false,
       form: {
         name: "",
@@ -194,77 +224,93 @@ export default {
         desc: ""
       },
       formLabelWidth: "120px"
-    };
+    }; //return
+  },
+  created() {
+    let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    //console.log(localStorageInfo.name);
+    if (localStorageInfo) {
+      this.loginIsOk = true;
+    }
+    this.$store.state.userName = localStorageInfo.name;
+  },
+  computed: {
+    ...mapState(["userName"])
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+    ...mapMutations(["update"]),
+    submitForm(registForm) {
+      this.$refs[registForm].validate(valid => {
         if (valid) {
           //提交成功做的动作
-          this.dialogFormVisible = false;
-          return true;
+          this.axiosRegistUser();
         } else {
-          console.log("error submit!!");
-
+          this.$elementMessage("请输入正确信息！", "warning");
           return false;
         }
       });
-      //console.log(this.item)
-      /*if (this.item == "学生") {
-        this.$router.push({ name: "coursestudents" });
-      } else if (this.item == "教师") {
-        this.$router.push({ name: "courseteacher" });
-      }*/
-      return true;
+    },
+    LoginSubmit(loginForm) {
+      this.$refs[loginForm].validate(valid => {
+        if (valid) {
+          //提交成功操作
+          this.axiosLoginUser();
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    loginAction() {
-      if (this.submitForm("ruleForm2")) {
-        this.axiosLoginUser();
-      }
-    },
-    registAction() {
-      if (this.submitForm("registForm")) {
-        this.axiosRegistUser();
-      }
-    },
+
     axiosLoginUser() {
       axios({
         url: "http://39.107.102.246/user/login",
         method: "post",
         data: {
-          name: this.ruleForm2.num,
-          password: this.ruleForm2.pass,
+          name: this.loginForm.num,
+          password: this.loginForm.pass,
           autoLogin: ""
         }
       })
         .then(response => {
-          console.log(response);
           if (response.data.status == 0 && response.data.msg) {
             new Promise((resolve, reject) => {
-              localStorage.userInfo = { userName: this.username };
+              const info = {
+                name: response.data.data.name,
+                email: response.data.data.email,
+                identity: response.data.data.identity
+              };
+              //储存localStorage
+              localStorage.setItem("loginInfo", JSON.stringify(info));
+
               setTimeout(() => {
                 resolve();
               }, 500);
             })
               .then(() => {
-                alert("登陆成功");
+                this.update({
+                  num: response.data.data.name
+                });
+                this.loginIsOk = true;
+                if (this.loginIsOk) {
+                  this.$message({
+                    message: "欢迎回来" + this.$store.state.userName,
+                    type: "success" 
+                  });
+                  // this.$elementMessage("欢迎回来", "success");
+                  this.dialogFormVisible = false;
+                }
               })
-              .catch(err => {
-                console.log(err);
-              });
+              .catch();
+          } else if (this.loginForm.num == "" || this.loginForm.pass == "") {
+            this.$elementMessage("请输入用户名和密码！", "error");
           } else {
-            alert("登陆失败");
+            this.$elementMessage("用户名或密码错误，登陆失败！", "error");
           }
         })
-        .catch(error => {
-          console.log("用户名或密码错误!");
-        });
+        .catch();
     },
     axiosRegistUser() {
-      this.dialogFormVisible = false;
       axios({
         url: "http://39.107.102.246/user/register",
         method: "post",
@@ -275,20 +321,37 @@ export default {
         }
       })
         .then(response => {
-          console.log(response);
           if (response.data.status == 0) {
-            alert("注册成功!");
-          } else {
-            this.openLoading = false;
-            alert("账号已被占用，注册失败!");
+            this.$elementMessage("注册成功,请登录！", "success");
+            this.dialogSignup = false;
+          } else if (response.data.status == -1) {
+            this.$elementMessage("用户名或邮箱已被注册!", "error");
+          } else if (response.data.status == -3) {
+            this.$elementMessage("请输入正确的信息!", "error");
           }
         })
         .catch(error => {
           console.log(error);
-          alert("邮箱已被占用，注册失败!");
+          this.$elementMessage("未知错误!", "error");
         });
+    },
+    Loginexit() {
+      this.$confirm("你确定要退出, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          localStorage.removeItem("loginInfo");
+          this.loginIsOk = false;
+          this.$message({
+            type: "success",
+            message: "您已退出!"
+          });
+        })
+        .catch(() => {});
     }
-  }
+  } //methods
 };
 </script>
 
@@ -372,8 +435,18 @@ export default {
 .dialog-footer {
   margin-top: -50px;
 }
-
 .select {
-  margin-left: 60px;
+  margin-left: 65px;
+}
+.sign-success {
+  display: flex;
+  margin-left: 1000px;
+  margin-top: -10px;
+}
+.login-success-message {
+  font-size: 14px;
+}
+.login-exit-button {
+  margin-left: 15px;
 }
 </style>

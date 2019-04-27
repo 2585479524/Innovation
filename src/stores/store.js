@@ -10,6 +10,12 @@ const INITDATA = 'INITDATA'
 export default new Vuex.Store({
 
   state: {
+    //用户信息
+    userName:'' ,
+    isLogin:'',
+  
+
+    //T&#^!&6@$...
     itemNum: 1,
     userAnswer: [],
     itemDetail: [
@@ -73,7 +79,12 @@ export default new Vuex.Store({
     [INITDATA](state) {
       this.state.itemNum = 1;
       this.state.userAnswer = [];
-    }
+    },
+
+    update(state,loginForm){
+      state.userName= loginForm.num;
+      
+    },
   },
 
   actions: {
@@ -84,6 +95,7 @@ export default new Vuex.Store({
     },
     initData(store) {
       store.commit(INITDATA);
-    }
+    },
+
   }
 });
