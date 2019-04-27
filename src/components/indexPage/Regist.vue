@@ -2,8 +2,8 @@
   <div class="hello">
     <div class="container container-home">
       <div>
-        <div class="sign-success" v-if="Loginisok">
-          <div class="login-success-message">欢迎{{userName}}</div>
+        <div class="sign-success" v-if="loginIsOk">
+          <div class="login-success-message">欢迎{{$store.state.userName}}</div>
           <el-button
             class="login-exit-button"
             type="primary"
@@ -27,7 +27,6 @@
               <el-form
                 :model="loginForm"
                 status-icon
-                :rules="rules2"
                 ref="loginForm"
                 label-width="100px"
                 class="demo-ruleForm"
@@ -122,8 +121,8 @@
                 <el-button
                   type="primary"
                   :loading="registLoading"
-                  @click="submitForm('registForm')"
-                  v-model="dialogFormVisible"
+                  @click="submitForm('registForm');"
+                  v-model="dialogSignup"
                 >注册</el-button>
               </div>
             </el-dialog>
@@ -142,7 +141,8 @@ import { setTimeout } from "timers";
 import { error } from "util";
 import store from "../../stores/store";
 import { mapState, mapMutations } from "vuex";
-import api from "../../api/index.js"
+import { open } from "fs";
+
 export default {
   name: "Regist",
   data() {
@@ -190,7 +190,7 @@ export default {
     return {
       cityList: ["学生", "教师"],
       item: "",
-      Loginisok: false,
+      loginIsOk: false,
       openLoading: false,
       registLoading: false,
       loginForm: {
@@ -214,8 +214,8 @@ export default {
         ],
         email: [{ validator: validateEmail, trigger: "blur" }]
       },
-      dialogTableVisible: false,
-      dialogFormVisible: "",
+
+      dialogFormVisible: false,
       dialogSignup: false,
       form: {
         name: "",
@@ -228,15 +228,11 @@ export default {
   },
   created() {
     let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    //console.log(localStorageInfo.name);
     if (localStorageInfo) {
-      this.Loginisok = true;
+      this.loginIsOk = true;
     }
-    // window.onload = function(e) {
-    //   let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
-    //   this.num = localStorageInfo.name;
-    //   console.log(num);
-      
-    // };
+    this.$store.state.userName = localStorageInfo.name;
   },
   computed: {
     ...mapState(["userName"])
@@ -249,7 +245,7 @@ export default {
           //提交成功做的动作
           this.axiosRegistUser();
         } else {
-          alert("请输入正确的信息!");
+          this.$elementMessage("请输入正确信息！", "warning");
           return false;
         }
       });
@@ -268,7 +264,7 @@ export default {
 
     axiosLoginUser() {
       axios({
-        url: api.url+"/user/login",
+        url: "http://39.107.102.246/user/login",
         method: "post",
         data: {
           name: this.loginForm.num,
@@ -295,24 +291,28 @@ export default {
                 this.update({
                   num: response.data.data.name
                 });
-
-                this.Loginisok = true;
-                alert("登陆成功");
+                this.loginIsOk = true;
+                if (this.loginIsOk) {
+                  this.$message({
+                    message: "欢迎回来" + this.$store.state.userName,
+                    type: "success"
+                  });
+                  // this.$elementMessage("欢迎回来", "success");
+                  this.dialogFormVisible = false;
+                }
               })
-              .catch(err => {
-                console.log(err);
-              });
+              .catch();
+          } else if (this.loginForm.num == "" || this.loginForm.pass == "") {
+            this.$elementMessage("请输入用户名和密码！", "error");
           } else {
-            alert("登陆失败");
+            this.$elementMessage("用户名或密码错误，登陆失败！", "error");
           }
         })
-        .catch(error => {
-          console.log("未知错误!");
-        });
+        .catch();
     },
     axiosRegistUser() {
       axios({
-        url: api.url+"/user/register",
+        url: "http://39.107.102.246/user/register",
         method: "post",
         data: {
           name: this.registForm.num,
@@ -322,21 +322,34 @@ export default {
       })
         .then(response => {
           if (response.data.status == 0) {
-            alert("注册成功!");
+            this.$elementMessage("注册成功,请登录！", "success");
+            this.dialogSignup = false;
           } else if (response.data.status == -1) {
-            alert("用户名或邮箱已被注册!");
+            this.$elementMessage("用户名或邮箱已被注册!", "error");
           } else if (response.data.status == -3) {
-            alert("请输入正确的信息!");
+            this.$elementMessage("请输入正确的信息!", "error");
           }
         })
         .catch(error => {
           console.log(error);
-          alert("未知错误!");
+          this.$elementMessage("未知错误!", "error");
         });
     },
     Loginexit() {
-      localStorage.removeItem("loginInfo");
-      this.Loginisok = false;
+      this.$confirm("你确定要退出, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          localStorage.removeItem("loginInfo");
+          this.loginIsOk = false;
+          this.$message({
+            type: "success",
+            message: "您已退出!"
+          });
+        })
+        .catch(() => {});
     }
   } //methods
 };

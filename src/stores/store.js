@@ -11,7 +11,8 @@ export default new Vuex.Store({
 
   state: {
     //用户信息
-    userName:'',
+    userName:'' ,
+    isLogin:'',
   
 
     //T&#^!&6@$...
@@ -94,6 +95,7 @@ export default new Vuex.Store({
     },
     initData(store) {
       store.commit(INITDATA);
-    }
+    },
+
   }
 });
