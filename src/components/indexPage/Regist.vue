@@ -23,7 +23,6 @@
             >登录|</el-button>
 
             <el-dialog title="登录" :visible.sync="dialogFormVisible" center width="30%">
-              <!-- 插入测试 -->
               <el-form
                 :model="loginForm"
                 status-icon
@@ -64,7 +63,6 @@
                   </span>
                 </div>
               </el-form>
-              <!-- 插入测试 -->
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false; resetForm('loginForm')">取 消</el-button>
                 <el-button
@@ -86,7 +84,6 @@
               @click="dialogSignup = true"
             >注册</el-button>
             <el-dialog title="注册" :visible.sync="dialogSignup" center width="30%">
-              <!-- 插入测试 -->
               <el-form
                 :model="registForm"
                 status-icon
@@ -115,7 +112,6 @@
                 <br>
                 <br>
               </el-form>
-              <!-- 插入测试 -->
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogSignup = false; resetForm('registForm')">取 消</el-button>
                 <el-button
@@ -130,9 +126,7 @@
         </div>
       </div>
     </div>
-    <!--container-->
   </div>
-  <!--hello-->
 </template>
 
 <script>
@@ -227,7 +221,6 @@ export default {
   },
   created() {
     let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
-    //console.log(localStorageInfo.name);
     if (localStorageInfo) {
       this.loginIsOk = true;
     }

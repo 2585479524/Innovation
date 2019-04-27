@@ -15,22 +15,21 @@ import http from './utils/http.js'
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios;
-Vue.use(elementUI)
-Vue.use(iView)
-Vue.use(echarts)
-Vue.use(http)
-
-
-Vue.prototype.$elementMessage = function (msg,t) {
+Vue.prototype.$elementMessage = function (msg, t) {
   this.$message({
     message: msg,
     type: t
   })
 }
 
+Vue.use(elementUI)
+Vue.use(iView)
+Vue.use(echarts)
+
 new Vue({
-    router,
-    store,
-    echarts,
-    render: h => h(App)
+  router,
+  store,
+  echarts,
+  http,
+  render: h => h(App)
 }).$mount('#app')

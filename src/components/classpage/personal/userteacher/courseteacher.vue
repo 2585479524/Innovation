@@ -123,12 +123,12 @@ export default {
     },
     //发送ajax请求
     send() {
-      axios({
-        method: "get",
-        url: ""
-      }).then(function(res) {
-        console.log(res.data.name);
-      });
+      // axios({
+      //   method: "get",
+      //   url: ""
+      // }).then(function(res) {
+      //   console.log(res.data.name);
+      // });
     }
   }
 };

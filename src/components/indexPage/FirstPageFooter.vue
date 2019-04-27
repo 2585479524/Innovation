@@ -114,12 +114,6 @@
 </template>
 
 <script >
-export default {
-  name: "v-footer",
-  data() {
-    return {};
-  }
-};
 </script>
 
 <style scoped>

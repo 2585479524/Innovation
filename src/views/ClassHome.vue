@@ -9,7 +9,7 @@
         <div class="Content-navigation">
         <ClassSwiper class="v-home"></ClassSwiper>
          
-          <!--视频展示-->
+          <!-- 视频展 -->
           <div class="Content-list">
             <Course courses="basis" CourseClass="基 / 础 / 课 / 程"></Course>
             <Course courses="front" CourseClass="前 / 端 / 课 / 程"></Course>
