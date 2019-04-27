@@ -5,9 +5,9 @@
         <div class="often-goods-list">
           <ul>
             <li v-for="goods in oftenGoods" :key="goods.id">
-              <img class="o-price" :src="goods.Img">
+              <img class="o-price" :src="goods.image">
               <div class="often-Name">
-                <h3>{{goods.goodsName}}</h3>
+                <h3>{{goods.name}}</h3>
               </div>
               <div class="often-button">
                 <el-button type="text" @click="open">点击查看成绩是否及格</el-button>
@@ -21,50 +21,25 @@
 </template>
 
 <script>
-import con1 from "@/assets/indeximg/course1.jpg";
-import con2 from "@/assets/indeximg/course2.jpg";
-import con3 from "@/assets/indeximg/course3.jpg";
+import axios from "axios";
+import api from "../../../../api/index.js"
 export default {
   data() {
     return {
-      oftenGoods: [
-        {
-          goodsId: 1,
-          goodsName: "c语言",
-          Img: con1
-        },
-        {
-          goodsId: 2,
-          goodsName: "html入门",
-          Img: con2
-        },
-        {
-          goodsId: 3,
-          goodsName: "ps设计基础",
-          Img: con3
-        },
-        {
-          goodsId: 4,
-          goodsName: "计算机网络",
-          Img: con1
-        },
-        {
-          goodsId: 5,
-          goodsName: "数据结构",
-          Img: con2
-        },
-        {
-          goodsId: 6,
-          goodsName: "Linux操作系统",
-          Img: con3
-        },
-        {
-          goodsId: 7,
-          goodsName: "人工智能导论",
-          Img: con2
-        }
-      ]
+      oftenGoods: []
     };
+  },
+  created:function(){
+    axios
+    .get(api.url+"/student/course/list")
+    .then(Response => {
+      console.log(Response);
+      console.log(Response.data.status);
+      this.oftenGoods = Response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    })
   },
   methods: {
     open() {

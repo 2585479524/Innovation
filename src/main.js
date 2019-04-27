@@ -20,8 +20,8 @@ Vue.use(echarts)
 Vue.use(http)
 
 new Vue({
-  router,
-  store,
-  echarts,
-  render: h => h(App)
+    router,
+    store,
+    echarts,
+    render: h => h(App)
 }).$mount('#app')
