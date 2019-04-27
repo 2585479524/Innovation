@@ -295,7 +295,7 @@ export default {
                 if (this.loginIsOk) {
                   this.$message({
                     message: "欢迎回来" + this.$store.state.userName,
-                    type: "success"
+                    type: "success" 
                   });
                   // this.$elementMessage("欢迎回来", "success");
                   this.dialogFormVisible = false;
