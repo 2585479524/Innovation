@@ -67,11 +67,7 @@
 export default {
   data() {
     return {
-      rows: [
-        { Id: 1, Name: "第一章第一小节", Age: "aaaaaaa" },
-        { Id: 2, Name: "第一章第二小节", Age: "bbbbbbb" },
-        { Id: 3, Name: "第一章第三小节", Age: "cccccc" }
-      ],
+      rows: [],
       cars: [
         { id: 1, cName: "php" },
         { id: 2, cName: "js" },
@@ -81,14 +77,25 @@ export default {
       file: ""
     };
   },
+  mounted(){
+      this.axios
+          .get("/spinner/chapter", {
+            params: {
+              course:'car.id'
+            }
+          })
+            .then(function(response) {
+              console.log(response);
+              var obj = JSON.parse(response.data);
+                    this.rows = [obj];
+                    console.log(this.rows);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+      },
   methods: {
     Save: function(event) {
-      if (this.rowtemplate.Id == 0) {
-        //设置当前新增行的Id
-        this.rowtemplate.Id = this.rows.length + 1;
-        this.rows.push(this.rowtemplate);
-      }
-
       this.axios
         .post("/teacher/chapter", {
           course: "car.id",
@@ -97,6 +104,11 @@ export default {
         })
         .then(function(response) {
           console.log(response);
+          if (this.rowtemplate.Id == 0) {
+                //设置当前新增行的Id
+                this.rowtemplate.Id = this.rows.length + 1;
+                this.rows.push(this.rowtemplate);
+              }
         })
         .catch(function(error) {
           console.log(error);
@@ -106,13 +118,24 @@ export default {
       this.rowtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
     },
     Delete: function(id) {
+          this.axios
+            .delete("/teacher/chapter/row.Id", {
+              course: "car.id",
+            })
+            .then(function(response) {
+              console.log(response);
+              for (var i = 0; i < this.rows.length; i++) {
+                  if (this.rows[i].Id == id) {
+                    this.rows.splice(i, 1);
+                    break;
+                  }
+                }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
       //实际项目中参数操作肯定会涉及到id去后台删除，这里只是展示，先这么处理。
-      for (var i = 0; i < this.rows.length; i++) {
-        if (this.rows[i].Id == id) {
-          this.rows.splice(i, 1);
-          break;
-        }
-      }
+      
     },
     Edit: function(row) {
       this.axios
@@ -121,11 +144,11 @@ export default {
         })
         .then(function(response) {
           console.log(response);
+          this.rowtemplate = row;
         })
         .catch(function(error) {
           console.log(error);
-        });
-      this.rowtemplate = row;
+        })
     },
     submitVideo() {},
     upVideoSucc(res) {
