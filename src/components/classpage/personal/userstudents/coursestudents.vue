@@ -37,18 +37,19 @@ export default {
     })
     .catch(error => {
       console.log(error);
+    }),
+    this.axios
+    .get("/exam/score/{考试ID}")
+    .then(Response => {
+      console.log(Response);
+    }).catch(error => {
+      console.log(error);
     })
   },
   methods: {
     open() {
-      this.$alert("已及格", "您的成绩", {
+      this.$alert("已及格", "您的成绩{{score}}", {
         confirmButtonText: "确定",
-        callback: action => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`
-          });
-        }
       });
     }
   }
