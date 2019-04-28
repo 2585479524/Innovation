@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <i-select class="configerSelect" style="width:200px">
-      <i-option v-for="car in cars" :value="car.id" :key="car.index">{{car.cName}}</i-option>
-    </i-select>
     <table cellspacing="0" class="table table-bordered table-striped text-center">
       <thead>
         <tr>
@@ -68,11 +65,6 @@ export default {
   data() {
     return {
       rows: [],
-      cars: [
-        { id: 1, cName: "php" },
-        { id: 2, cName: "js" },
-        { id: 3, cName: "vue" }
-      ],
       rowtemplate: { Id: 0, Name: "", Age: "" },
       file: ""
     };
@@ -81,7 +73,7 @@ export default {
       this.axios
           .get("/spinner/chapter", {
             params: {
-              course:'car.id'
+              "course":"82ca0f2515624098b269341ea15db3a4",
             }
           })
             .then(function(response) {
@@ -98,9 +90,10 @@ export default {
     Save: function(event) {
       this.axios
         .post("/teacher/chapter", {
-          course: "car.id",
-          name: "row.Name",
-          info: "row.Age"
+          "num":1,
+          "course":"82ca0f2515624098b269341ea15db3a4",
+          "name":"API第一课",
+          "info":"API第一课"
         })
         .then(function(response) {
           console.log(response);
@@ -120,7 +113,7 @@ export default {
     Delete: function(id) {
           this.axios
             .delete("/teacher/chapter/row.Id", {
-              course: "car.id",
+              
             })
             .then(function(response) {
               console.log(response);
@@ -140,7 +133,8 @@ export default {
     Edit: function(row) {
       this.axios
         .put("/teacher/chapter/row.Id", {
-          course: "car.id"
+          "name":"API第一课",
+	        "info":"API第一课"
         })
         .then(function(response) {
           console.log(response);
