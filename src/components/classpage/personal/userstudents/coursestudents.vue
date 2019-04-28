@@ -4,13 +4,13 @@
       <el-col :span="23" class="pos-order" id="order-list">
         <div class="often-goods-list">
           <ul>
-            <li v-for="goods in oftenGoods" :key="goods.id">
-              <img class="o-price" :src="goods.image">
+            <li v-for="course in oftenGoods" :key="course.id">
+              <img class="o-price" :src="course.image">
               <div class="often-Name">
-                <h3>{{goods.name}}</h3>
+                <h3>{{course.name}}</h3>
               </div>
               <div class="often-button">
-                <el-button type="text" @click="open">点击查看成绩是否及格</el-button>
+                <p>该科成绩为：{{score}}</p>
               </div>
             </li>
           </ul>
@@ -24,34 +24,30 @@
 export default {
   data() {
     return {
-      oftenGoods: []
+      oftenGoods: [],
+      score:''
     };
   },
-  created:function(){
+  created: function() {
     this.axios
-    .get("/student/course/list")
-    .then(Response => {
-      console.log(Response);
-      console.log(Response.data.status);
-      this.oftenGoods = Response.data;
-    })
-    .catch(error => {
-      console.log(error);
-    }),
-    this.axios
-    .get("/exam/score/{考试ID}")
-    .then(Response => {
-      console.log(Response);
-    }).catch(error => {
-      console.log(error);
-    })
-  },
-  methods: {
-    open() {
-      this.$alert("已及格", "您的成绩{{score}}", {
-        confirmButtonText: "确定",
-      });
-    }
+      .get("/student/course/list")
+      .then(Response => {
+        console.log(Response);
+        console.log(Response.data.status);
+        this.oftenGoods = Response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      }),
+      this.axios
+        .get("/exam/score/course.id")
+        .then(Response => {
+          console.log(Response);
+          this.score=Response.score;
+        })
+        .catch(error => {
+          console.log(error);
+        });
   }
 };
 </script>

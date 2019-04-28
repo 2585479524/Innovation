@@ -68,14 +68,25 @@ export default {
     };
   },
   created(){
-    this.$store.dispatch('getdata')
+    this.getdata();
+    // this.$store.dispatch('getdata')
   },
   // computed: mapState(["itemNum", "itemDetail"]),
   // computed: mapState(["itemNum", "itemDetail"]),
   methods: {
-    getDataVuex(){
-      this.$store.dispatch('saveForm');
+    getdata(){
+     this.axios
+      .get('http://39.107.102.246/exam/final/course.id')
+      .then(Response => {
+        console.log(Response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
+    // getDataVuex(){
+    //   this.$store.dispatch('saveForm');
+    // }
     // ...mapActions(["addNum", "initData"]),
     // submitFun() {
     //   this.$store.dispatch('saveForm')
