@@ -3,7 +3,10 @@
     <div class="container container-home">
       <div>
         <div class="sign-success" v-if="loginIsOk">
-          <div class="login-success-message">欢迎{{$store.state.userName}}</div>
+          <div class="login-success-message">
+            <span>欢迎</span>
+            <span>{{$store.state.userName}}</span>
+          </div>
           <el-button
             class="login-exit-button"
             type="primary"
@@ -43,25 +46,21 @@
                   ></el-input>
                 </el-form-item>
 
-                <Select
-                  class="select"
-                  prefix="ios-pricetag"
-                  placeholder="请选择你的身份"
-                  style="width:72.5%"
-                  v-model="item"
-                >
-                  <Option v-for="item in cityList" :value="item" :key="item">{{ item }}</Option>
-                </Select>
-                <br>
-                <br>
                 <div class="secret">
                   <el-form-item label="记住密码" prop="delivery" class="secret-el">
                     <el-switch v-model="loginForm.delivery"></el-switch>
                   </el-form-item>
+                  <el-form-item label="自动登录" prop="autoLogin" class="secret-el">
+                    <el-switch v-model="loginForm.autoLogin"></el-switch>
+                  </el-form-item>
+                </div>
+                <div class="forget-password">
                   <span>
                     <a>忘记密码？</a>
                   </span>
                 </div>
+
+                <br>
               </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false; resetForm('loginForm')">取 消</el-button>
@@ -181,7 +180,6 @@ export default {
     };
 
     return {
-      cityList: ["学生", "教师"],
       item: "",
       loginIsOk: false,
       openLoading: false,
@@ -189,6 +187,7 @@ export default {
       loginForm: {
         pass: "",
         num: "",
+        autoLogin: false,
         delivery: false
       },
       registForm: {
@@ -220,11 +219,17 @@ export default {
     }; //return
   },
   created() {
+    this.getCookie();
     let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
     if (localStorageInfo) {
       this.loginIsOk = true;
+      this.$store.state.userName = localStorageInfo.name;
+    } else {
+      console.log();
     }
-    this.$store.state.userName = localStorageInfo.name;
+  },
+  mounted() {
+    this.autoLogin();
   },
   computed: {
     ...mapState(["userName"])
@@ -253,47 +258,71 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-
+    //自动登录
+    autoLogin() {
+      this.axios({
+        url: "/user/login/auto",
+        method: "post"
+      })
+        .then(response => {
+          console.log(response);
+          let user = response.data.data.name;
+          let cookieName = this.$store.state.userName;
+          if (user == cookieName) {
+            this.loginIsOk = true;
+            this.$message({
+              message: "欢迎回来" + this.$store.state.userName,
+              type: "success"
+            });
+          } else {
+            this.loginIsOk = false;
+          }
+        })
+        .catch();
+    },
+    //用户登录
     axiosLoginUser() {
+      if (this.loginForm.autoLogin) {
+        this.loginForm.delivery = true;
+      }
+      
+      
       this.axios({
         url: "/user/login",
         method: "post",
         data: {
           name: this.loginForm.num,
           password: this.loginForm.pass,
-          autoLogin: ""
+          autoLogin: this.loginForm.autoLogin
         }
       })
         .then(response => {
           if (response.data.status == 0 && response.data.msg) {
-            new Promise((resolve, reject) => {
-              const info = {
-                name: response.data.data.name,
-                email: response.data.data.email,
-                identity: response.data.data.identity
-              };
-              //储存localStorage
-              localStorage.setItem("loginInfo", JSON.stringify(info));
+            const info = {
+              name: response.data.data.name,
+              email: response.data.data.email,
+              identity: response.data.data.identity
+            };
+            //储存localStorage
+            localStorage.setItem("loginInfo", JSON.stringify(info));
+            //设置COOKIES保存用户信息
+            this.setCookies(
+              this.loginForm.num,
+              this.loginForm.pass,
+              7,
+              this.loginForm.delivery,
+              this.loginForm.autoLogin
+            );
+            this.update({
+              num: response.data.data.name
+            });
+            this.loginIsOk = true;
 
-              setTimeout(() => {
-                resolve();
-              }, 500);
-            })
-              .then(() => {
-                this.update({
-                  num: response.data.data.name
-                });
-                this.loginIsOk = true;
-                if (this.loginIsOk) {
-                  this.$message({
-                    message: "欢迎回来" + this.$store.state.userName,
-                    type: "success" 
-                  });
-                  // this.$elementMessage("欢迎回来", "success");
-                  this.dialogFormVisible = false;
-                }
-              })
-              .catch();
+            this.$message({
+              message: "欢迎回来" + this.$store.state.userName,
+              type: "success"
+            });
+            this.dialogFormVisible = false;
           } else if (this.loginForm.num == "" || this.loginForm.pass == "") {
             this.$elementMessage("请输入用户名和密码！", "error");
           } else {
@@ -302,6 +331,9 @@ export default {
         })
         .catch();
     },
+    //用户登录END//
+
+    //用户注册
     axiosRegistUser() {
       this.axios({
         url: "/user/register",
@@ -327,6 +359,9 @@ export default {
           this.$elementMessage("未知错误!", "error");
         });
     },
+    //用户注册END//
+
+    //退出
     Loginexit() {
       this.$confirm("你确定要退出, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -341,8 +376,41 @@ export default {
             message: "您已退出!"
           });
         })
-        .catch(() => {});
-    }
+        .catch();
+    },
+    //退出END//
+
+    setCookies(c_name, c_pwd, exdays, remeberFlag) {
+      
+        var exdate = new Date();
+        exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays);
+
+        window.document.cookie =
+          "userName" + "=" + c_name + ";path=/;expires=" + exdate.toGMTString();
+        window.document.cookie =
+          "userPwd" + "=" + c_pwd + ";path=/;expires=" + exdate.toGMTString();
+        window.document.cookie =
+          "remeberFlag" +
+          "=" +
+          remeberFlag +
+          ";path=/;expires=" +
+          exdate.toGMTString();
+    },
+    getCookie() {
+      if (document.cookie.length > 0) {
+        var arr = document.cookie.split("; "); //这里显示的格式需要切割一下自己可输出看下
+
+        for (var i = 0; i < arr.length; i++) {
+          var arr2 = arr[i].split("="); //再次切割
+          //判断查找相对应的值
+          
+          if (arr2[0] == "userName") {
+            this.$store.state.userName = arr2[1];
+          } 
+        }
+      }
+    },
+    
   } //methods
 };
 </script>
@@ -427,8 +495,15 @@ export default {
 .dialog-footer {
   margin-top: -50px;
 }
-.select {
-  margin-left: 65px;
+.secret {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+.forget-password {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 100px;
 }
 .sign-success {
   display: flex;
