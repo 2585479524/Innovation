@@ -265,7 +265,7 @@ export default {
         method: "post"
       })
         .then(response => {
-          console.log(response);
+         
           let user = response.data.data.name;
           let cookieName = this.$store.state.userName;
           if (user == cookieName) {
