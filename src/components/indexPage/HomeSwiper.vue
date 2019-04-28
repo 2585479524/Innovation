@@ -12,8 +12,6 @@
 
 <script>
 import Vue from "vue";
-import axios from "axios";
-import api from "../../api/index.js"
 export default {
   data() {
     return {
@@ -21,8 +19,8 @@ export default {
     };
   },
   created:function() {
-    axios
-      .get(api.url+"/rotationPicture/list", {
+    this.axios
+      .get("/rotationPicture/list", {
         params: {
           tag: "index",
         }

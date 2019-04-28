@@ -63,7 +63,6 @@ export default {
       )
       .then(response => {
         //console.log(response);
-
         this.img = response.data.data.image;
       })
       .catch(error => {

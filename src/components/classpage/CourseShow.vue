@@ -8,50 +8,47 @@
         :key="index"
         class="Content-video-one"
       >
-        <img :src="i.url" class="course" alt>
-        <p class="course-font">{{i.title}}</p>
-        <p class="teacher-font">教师：{{i.teacher}}</p>
-        <p class="teacher-font">简介：{{i.content}}</p>
+        <img :src="url" class="course" alt>
+        <p class="course-font">{{title}}</p>
+        <p class="teacher-font">教师：{{teacher}}</p>
+        <p class="teacher-font">简介：{{content}}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      course: [],
-      basis: "",
-      front: "",
-      back: ""
+      course: []
     };
   },
-  created() {
-    var courses = this.courses;
-    axios
-      .get(
-        "https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes"
-      )
-      .then(response => {
-        this.basis = response.data.data.basis;
-        this.front = response.data.data.front;
-        this.back = response.data.data.back;
-
-        if (courses == "basis") {
-          this.course = this.basis;
-        } else if (courses == "front") {
-          this.course = this.front;
-        } else {
-          this.course = this.back;
+  created:function() {
+    this.axios
+      .get("/course/tag/{标签名}", {
+        params: {
+          tag: "index",
         }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    })
+    .then(res =>{
+      for(let i = 0; i<res.data.data.length; i++){
+        let url=
+          api.url +
+          res.data.data[i].image;
+          Vue.set(this.course,url);
+        let title=
+          api.url +
+          res.data.data[i].title;
+          Vue.set(this.course,title);
+        let content=
+          api.url +
+          res.data.data[i].tag;
+          Vue.set(this.course,content);
+      }
+    })
+    .catch(err => {})
   },
-  props: ["CourseClass", "courses"],
 
   methods: {
     getclickId(index, course, img) {
