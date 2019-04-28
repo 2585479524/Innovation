@@ -37,7 +37,9 @@ export default {
           Vue.set(this.list,i,imgUrl);
       }
     })
-    .catch(err => {})
+    .catch(err => {
+      console.log(error);
+    })
   }
 };
 </script>

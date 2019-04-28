@@ -26,7 +26,7 @@ export default {
   },
   created:function() {
     this.axios
-      .get("/course/tag/{标签名}", {
+      .get("/course/tag", {
         params: {
           tag: "index",
         }
@@ -47,7 +47,9 @@ export default {
           Vue.set(this.course,content);
       }
     })
-    .catch(err => {})
+    .catch(err => {
+      console.log(error);
+    })
   },
 
   methods: {

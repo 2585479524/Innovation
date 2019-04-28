@@ -21,7 +21,7 @@ export default {
     this.axios
       .get("/course/notice", {
         params: {
-          course:"81f88387543743328b30d7b299f33c01",
+          tag:"index",
         }
     })
     .then(res =>{
@@ -34,7 +34,9 @@ export default {
           Vue.set(this.tableData,i,affiche);
       }
     })
-    .catch(err => {})
+    .catch(err => {
+      console.log(error);
+    })
   }
 };
 </script>

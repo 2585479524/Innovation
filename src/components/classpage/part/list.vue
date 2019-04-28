@@ -22,12 +22,7 @@
       课件
       <i class="el-icon-arrow-right"></i>
       <el-select v-model="value1" size="mini" placeholder="请选择相应章节">
-        <el-option
-          v-for="item in page"
-          :key="item.value1"
-          :label="item.label1"
-          :value="item.value1"
-        ></el-option>
+        <el-option v-for="(item,index) in page" :key="index"></el-option>
       </el-select>
       <el-select v-model="value2" size="mini" placeholder="请选择相应章节">
         <el-option
@@ -115,20 +110,7 @@ export default {
       isshowvtb: false,
       isshowvtc: false,
       isshowlist: true,
-      page: [
-        {
-          value1: "选项1",
-          label1: "第一章"
-        },
-        {
-          value1: "选项2",
-          label1: "第二章"
-        },
-        {
-          value1: "选项3",
-          label1: "第三章"
-        }
-      ],
+      page: [],
       knob: [
         {
           value2: "1",
@@ -149,6 +131,25 @@ export default {
         optionc: ""
       }
     };
+  },
+    created:function() {
+    this.axios
+      .get("/spinner/chapter", {
+        params: {
+          tag: "index",
+        }
+    })
+    .then(res =>{
+      for(let i = 0; i<res.data.data.length; i++){
+        let section=
+          api.url +
+          res.data.data[i].name;
+          Vue.set(this.page,i,section);
+      }
+    })
+    .catch(err => {
+      console.log(error);
+    })
   },
   methods: {
     handleChange(val) {
