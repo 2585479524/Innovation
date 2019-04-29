@@ -1,35 +1,21 @@
 <template>
-  <div id="app">
+  <div id="test">
     <div class="contain">
-      <h1>‘XXXXX’期末考核</h1>
+      <h1>{{textName}}期末考核</h1>
       <Row>
-        <i-col span="7" push="17">
-          <Card dis-hover style="width:350px">
-            <p slot="title">倒计时：XXXX</p>
-            <p>单选题：</p>
-            <Card dis-hover style="width:315px">
-              <div>
-                <p>题目类型：XXX</p>
-              </div>
-            </Card>
-            <p>判断题：</p>
-            <Card dis-hover style="width:315px">
-              <div>
-                <p>题目类型：XXX</p>
-              </div>
-            </Card>
-          </Card>
-        </i-col>
-
-        <i-col span="17" pull="7">
-          <Card dis-hover style="width:800px">
-            <p slot="title">'XXXX'试卷 &nbsp;&nbsp;&nbsp;考试时间：xxxx&nbsp;&nbsp;&nbsp;试卷总分值：XXX</p>
-            <p>姓名：XXX&nbsp;&nbsp;&nbsp;班级：XXX</p>
-            <Card dis-hover style="width:765px;height: 400px;">
+        <i-col>
+          <Card dis-hover class="textFirst">
+            <p slot="title">
+              考试时间：{{examinationTime}}分钟
+              试卷总分值：{{examinationScore}}
+            </p>
+            <p>考生姓名：{{candidateName}}</p>
+            <Card dis-hover class="textSecond">
               <div class="right">
-                <h1>XXX科目</h1>
+                <h1>{{textName}}试卷</h1>
                 <br>
                 <i-button style="color:white;background-color:#3d6ea7" @click="startAnswer">开始考试</i-button>
+                <h4>选择题：{{choice}}个 判断题：{{judge}}个</h4>
               </div>
             </Card>
           </Card>
@@ -43,10 +29,18 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      textName: "Java",
+      examinationTime: 90,
+      examinationScore: 100,
+      candidateName: "大李",
+      choice:50,
+      judge:20
+    };
   },
   methods: {
     startAnswer() {
+      alert("该试卷只能打开一次，中途不能退出，否则成绩作废");
       this.$router.push({ name: "item" });
     }
   }
@@ -54,11 +48,11 @@ export default {
 </script>
 
 <style scoped>
-#app {
+#test {
   width: 0 auto;
   height: 500px;
-  margin-top: -650px;
-  margin-left: 300px;
+  margin-top: -700px;
+  margin-left: 250px;
 }
 
 .contain {
@@ -67,11 +61,17 @@ export default {
   color: gray;
   font-size: 10px;
   overflow: scroll;
-  width: 1100px;
-  height: 500px;
+  width: 75%;
+  height: 130%;
   background-color: rgb(255, 255, 255);
 }
-
+.textFirst{
+  width:100%;
+}
+.textSecond{
+  width:100%;
+  height: 400px;
+}
 .right {
   width: 0 auto;
   text-align: center;
