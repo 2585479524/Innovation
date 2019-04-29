@@ -22,25 +22,6 @@
             <Card dis-hover style="width:765px;height: 400px;">
               <div>
                 <p>题目类型：{{choices}}</p>
-                <!-- <div>
-                  <!-- <h4>{{itemDetail[itemNum-1].answer_index}}</h4>
-                  <p>{{itemDetail[itemNum-1].answer_title}}</p>
-                  <el-radio-group v-model="itemDetail[itemNum-1].userChoose">
-                    <el-radio
-                      :label="item.options_id"
-                      :key="item.options_id"
-                      @change="choosed(item.options_id)"
-                      v-for="(item, index) in itemDetail[itemNum-1].options_list"
-                    >{{item.options_title}}</el-radio>
-                  </el-radio-group>
-                  <br>
-                  <div v-if="itemNum == itemDetail.length" class="right">
-                    <i-button style="color:white;background-color:#3d6ea7" @click="submitFun">提交</i-button>
-                  </div>
-                  <div v-else class="right">
-                    <i-button style="color:white;background-color:#3d6ea7" @click="nextFun">下一题</i-button>
-                  </div>
-                </div> -->
               </div>
             </Card>
           </Card>
@@ -52,7 +33,6 @@
 </template>
 
 <script>
-// import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -69,14 +49,12 @@ export default {
   },
   created(){
     this.getdata();
-    // this.$store.dispatch('getdata')
   },
-  // computed: mapState(["itemNum", "itemDetail"]),
-  // computed: mapState(["itemNum", "itemDetail"]),
   methods: {
     getdata(){
+      let courseId="a0f94e7f7e9945735f3e7e52d665a1db"
      this.axios
-      .get('http://39.107.102.246/exam/final/course.id')
+      .get("/exam/final/"+courseId)
       .then(Response => {
         console.log(Response);
       })
@@ -84,34 +62,6 @@ export default {
         console.log(error);
       })
     }
-    // getDataVuex(){
-    //   this.$store.dispatch('saveForm');
-    // }
-    // ...mapActions(["addNum", "initData"]),
-    // submitFun() {
-    //   this.$store.dispatch('saveForm')
-    //   if (this.choosedResult == null) {
-    //     alert("没有选择答案");
-    //   } else {
-    //     alert("确认提交试卷吗？该试卷不可重复做答！");
-    //     this.addNum(this.choosedResult); //将当前选中的结果添加到答题记录中
-    //     this.$router.push("score");
-
-    //     this.choosedResult = null;
-    //   }
-    // },
-    // nextFun() {
-    //   //没有选校验
-    //   if (this.choosedResult == null) {
-    //     alert("没有选择答案");
-    //   } else {
-    //     this.addNum(this.choosedResult); //将当前选中的结果添加到答题记录中
-    //     this.choosedResult = null;
-    //   }
-    // },
-    // choosed(choosedResult) {
-    //   this.choosedResult = choosedResult;
-    // }
   }
 };
 </script>

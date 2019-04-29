@@ -38,10 +38,12 @@ export default {
       })
       .catch(error => {
         console.log(error);
-      }),
+      })
+      let courseId = "d4daf49c80cb4e548b9711720c319bcb"
       this.axios
-        .get("/exam/score/course.id")
+        .get("/exam/final/score/"+courseId)
         .then(Response => {
+          console.log
           console.log(Response);
           this.score=Response.score;
         })
