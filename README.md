@@ -26,9 +26,3 @@ npm run serve
 npm run build
 ```
 
-# 检测github连通情况
-
-- [x] 陈学智
-- [x] 杜敏
-- [x] 刘洋
-- [x] 马肖
