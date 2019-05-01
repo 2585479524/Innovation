@@ -2,7 +2,7 @@
   <div id="classpage">
     <!--页头块-->
     <Layout>
-      <Header @show-login="show"></Header>
+      <Header></Header>
 
       <!--内容展示块-->
       <Content>
@@ -21,7 +21,6 @@
       <Footer></Footer>
       </div>
     </Layout>
-<Sign v-if="login" @hidden-login="hidden"></Sign>
   </div>
 </template>
 
@@ -38,17 +37,12 @@ export default {
     return {
       img: [],
       course: "",
-      login:false,
+      
     };
   },
  
   methods:{
-      show(data){
-        this.login = data;
-      },
-      hidden(data){
-        this.login = data;
-      }
+     
   },
   components: {
     ClassSwiper,
@@ -83,32 +77,6 @@ Content{
 }
 .footer{
   height: 160px;
-  margin-top: 40px;
+  margin-top: 0px;
 }
-
-
-/*.Content-nav {
-  border-radius: 9px ;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow: hidden;
-}
-.Content-img {
-  width: 840px;
-  overflow: hidden;
-}
-.swiper {
-  height: 360px;
-  overflow: hidden;
-}
-.swiper-slide {
-  height: 860px;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
-}*/
-/* Sign{
-  width:100%;
-  height: 100%;
-} */
 </style>

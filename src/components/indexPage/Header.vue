@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
       <div class="container container-navbar">
         <div class="navbar-header">
-          <a href="http://a.rebright.top/#" class="navbar-brand">
+          <a href="#/" class="navbar-brand">
             <img src="@/assets/indeximg/logo.png" style="max-width:200px;margin-top:-7px;">
           </a>
         </div>
