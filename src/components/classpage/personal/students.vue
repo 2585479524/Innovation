@@ -39,7 +39,7 @@
 
 
 <script>
-import Header from "@/components/classpage/personal/personalheader";
+import Header from "@/components/classpage/Headblock";
 import Footer from "@/components/classpage/Footer";
 
 export default {

@@ -137,6 +137,7 @@ import { open } from "fs";
 
 export default {
   name: "Regist",
+  inject:['reload'],
   data() {
     var checkNum = (rule, value, callback) => {
       setTimeout(() => {
@@ -286,7 +287,6 @@ export default {
         this.loginForm.delivery = true;
       }
       
-      
       this.axios({
         url: "/user/login",
         method: "post",
@@ -370,11 +370,14 @@ export default {
       })
         .then(() => {
           localStorage.removeItem("loginInfo");
+          this.clearCookie();
           this.loginIsOk = false;
+          this.$store.state.userName = '';
           this.$message({
             type: "success",
             message: "您已退出!"
           });
+          this.reload()
         })
         .catch();
     },
@@ -410,6 +413,10 @@ export default {
         }
       }
     },
+    clearCookie(){
+      this.setCookies("","",-1,"")
+    }
+
     
   } //methods
 };

@@ -3,17 +3,20 @@
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
       <div class="container container-navbar">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand">
-            <img src="@/assets/classpageimg/classlogo.png" style="max-width:200px;margin-top:-17px;">
+          <a @click="backIndex" class="navbar-brand">
+            <img
+              src="@/assets/classpageimg/classlogo.png"
+              style="max-width:200px;margin-top:-17px;"
+            >
           </a>
         </div>
         <div class="navbar-footer" aria-expanded="false">
           <ul class="nav">
             <li>
-              <router-link to="/">首页</router-link>
+              <router-link to="/classpage">首页</router-link>
             </li>
-            <li @click="login">
-              <router-link to="/sign_in">个人中心</router-link>
+            <li>
+              <a @click="identity">个人中心</a>
             </li>
           </ul>
         </div>
@@ -25,12 +28,57 @@
 <script>
 export default {
   name: "navigation",
+  data() {
+    return {
+      ID: ""
+    };
+  },
+  created() {
+    this.autoLogin();
+    //console.log(this.$store.state.userName);
+  },
   methods: {
-    login() {
-      this.$emit("show-login", true);
+    autoLogin() {
+      this.axios({
+        url: "/user/login/auto",
+        method: "post"
+      })
+        .then(response => {
+          //console.log(response);
+          this.ID = response.data.data.identity;
+        })
+        .catch();
+    },
+    identity() {
+      console.log(this.$store.state.userName);
+      if (this.$store.state.userName != "") {
+        if (this.ID == 0) {
+          this.$router.push("/students/coursestudents");
+        } else {
+          this.$router.push("/teacher/courseteacher");
+        }
+      }else{
+        this.$elementMessage("请您先登录！", "error");
+      }
+    },
+    getCookie() {
+      if (document.cookie.length > 0) {
+        var arr = document.cookie.split("; "); //这里显示的格式需要切割一下自己可输出看下
+
+        for (var i = 0; i < arr.length; i++) {
+          var arr2 = arr[i].split("="); //再次切割
+          //判断查找相对应的值
+
+          if (arr2[0] == "userName") {
+            this.$store.state.userName = arr2[1];
+          }
+        }
+      }
+    },
+    backIndex() {
+      this.$router.push("/");
     }
   }
-  
 };
 </script>
 
