@@ -1,18 +1,29 @@
 <template>
-  <div id="app">
+  <div id="exam">
     <div class="contain">
       <b>选择课程：</b>
-      <i-select style="width:200px">
-        <i-option v-for="item in listList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+      <i-select style="width:200px" v-model="option">
+        <i-option
+          v-for="goods in listList"
+          :value="listList.data[0].name"
+          :key="goods.id"
+        >{{goods.name}}</i-option>
       </i-select>
       <br>
       <br>
+      <b>选择开始时间：</b>
+      <el-date-picker class="block" v-model="startColoc" type="datetime" placeholder="选择日期时间"></el-date-picker>
+      <b>选择结束时间：</b>
+      <el-date-picker class="block" v-model="endColoc" type="datetime" placeholder="选择日期时间"></el-date-picker>
+      <br>
       <b>选择题：</b>
-      <div class="divone" v-for="index in customized_descs" :key="index">
+      <div class="divone" v-for="(item,index) in customized_descs" :key="index">
         <br>
         <br>
+        <b>选择分值：</b>
+        <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
         <textarea
-          v-model="customized1"
+          v-model="cList.customized1"
           class="textarea"
           cols="10"
           rows="2"
@@ -21,32 +32,56 @@
         <br>
         <div class="answer">
           <div class="ans">
-            <input type="checkbox" v-model="customized2" label style="width:20px;height:20px;">A
+            A
+            <el-input
+              type="textarea"
+              autosize
+              v-model="cList.optionList.optionOer"
+              cols="10"
+              rows="2"
+            ></el-input>
           </div>
           <div class="ans">
-            <input type="checkbox" v-model="customized3" label style="width:20px;height:20px;">B
+            B
+            <el-input
+              type="textarea"
+              autosize
+              v-model="cList.optionList.optionTwo"
+              cols="10"
+              rows="2"
+            ></el-input>
           </div>
           <div class="ans">
-            <input type="checkbox" v-model="customized4" label style="width:20px;height:20px;">C
+            C
+            <el-input
+              type="textarea"
+              autosize
+              v-model="cList.optionList.optionThree"
+              cols="10"
+              rows="2"
+            ></el-input>
           </div>
           <div class="ans">
-            <input type="checkbox" v-model="customized5" label style="width:20px;height:20px;">D
+            D
+            <el-input
+              type="textarea"
+              autosize
+              v-model="cList.optionList.optionFour"
+              cols="10"
+              rows="2"
+            ></el-input>
           </div>
         </div>
         <br>
         <b>该题的正确答案是：</b>
         <div class="answer">
           <div class="ans">
-            <input type="checkbox" v-model="customized6" label style="width:20px;height:20px;">A
-          </div>
-          <div class="ans">
-            <input type="checkbox" v-model="customized7" label style="width:20px;height:20px;">B
-          </div>
-          <div class="ans">
-            <input type="checkbox" v-model="customized8" label style="width:20px;height:20px;">C
-          </div>
-          <div class="ans">
-            <input type="checkbox" v-model="customized9" label style="width:20px;height:20px;">D
+            <el-radio-group v-model="cList.answerCh">
+              <el-radio :label="3">A</el-radio>
+              <el-radio :label="6">B</el-radio>
+              <el-radio :label="9">C</el-radio>
+              <el-radio :label="12">D</el-radio>
+            </el-radio-group>
           </div>
         </div>
         <br>
@@ -60,33 +95,27 @@
       <hr>
       <br>
       <b>判断题：</b>
-      <div class="divone" v-for="index in customized_descsone" :key="index">
+      <div class="divone1" v-for="(item,index) in customized_descsone" :key="'divone1-'+index">
+        <b>选择分值：</b>
+        <el-input-number style="height:50px" v-model="numJudgement" :min="1" :max="10" label="描述文字"></el-input-number>
         <br>
         <br>
         <textarea
-          v-model="customizedone5"
+          v-model="jList.customizedone5"
           class="textarea"
           cols="10"
           rows="2"
           placeholder="题目：XXXXXXXXX"
         ></textarea>
         <br>
-        <div class="Answer">
-          <div class="ans">
-            <input type="checkbox" v-model="customizedone1" label style="width:20px;height:20px;">正确
-          </div>
-          <div class="ans">
-            <input type="checkbox" v-model="customizedone2" label style="width:20px;height:20px;">错误
-          </div>
-        </div>
         <br>
         <b>该题的正确答案是：</b>
         <div class="Answer">
           <div class="ans">
-            <input type="checkbox" v-model="customizedone3" label style="width:20px;height:20px;">正确
-          </div>
-          <div class="ans">
-            <input type="checkbox" v-model="customizedone4" label style="width:20px;height:20px;">错误
+            <el-radio-group v-model="jList.answerJu">
+              <el-radio :label="3">正确</el-radio>
+              <el-radio :label="6">错误</el-radio>
+            </el-radio-group>
           </div>
         </div>
       </div>
@@ -109,49 +138,42 @@
 export default {
   data() {
     return {
-      listList: [
-        {
-          value: "C",
-          label: "C"
+      startColoc: "",
+      endColoc: "",
+      option: "",
+      numSelect: 1,
+      numJudgement: 1,
+      listList: [],
+      cList: {
+        customized1: "",
+        optionList: {
+          optionOne: "",
+          optionTwo: "",
+          optionThree: "",
+          optionFour: ""
         },
-        {
-          value: "PS",
-          label: "PS"
-        },
-        {
-          value: "Python",
-          label: "Python"
-        },
-        {
-          value: "jQuery",
-          label: "jQuery"
-        },
-        {
-          value: "Vue",
-          label: "Vue"
-        },
-        {
-          value: "Sql",
-          label: "Sql"
-        }
-      ],
-      customized_descs: [1],
-      customized_descsone: [1],
-      customized1: "",
-      customized2: "",
-      customized3: "",
-      customized4: "",
-      customized5: "",
-      customized6: "",
-      customized7: "",
-      customized8: "",
-      customized9: "",
-      customizedone1: "",
-      customizedone2: "",
-      customizedone3: "",
-      customizedone4: "",
-      customizedone5: ""
+        answerCh: 3
+      },
+      jList:{
+        customizedone5: "",
+        answerJu:3
+      },
+      customized_descs: [],
+      customized_descsone: [],
     };
+  },
+  created: function() {
+    this.axios
+      .get("/teacher/course/spinner")
+      .then(Response => {
+        console.log(Response);
+        this.listList = Response.data;
+        console.log(this.listList.data[0].id);
+        console.log(typeof this.listList.data[0].name);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   methods: {
     addCustomizeDesc(index) {
@@ -174,13 +196,51 @@ export default {
         desc: nodesc ? "" : "该科目考试上传成功！ "
       }),
         this.$router.go(-1);
+      this.creatExam();
+    },
+    creatExam() {
+      let cho = [
+        {
+          question: this.cList.customized1,
+          optionList: [
+            this.cList.optionList.optionOne,
+            this.cList.optionList.optionTwo,
+            this.cList.optionList.optionThree,
+            this.cList.optionList.optionFour
+          ],
+          answer: this.cList.answerCh
+        }
+      ];
+      let jud = {
+        question:this.jList.customizedone5,
+        answer:this.jList.answerJu
+      }
+      // let start = "2019-04-21 07:00:00",
+      //     stop = "2019-04-21 09:00:00"
+      this.axios
+        .post("/exam/final", {
+          name: this.option,
+          course: this.listList.data.id,
+          startTime: parseInt(this.startColoc),
+          stopTime: parseInt(this.endColoc),
+          choiceScoreWeight: this.numSelect,
+          judgementScoreWeight: this.numJudgement,
+          choiceList: cho,
+          judgementList:this.jud
+        })
+        .then(Response => {
+          console.log(Response);
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 };
 </script>
 
 <style scoped>
-#app {
+#exam {
   width: 0 auto;
   height: 500px;
   margin-top: -850px;
@@ -195,6 +255,12 @@ export default {
   width: 960px;
   height: 660px;
   background-color: rgb(255, 255, 255);
+}
+.block {
+  height: 45px;
+}
+.num {
+  width: 170px;
 }
 .textarea {
   border: 1px gray solid;
