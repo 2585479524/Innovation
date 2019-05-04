@@ -1,11 +1,6 @@
 <template>
   <div id="app">
     <div class="contain">
-      <b>选择课程：</b>
-      <i-select style="width:200px">
-        <i-option v-for="item in listList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-      </i-select>
-      <br>
       <br>
       <b>选课人数：</b>
       {{num}}
@@ -19,32 +14,6 @@
 export default {
   data() {
     return {
-      listList: [
-        {
-          value: "C",
-          label: "C"
-        },
-        {
-          value: "PS",
-          label: "PS"
-        },
-        {
-          value: "Python",
-          label: "Python"
-        },
-        {
-          value: "jQuery",
-          label: "jQuery"
-        },
-        {
-          value: "Vue",
-          label: "Vue"
-        },
-        {
-          value: "Sql",
-          label: "Sql"
-        }
-      ],
       columns1: [
         {
           title: "学号",
@@ -55,38 +24,25 @@ export default {
           key: "name"
         }
       ],
-      data1: [
-        {
-          name: "",
-          age: ""
-        },
-        {
-          name: "",
-          age: ""
-        },
-        {
-          name: " ",
-          age: ""
-        },
-        {
-          name: " ",
-          age: ""
-        }
-      ],
-      num: "100人",
-      methods: {
-        // //发送ajax请求
-        // send() {
-        //   axios({
-        //     method: "get",
-        //     url: ""
-        //   }).then(function(res) {
-        //     console.log(res.data.name);
-        //   });
-        // }
-      }
+      data1: [],
+      num: "",
     };
-  }
+  },
+  created(){
+      this.$route.query.id
+      this.axios
+          .get("/teacher/statistics/student", {
+            params: {
+            	course:"row.Id",
+            }
+          })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+      },
 };
 </script>
 

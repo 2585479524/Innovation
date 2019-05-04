@@ -7,6 +7,9 @@
       <font size="2">课程标签</font>
       <font color="red" size="4">*</font>：
       <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Tag"/>
+      <font size="2">课程公告</font>
+      <font color="red" size="4">*</font>：
+      <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Ad"/>
       <br>
       <br>
       <font size="2">选择课程封面</font>
@@ -36,7 +39,7 @@
               <font size="4" color="gray">{{row.Id}}</font>
           </td>
           <td>
-            <router-link to="/teacher/coursevalue">
+            <router-link to="{path:'/teacher/coursevalue', query:{id:row.Id}}">
               <font size="4" color="gray">{{row.Name}}</font>
             </router-link>
           </td>
@@ -63,6 +66,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -87,17 +91,6 @@ export default {
             .catch(function(error) {
               console.log(error);
             });  
-        this.axios
-            .get("/spinner/course", {
-              params: {
-              }
-            })
-              .then(function(response) {
-                console.log(response);
-              })
-              .catch(function(error) {
-                console.log(error);
-              });   
       },
   methods: {
     Save: function(event) {
@@ -109,35 +102,47 @@ export default {
       this.axios
         .post("/teacher/course",{
           name:"row.Name",
-          tag:"row.Tag"
+          tag:"row.Tag",
         })
         .then(function(response) {
               console.log(response);
-              this.rows = response.data
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+             this.axios
+        .post("/teacher/course/notice",{
+          course:"row.Id",
+	        content:"row.Ad"
+        })
+        .then(function(response) {
+              console.log(response);
             })
             .catch(function(error) {
               console.log(error);
             });
       //还原模板
-      this.rowtemplate = { Id: 0, Name: "" ,Tag:""};
+      this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
     },
     Edit: function(row) {
+      this.rowtemplate = row;
+      let rowId = "row.id";
       this.axios
-        .put("/teacher/course/row.Id",{
+        .put("/teacher/course/"+rowId,{
           name:"row.Name",
-          tag:"row.Tag"
+          tag:"row.Tag",
         })
         .then(function(response) {
               console.log(response);
             })
             .catch(function(error) {
               console.log(error);
-            });
-          this.rowtemplate = row;
+            })
     },
     Delete: function(id) {
+      let rowId = "row.id";
       this.axios
-            .delete("/teacher/chapter/row.Id", {
+            .delete("/teacher/chapter/"+rowId, {
             })
             .then(function(response) {
               console.log(response);

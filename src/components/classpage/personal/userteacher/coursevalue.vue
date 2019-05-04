@@ -11,12 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows " :key="row.index">
-          <td>{{row.Name}}</td>
+        <tr v-for="zj in zjs " :key="zj.index">
+          <td>{{zj.Name}}</td>
           <td>
             <input type="file" @click="submitVideo" id="fileUpload">
           </td>
-          <td>{{row.Age}}</td>
+          <td>{{zj.Age}}</td>
           <td>
             <router-link to="/teacher/coursevalue/test">
               <i-button style="color:gray;background-color:aliceblue">点击上传</i-button>
@@ -30,13 +30,13 @@
         </tr>
         <tr>
           <td>
-            <i-input type="text" class="form-control" v-model="rowtemplate.Name"/>
+            <i-input type="text" class="form-control" v-model="zjtemplate.Name"/>
           </td>
           <td>
             <input type="file" @click="submitVideo">
           </td>
           <td>
-            <textarea class="form-control" v-model="rowtemplate.Age"/>
+            <textarea class="form-control" v-model="zjtemplate.Age"/>
           </td>
           <td>
             <router-link to="/teacher/coursevalue/test">
@@ -64,23 +64,23 @@
 export default {
   data() {
     return {
-      rows: [],
-      rowtemplate: { Id: 0, Name: "", Age: "" },
+      zjs: [],
+      zjtemplate: { Id: 0, Name: "", Age: "" },
       file: ""
     };
   },
-  mounted(){
+  created(){
+    this.id = this.$route.query.id
       this.axios
           .get("/spinner/chapter", {
             params: {
-              "course":"82ca0f2515624098b269341ea15db3a4",
+            	course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
             }
           })
             .then(function(response) {
               console.log(response);
-              var obj = JSON.parse(response.data);
-                    this.rows = [obj];
-                    console.log(this.rows);
             })
             .catch(function(error) {
               console.log(error);
@@ -88,41 +88,41 @@ export default {
       },
   methods: {
     Save: function(event) {
+      if (this.zjtemplate.Id == 0) {
+                //设置当前新增行的Id
+                this.zjtemplate.Id = this.zjs.length + 1;
+                this.zjs.push(this.zjtemplate);
+              }
       this.axios
         .post("/teacher/chapter", {
-          "num":1,
-          "course":"82ca0f2515624098b269341ea15db3a4",
-          "name":"API第一课",
-          "info":"API第一课"
+              course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
         })
         .then(function(response) {
           console.log(response);
-          if (this.rowtemplate.Id == 0) {
-                //设置当前新增行的Id
-                this.rowtemplate.Id = this.rows.length + 1;
-                this.rows.push(this.rowtemplate);
-              }
         })
         .catch(function(error) {
           console.log(error);
         });
 
       //还原模板
-      this.rowtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
+      this.zjtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
     },
     Delete: function(id) {
-          this.axios
-            .delete("/teacher/chapter/row.Id", {
-              
-            })
-            .then(function(response) {
-              console.log(response);
-              for (var i = 0; i < this.rows.length; i++) {
-                  if (this.rows[i].Id == id) {
-                    this.rows.splice(i, 1);
+      let zjId = "zj.Id"
+      for (var i = 0; i < this.zjs.length; i++) {
+                  if (this.zjs[i].Id == id) {
+                    this.zjs.splice(i, 1);
                     break;
                   }
                 }
+          this.axios
+            .delete("/teacher/chapter/"+zjId, {
+              course:"id",
+            })
+            .then(function(response) {
+              console.log(response);
             })
             .catch(function(error) {
               console.log(error);
@@ -130,15 +130,16 @@ export default {
       //实际项目中参数操作肯定会涉及到id去后台删除，这里只是展示，先这么处理。
       
     },
-    Edit: function(row) {
+    Edit: function(zj) {
+      this.zjtemplate = zj;
       this.axios
-        .put("/teacher/chapter/row.Id", {
-          "name":"API第一课",
-	        "info":"API第一课"
+        .put("/teacher/chapter/"+zjId, {
+              course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
         })
         .then(function(response) {
           console.log(response);
-          this.rowtemplate = row;
         })
         .catch(function(error) {
           console.log(error);
