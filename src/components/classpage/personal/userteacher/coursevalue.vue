@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <i-select class="configerSelect" style="width:200px">
-      <i-option v-for="car in cars" :value="car.id" :key="car.index">{{car.cName}}</i-option>
-    </i-select>
     <table cellspacing="0" class="table table-bordered table-striped text-center">
       <thead>
         <tr>
@@ -14,12 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows " :key="row.index">
-          <td>{{row.Name}}</td>
+        <tr v-for="zj in zjs " :key="zj.index">
+          <td>{{zj.Name}}</td>
           <td>
             <input type="file" @click="submitVideo" id="fileUpload">
           </td>
-          <td>{{row.Age}}</td>
+          <td>{{zj.Age}}</td>
           <td>
             <router-link to="/teacher/coursevalue/test">
               <i-button style="color:gray;background-color:aliceblue">点击上传</i-button>
@@ -33,13 +30,13 @@
         </tr>
         <tr>
           <td>
-            <i-input type="text" class="form-control" v-model="rowtemplate.Name"/>
+            <i-input type="text" class="form-control" v-model="zjtemplate.Name"/>
           </td>
           <td>
             <input type="file" @click="submitVideo">
           </td>
           <td>
-            <textarea class="form-control" v-model="rowtemplate.Age"/>
+            <textarea class="form-control" v-model="zjtemplate.Age"/>
           </td>
           <td>
             <router-link to="/teacher/coursevalue/test">
@@ -67,33 +64,40 @@
 export default {
   data() {
     return {
-      rows: [
-        { Id: 1, Name: "第一章第一小节", Age: "aaaaaaa" },
-        { Id: 2, Name: "第一章第二小节", Age: "bbbbbbb" },
-        { Id: 3, Name: "第一章第三小节", Age: "cccccc" }
-      ],
-      cars: [
-        { id: 1, cName: "php" },
-        { id: 2, cName: "js" },
-        { id: 3, cName: "vue" }
-      ],
-      rowtemplate: { Id: 0, Name: "", Age: "" },
+      zjs: [],
+      zjtemplate: { Id: 0, Name: "", Age: "" },
       file: ""
     };
   },
+  created(){
+    this.id = this.$route.query.id
+      this.axios
+          .get("/spinner/chapter", {
+            params: {
+            	course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
+            }
+          })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+      },
   methods: {
     Save: function(event) {
-      if (this.rowtemplate.Id == 0) {
-        //设置当前新增行的Id
-        this.rowtemplate.Id = this.rows.length + 1;
-        this.rows.push(this.rowtemplate);
-      }
-
+      if (this.zjtemplate.Id == 0) {
+                //设置当前新增行的Id
+                this.zjtemplate.Id = this.zjs.length + 1;
+                this.zjs.push(this.zjtemplate);
+              }
       this.axios
         .post("/teacher/chapter", {
-          course: "car.id",
-          name: "row.Name",
-          info: "row.Age"
+              course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
         })
         .then(function(response) {
           console.log(response);
@@ -103,29 +107,43 @@ export default {
         });
 
       //还原模板
-      this.rowtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
+      this.zjtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
     },
     Delete: function(id) {
+      let zjId = "zj.Id"
+      for (var i = 0; i < this.zjs.length; i++) {
+                  if (this.zjs[i].Id == id) {
+                    this.zjs.splice(i, 1);
+                    break;
+                  }
+                }
+          this.axios
+            .delete("/teacher/chapter/"+zjId, {
+              course:"id",
+            })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
       //实际项目中参数操作肯定会涉及到id去后台删除，这里只是展示，先这么处理。
-      for (var i = 0; i < this.rows.length; i++) {
-        if (this.rows[i].Id == id) {
-          this.rows.splice(i, 1);
-          break;
-        }
-      }
+      
     },
-    Edit: function(row) {
+    Edit: function(zj) {
+      this.zjtemplate = zj;
       this.axios
-        .put("/teacher/chapter/row.Id", {
-          course: "car.id"
+        .put("/teacher/chapter/"+zjId, {
+              course:"id",
+	            name:"zj.Name",
+	            info:"zj.Age"
         })
         .then(function(response) {
           console.log(response);
         })
         .catch(function(error) {
           console.log(error);
-        });
-      this.rowtemplate = row;
+        })
     },
     submitVideo() {},
     upVideoSucc(res) {

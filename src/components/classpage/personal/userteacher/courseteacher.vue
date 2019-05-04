@@ -3,7 +3,13 @@
     <div class="newcon">
       <font size="2">课程名称</font>
       <font color="red" size="4">*</font>：
-      <i-input type="text" class="form-control" style="width:200px" v-model="rowtemplate.Name"/>
+      <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Name"/>
+      <font size="2">课程标签</font>
+      <font color="red" size="4">*</font>：
+      <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Tag"/>
+      <font size="2">课程公告</font>
+      <font color="red" size="4">*</font>：
+      <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Ad"/>
       <br>
       <br>
       <font size="2">选择课程封面</font>
@@ -30,24 +36,25 @@
       <tbody>
         <tr v-for="row in rows " :key="row.index">
           <td>
-            <router-link to="/teacher/coursevalue">
+              <font size="4" color="gray">{{row.Id}}</font>
+          </td>
+          <td>
+            <router-link to="{path:'/teacher/coursevalue', query:{id:row.Id}}">
               <font size="4" color="gray">{{row.Name}}</font>
             </router-link>
           </td>
           <td>
-            <el-upload
-              class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemoveone"
-              :file-list="fileList2"
-              list-type="picture"
-            >
-              <el-button size="small" style="background-color:aliceblue;color:gray">点击上传课程封面</el-button>
-            </el-upload>
+            <img :src="row.courseImg" width="150px" height="100px">
+          </td>
+          <td>
+              <font size="4" color="gray">{{row.Teacher}}</font>
+          </td>
+          <td>
+              <font size="4" color="gray">{{row.Tag}}</font>
           </td>
           <td>
             <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row.Id)">删除</i-button>&nbsp;
+            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)">编辑</i-button>&nbsp;
             <i-button style="color:white;background-color:#3d6ea7" @click="success(false)">确认</i-button>
           </td>
         </tr>
@@ -59,38 +66,90 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      rows: [
-        { Id: 1, Name: "PHP" },
-        { Id: 2, Name: "Js" },
-        { Id: 3, Name: "Vue" },
-        { Id: 4, Name: "Sql" },
-        { Id: 5, Name: "Python" },
-        { Id: 6, Name: "人工智能" },
-        { Id: 7, Name: "Java" },
-        { Id: 8, Name: "AA" }
-      ],
-      rowtemplate: { Id: 0, Name: "" },
+      rows: [],
+      rowtemplate: { Id: 0, Name: "",Tag:"" },
       file: "",
       dialogImageUrl: "",
       dialogVisible: false,
       fileList2: []
     };
   },
+  created(){
+      this.axios
+          .get("/teacher/course/list", {
+            params: {
+            }
+          })
+            .then(function(response) {
+              console.log(response);
+              this.rows = response.data
+            })
+            .catch(function(error) {
+              console.log(error);
+            });  
+      },
   methods: {
     Save: function(event) {
-      if (this.rowtemplate.Name != "") {
+      if (this.rowtemplate.Name && this.rowtemplate.Tag != "") {
         //设置当前新增行的Id
         this.rowtemplate.Id = this.rows.length + 1;
         this.rows.push(this.rowtemplate);
       }
-
+      this.axios
+        .post("/teacher/course",{
+          name:"row.Name",
+          tag:"row.Tag",
+        })
+        .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+             this.axios
+        .post("/teacher/course/notice",{
+          course:"row.Id",
+	        content:"row.Ad"
+        })
+        .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
       //还原模板
-      this.rowtemplate = { Id: 0, Name: "" };
+      this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
+    },
+    Edit: function(row) {
+      this.rowtemplate = row;
+      let rowId = "row.id";
+      this.axios
+        .put("/teacher/course/"+rowId,{
+          name:"row.Name",
+          tag:"row.Tag",
+        })
+        .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            })
     },
     Delete: function(id) {
+      let rowId = "row.id";
+      this.axios
+            .delete("/teacher/chapter/"+rowId, {
+            })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
       //实际项目中参数操作肯定会涉及到id去后台删除，这里只是展示，先这么处理。
       for (var i = 0; i < this.rows.length; i++) {
         if (this.rows[i].Id == id) {
@@ -121,15 +180,6 @@ export default {
     handlePreview(file) {
       //console.log(file);
     },
-    //发送ajax请求
-    send() {
-      // axios({
-      //   method: "get",
-      //   url: ""
-      // }).then(function(res) {
-      //   console.log(res.data.name);
-      // });
-    }
   }
 };
 </script>

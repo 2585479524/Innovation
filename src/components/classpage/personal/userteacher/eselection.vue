@@ -1,26 +1,11 @@
 <template>
   <div id="app">
     <div class="contain">
-      <b>选择课程：</b>
-      <i-select style="width:200px">
-        <i-option v-for="item in listList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-      </i-select>
-      <br>
-      <br>
-      <b>选择章节：</b>
-      <i-select style="width:200px">
-        <i-option v-for="item in zhangZ" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-      </i-select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <b>选择小节：</b>
-      <i-select style="width:200px">
-        <i-option v-for="item in jieJ" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-      </i-select>
-      <br>
       <br>
       <b>考试人数：</b>
-      {{num}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {{num}}<br>
       <b>及格人数：</b>
-      {{numup}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {{numup}}<br>
       <b>及格率：</b>
       {{score}}
       <br>
@@ -38,109 +23,27 @@
 export default {
   data() {
     return {
-      listList: [
-        {
-          value: "C",
-          label: "C"
-        },
-        {
-          value: "PS",
-          label: "PS"
-        },
-        {
-          value: "Python",
-          label: "Python"
-        },
-        {
-          value: "jQuery",
-          label: "jQuery"
-        },
-        {
-          value: "Vue",
-          label: "Vue"
-        },
-        {
-          value: "Sql",
-          label: "Sql"
-        }
-      ],
-      zhangZ: [
-        {
-          value: "第一章",
-          label: "第一章"
-        },
-        {
-          value: "第二章",
-          label: "第二章"
-        },
-        {
-          value: "第三章",
-          label: "第三章"
-        },
-        {
-          value: "第四章",
-          label: "第四章"
-        }
-      ],
-      jieJ: [
-        {
-          value: "第一小节",
-          label: "第一小节"
-        },
-        {
-          value: "第二小节",
-          label: "第二小节"
-        },
-        {
-          value: "第三小节",
-          label: "第三小节"
-        },
-        {
-          value: "第四小节",
-          label: "第四小节"
-        }
-      ],
-      columns1: [
-        {
-          title: "学号",
-          key: "num"
-        },
-        {
-          title: "学生姓名",
-          key: "name"
-        },
-        {
-          title: "学生成绩",
-          key: "score"
-        }
-      ],
-      data1: [
-        {
-          name: "",
-          age: "",
-          score: ""
-        },
-        {
-          name: "",
-          age: "",
-          score: ""
-        },
-        {
-          name: " ",
-          age: "",
-          score: ""
-        },
-        {
-          name: " ",
-          age: "",
-          score: ""
-        }
-      ],
-      num: "100人",
-      numup: "90人",
-      score: "90%"
+      columns1: [],
+      data1: [],
+      num: "",
+      numup: "",
+      score: "%"
     };
   },
+  created(){
+      this.axios
+          .get("/statistics/score", {
+            params: {
+            	exam:"data.id",
+            }
+          })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+      },
   mounted() {
     // 绘制图表
     this.echartPie();
