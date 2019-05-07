@@ -22,61 +22,20 @@
         <br>
         <b>选择分值：</b>
         <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
-        <textarea
-          v-model="cList.customized1"
-          class="textarea"
-          cols="10"
-          rows="2"
-          placeholder="题目：XXXXXXXXX"
-        ></textarea>
+        <textarea v-model="customized1" class="textarea" cols="10" rows="2" placeholder="请输入选择题题目"></textarea>
         <br>
         <div class="answer">
-          <div class="ans">
-            A
-            <el-input
-              type="textarea"
-              autosize
-              v-model="cList.optionList.optionOer"
-              cols="10"
-              rows="2"
-            ></el-input>
-          </div>
-          <div class="ans">
-            B
-            <el-input
-              type="textarea"
-              autosize
-              v-model="cList.optionList.optionTwo"
-              cols="10"
-              rows="2"
-            ></el-input>
-          </div>
-          <div class="ans">
-            C
-            <el-input
-              type="textarea"
-              autosize
-              v-model="cList.optionList.optionThree"
-              cols="10"
-              rows="2"
-            ></el-input>
-          </div>
-          <div class="ans">
-            D
-            <el-input
-              type="textarea"
-              autosize
-              v-model="cList.optionList.optionFour"
-              cols="10"
-              rows="2"
-            ></el-input>
+          <div class="ans" v-for="(item,index) in optionName">
+            {{item.name}}
+            <el-input type="textarea" autosize v-model="item.optionList" cols="10" rows="2"></el-input>
+            {{item.optionList}}
           </div>
         </div>
         <br>
         <b>该题的正确答案是：</b>
         <div class="answer">
           <div class="ans">
-            <el-radio-group v-model="cList.answerCh">
+            <el-radio-group v-model="answerCh">
               <el-radio :label="3">A</el-radio>
               <el-radio :label="6">B</el-radio>
               <el-radio :label="9">C</el-radio>
@@ -105,7 +64,7 @@
           class="textarea"
           cols="10"
           rows="2"
-          placeholder="题目：XXXXXXXXX"
+          placeholder="请输入判断题题目"
         ></textarea>
         <br>
         <br>
@@ -144,25 +103,23 @@ export default {
       numSelect: 1,
       numJudgement: 1,
       listList: [],
-      cList: {
-        customized1: "",
-        optionList: {
-          optionOne: "",
-          optionTwo: "",
-          optionThree: "",
-          optionFour: ""
-        },
-        answerCh: 3
-      },
-      jList:{
+      optionName: [
+        { name: "A", optionList: "" },
+        { name: "B", optionList: "" },
+        { name: "C", optionList: "" },
+        { name: "D", optionList: "" }
+      ],
+      customized1: "",
+      answerCh: 3,
+      jList: {
         customizedone5: "",
-        answerJu:3
+        answerJu: 3
       },
       customized_descs: [],
-      customized_descsone: [],
+      customized_descsone: []
     };
   },
-  created: function() {
+  mounted: function() {
     this.axios
       .get("/teacher/course/spinner")
       .then(Response => {
@@ -201,20 +158,15 @@ export default {
     creatExam() {
       let cho = [
         {
-          question: this.cList.customized1,
-          optionList: [
-            this.cList.optionList.optionOne,
-            this.cList.optionList.optionTwo,
-            this.cList.optionList.optionThree,
-            this.cList.optionList.optionFour
-          ],
-          answer: this.cList.answerCh
+          question: this.customized1,
+          optionName: this.optionName,
+          answer: this.answerCh
         }
       ];
       let jud = {
-        question:this.jList.customizedone5,
-        answer:this.jList.answerJu
-      }
+        question: this.jList.customizedone5,
+        answer: this.jList.answerJu
+      };
       // let start = "2019-04-21 07:00:00",
       //     stop = "2019-04-21 09:00:00"
       this.axios
@@ -226,14 +178,14 @@ export default {
           choiceScoreWeight: this.numSelect,
           judgementScoreWeight: this.numJudgement,
           choiceList: cho,
-          judgementList:this.jud
+          judgementList: this.jud
         })
         .then(Response => {
           console.log(Response);
         })
         .catch(error => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     }
   }
 };
