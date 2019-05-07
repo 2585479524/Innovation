@@ -12,16 +12,15 @@ export default new Vuex.Store({
 
     state: {
         userName: '',
-        isLogin: '',
+
 
     },
 
     mutations: {
-
         update(state, loginForm) {
             state.userName = loginForm.num;
-
         },
+        
     },
 
     actions: {}

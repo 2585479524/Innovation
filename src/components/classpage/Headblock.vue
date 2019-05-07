@@ -34,8 +34,13 @@ export default {
     };
   },
   created() {
+    let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
     this.autoLogin();
-    //console.log(this.$store.state.userName);
+    if (localStorageInfo) {
+      this.$store.state.userName = localStorageInfo.name;
+    } else {
+      console.log();
+    }
   },
   methods: {
     autoLogin() {
@@ -44,14 +49,13 @@ export default {
         method: "post"
       })
         .then(response => {
-          //console.log(response);
           this.ID = response.data.data.identity;
         })
         .catch();
     },
     identity() {
       console.log(this.$store.state.userName);
-      if (this.$store.state.userName != "") {
+       if (this.$store.state.userName != "") {
         if (this.ID == 0) {
           this.$router.push("/students/coursestudents");
         } else {

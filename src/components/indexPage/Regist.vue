@@ -50,9 +50,6 @@
                   <el-form-item label="记住密码" prop="delivery" class="secret-el">
                     <el-switch v-model="loginForm.delivery"></el-switch>
                   </el-form-item>
-                  <el-form-item label="自动登录" prop="autoLogin" class="secret-el">
-                    <el-switch v-model="loginForm.autoLogin"></el-switch>
-                  </el-form-item>
                 </div>
                 <div class="forget-password">
                   <span>
@@ -136,8 +133,8 @@ import { mapState, mapMutations } from "vuex";
 import { open } from "fs";
 
 export default {
-  name: "Regist",
-  inject:['reload'],
+  //name: "Regist",
+  
   data() {
     var checkNum = (rule, value, callback) => {
       setTimeout(() => {
@@ -188,7 +185,7 @@ export default {
       loginForm: {
         pass: "",
         num: "",
-        autoLogin: false,
+        autoLogin: true,
         delivery: false
       },
       registForm: {
@@ -220,8 +217,8 @@ export default {
     }; //return
   },
   created() {
-    this.getCookie();
     let localStorageInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    this.getCookie();
     if (localStorageInfo) {
       this.loginIsOk = true;
       this.$store.state.userName = localStorageInfo.name;
@@ -266,7 +263,8 @@ export default {
         method: "post"
       })
         .then(response => {
-         
+          
+          //console.log(this.$store.state.isId)
           let user = response.data.data.name;
           let cookieName = this.$store.state.userName;
           if (user == cookieName) {
@@ -283,10 +281,6 @@ export default {
     },
     //用户登录
     axiosLoginUser() {
-      if (this.loginForm.autoLogin) {
-        this.loginForm.delivery = true;
-      }
-      
       this.axios({
         url: "/user/login",
         method: "post",
@@ -377,7 +371,7 @@ export default {
             type: "success",
             message: "您已退出!"
           });
-          this.reload()
+          
         })
         .catch();
     },
@@ -504,8 +498,11 @@ export default {
 }
 .secret {
   display: flex;
-  flex-flow: row;
-  justify-content: space-around;
+  flex-flow: row-reverse;
+  align-items: stretch;
+}
+.secret-el{
+  margin-right: 85px;
 }
 .forget-password {
   display: flex;
