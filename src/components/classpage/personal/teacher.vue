@@ -10,7 +10,8 @@
             <i-menu
               @on-select="changeTabbar"
               :theme="theme3"
-              active-name="1"
+              :active-name="activeName"
+              ref="activeName"
               style="width:250px;background-color:rgb(247, 247, 247)"
             >
               <menu-item name="0">
@@ -23,16 +24,16 @@
                   {{userName}}
                 </font>
               </menu-item>
-              <menu-item name="1">
+              <menu-item name="teacher/courseteacher">
                 <font size="2" color="gray">课程界面</font>
               </menu-item>
-              <menu-item name="2">
+              <menu-item name="teacher/cselection">
                 <font size="2" color="gray">选课情况</font>
               </menu-item>
-              <menu-item name="3">
+              <menu-item name="teacher/eselection">
                 <font size="2" color="gray">考试情况</font>
               </menu-item>
-              <menu-item name="4">
+              <menu-item name="teacher/coursevalue">
                 <font size="2" color="gray">视频管理</font>
               </menu-item>
             </i-menu>
@@ -47,29 +48,36 @@
 
 
 <script>
-import Header from "@/components/classpage/Headblock";
+import Header from "@/components/classpage/personal/personalheader";
 import Footer from "@/components/classpage/Footer";
 export default {
   name: "Teacher",
   data() {
     return {
       userName: "userName",
-      theme3: "light"
+      theme3: "light",
+      activeName: "teacher/courseteacher"
     };
   },
   components: {
     Header,
     Footer
   },
+  updated() {
+    this.$nextTick(() => {
+      this.activeName= this.$route.path.slice(1)
+      
+    });
+  },
   methods: {
     changeTabbar(selection, row) {
-      if (selection == 1) {
+      if (selection == 'teacher/courseteacher') {
         this.$router.push({ name: "courseteacher" });
-      } else if (selection == 2) {
+      } else if (selection == 'teacher/cselection') {
         this.$router.push({ name: "cselection" });
-      } else if (selection == 3) {
+      } else if (selection == 'teacher/eselection') {
         this.$router.push({ name: "eselection" });
-      } else if (selection == 4) {
+      } else if (selection == 'teacher/coursevalue') {
         this.$router.push({ name: "coursevalue" });
       }
     }
