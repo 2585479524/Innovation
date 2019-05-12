@@ -5,9 +5,9 @@
         <div class="often-goods-list">
           <ul>
             <li v-for="course in oftenGoods" :key="course.id">
-              <img class="o-price" :src="course.image">
+              <img class="o-price" :src="oftenGoods.data[0].image">
               <div class="often-Name">
-                <h3>{{course.name}}</h3>
+                <h3>{{oftenGoods.data[0].name}}</h3>
               </div>
               <div class="often-button">
                 <p>该科成绩为：{{score}}</p>
@@ -43,7 +43,6 @@ export default {
       this.axios
         .get("/exam/final/score/"+courseId)
         .then(Response => {
-          console.log
           console.log(Response);
           this.score=Response.score;
         })
