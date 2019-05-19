@@ -27,15 +27,6 @@
               <menu-item name="teacher/courseteacher">
                 <font size="2" color="gray">课程界面</font>
               </menu-item>
-              <menu-item name="teacher/cselection">
-                <font size="2" color="gray">选课情况</font>
-              </menu-item>
-              <menu-item name="teacher/eselection">
-                <font size="2" color="gray">考试情况</font>
-              </menu-item>
-              <menu-item name="teacher/coursevalue">
-                <font size="2" color="gray">视频管理</font>
-              </menu-item>
             </i-menu>
           </div>
         </Content>
@@ -73,13 +64,7 @@ export default {
     changeTabbar(selection, row) {
       if (selection == 'teacher/courseteacher') {
         this.$router.push({ name: "courseteacher" });
-      } else if (selection == 'teacher/cselection') {
-        this.$router.push({ name: "cselection" });
-      } else if (selection == 'teacher/eselection') {
-        this.$router.push({ name: "eselection" });
-      } else if (selection == 'teacher/coursevalue') {
-        this.$router.push({ name: "coursevalue" });
-      }
+      } 
     }
   }
 };

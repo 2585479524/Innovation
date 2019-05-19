@@ -8,6 +8,7 @@
       <br>
       <i-table border :columns="columns1" :data="data1" style="width:700px;"></i-table>
     </div>
+    <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回上一界面</i-button>
   </div>
 </template>
 <script>
@@ -22,6 +23,10 @@ export default {
         {
           title: "学生姓名",
           key: "name"
+        },
+        {
+          title: "联系方式",
+          key: "tel"
         }
       ],
       data1: [],
@@ -29,11 +34,11 @@ export default {
     };
   },
   created(){
-      this.$route.query.id
+    this.id = this.$route.query.id
       this.axios
           .get("/teacher/statistics/student", {
             params: {
-            	course:"row.Id",
+            	course:this.id,
             }
           })
             .then(function(response) {
@@ -43,6 +48,11 @@ export default {
               console.log(error);
             });
       },
+      methods:{
+        ago() {
+            this.$router.go(-1);
+          },
+      }
 };
 </script>
 

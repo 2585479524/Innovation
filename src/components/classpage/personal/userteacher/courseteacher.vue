@@ -39,7 +39,7 @@
               <font size="4" color="gray">{{row.Id}}</font>
           </td>
           <td>
-            <router-link to="{path:'/teacher/coursevalue', query:{id:row.Id}}">
+            <router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:rows.Id}}">
               <font size="4" color="gray">{{row.Name}}</font>
             </router-link>
           </td>
@@ -54,8 +54,8 @@
           </td>
           <td>
             <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row.Id)">删除</i-button>&nbsp;
-            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)">编辑</i-button>&nbsp;
-            <i-button style="color:white;background-color:#3d6ea7" @click="success(false)">确认</i-button>
+            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)">修改</i-button>&nbsp;
+            <i-button style="color:white;background-color:#3d6ea7" @click="success(row)">确定</i-button>&nbsp;
           </td>
         </tr>
       </tbody>
@@ -81,8 +81,6 @@ export default {
   created(){
       this.axios
           .get("/teacher/course/list", {
-            params: {
-            }
           })
             .then(function(response) {
               console.log(response);
@@ -101,8 +99,8 @@ export default {
       }
       this.axios
         .post("/teacher/course",{
-          name:"row.Name",
-          tag:"row.Tag",
+          name:this.rows.Name,
+          tag:this.rows.Tag,
         })
         .then(function(response) {
               console.log(response);
@@ -110,10 +108,10 @@ export default {
             .catch(function(error) {
               console.log(error);
             });
-             this.axios
+        this.axios
         .post("/teacher/course/notice",{
-          course:"row.Id",
-	        content:"row.Ad"
+          course:this.rows.Id,
+	        content:this.rows.Ad
         })
         .then(function(response) {
               console.log(response);
@@ -121,16 +119,26 @@ export default {
             .catch(function(error) {
               console.log(error);
             });
+            
+        this.axios
+          .get("/teacher/course/list", {
+          })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });  
       //还原模板
       this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
     },
     Edit: function(row) {
       this.rowtemplate = row;
-      let rowId = "row.id";
+      let rowId = row.id;
       this.axios
         .put("/teacher/course/"+rowId,{
-          name:"row.Name",
-          tag:"row.Tag",
+          name:this.rows.Name,
+          tag:this.rows.Tag,
         })
         .then(function(response) {
               console.log(response);
@@ -140,7 +148,7 @@ export default {
             })
     },
     Delete: function(id) {
-      let rowId = "row.id";
+      let rowId = row.id;
       this.axios
             .delete("/teacher/chapter/"+rowId, {
             })
@@ -158,14 +166,12 @@ export default {
         }
       }
     },
+    success:function() {
+      this.rowtemplate.Id = this.rows.length ;
+      this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
+    },
     ago() {
       this.$router.go(-1);
-    },
-    success(nodesc) {
-      this.$Notice.success({
-        title: "您已经上传成功",
-        desc: nodesc ? "" : "新课程添加成功！ "
-      });
     },
     handleRemove(file, fileList) {
       //console.log(file, fileList);
