@@ -57,11 +57,11 @@ export default new Router({
           name: 'courseteacher',
           component: courseteacher
         }, {
-          path: '/teacher/cselection',
+          path: '/teacher/coursevalue/cselection',
           name: 'cselection',
           component: cselection
         }, {
-          path: '/teacher/eselection',
+          path: '/teacher/coursevalue/eselection',
           name: 'eselection',
           component: eselection
         }, {

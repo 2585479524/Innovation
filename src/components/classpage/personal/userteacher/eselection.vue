@@ -16,6 +16,7 @@
         <div id="main2" style="width: 100%;height: 200px;"></div>
       </div>
     </div>
+    <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回上一界面</i-button>
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
       this.axios
           .get("/statistics/score", {
             params: {
-            	exam:"data.id",
+            	exam:"id",
             }
           })
             .then(function(response) {
@@ -98,23 +99,23 @@ export default {
             },
             data: [
               {
-                value: 335,
+                value: '',
                 name: "60分以下"
               },
               {
-                value: 310,
+                value: '',
                 name: "60~70分"
               },
               {
-                value: 234,
+                value: '',
                 name: "70~80分"
               },
               {
-                value: 135,
+                value: '',
                 name: "80~90分"
               },
               {
-                value: 1548,
+                value: '',
                 name: "90分以上"
               }
             ],
@@ -171,15 +172,9 @@ export default {
       }
       this.echart();
     },
-    //发送ajax请求
-    send() {
-      axios({
-        method: "get",
-        url: ""
-      }).then(function(res) {
-        console.log(res.data.name);
-      });
-    }
+    ago() {
+        this.$router.go(-1);
+      },
   }
 };
 </script>

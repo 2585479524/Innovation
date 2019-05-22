@@ -3,6 +3,7 @@
     <table cellspacing="0" class="table table-bordered table-striped text-center">
       <thead>
         <tr>
+          <th>ID</th>
           <th>章节</th>
           <th>上传视频文件</th>
           <th>章节简介</th>
@@ -12,6 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="zj in zjs " :key="zj.index">
+          <td>{{zj.Id}}</td>
           <td>{{zj.Name}}</td>
           <td>
             <input type="file" @click="submitVideo" id="fileUpload">
@@ -23,12 +25,12 @@
             </router-link>
           </td>
           <td>
-            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)">编辑</i-button>&nbsp;
-            <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row.Id)">删除</i-button>&nbsp;
-            <i-button style="color:white;background-color:#3d6ea7" @click="success(false)">提交</i-button>
+            <i-button style="color:gray;background-color:aliceblue" @click="Edit(zj)">修改</i-button>&nbsp;
+            <i-button style="color:white;background-color:#ec6c6c" @click="Delete(zj.Id)">删除</i-button>&nbsp;
           </td>
         </tr>
         <tr>
+          <td></td>
           <td>
             <i-input type="text" class="form-control" v-model="zjtemplate.Name"/>
           </td>
@@ -52,6 +54,12 @@
     <br>
     <br>
     <div class="but">
+      <router-link tag="a" :to="{path:'/teacher/coursevalue/cselection',query:{id:id}}">
+        <i-button style="color:white;background-color:#3d6ea7">选课情况</i-button>
+      </router-link>
+      <router-link to="/teacher/coursevalue/eselection">
+        <i-button style="color:white;background-color:#3d6ea7">考试情况</i-button>
+      </router-link>
       <router-link to="/teacher/coursevalue/exam">
         <i-button style="color:white;background-color:#3d6ea7">上传期末测试</i-button>
       </router-link>
@@ -65,7 +73,7 @@ export default {
   data() {
     return {
       zjs: [],
-      zjtemplate: { Id: 0, Name: "", Age: "" },
+      zjtemplate: { Id: "", Name: "", Age: "" },
       file: ""
     };
   },
@@ -74,9 +82,7 @@ export default {
       this.axios
           .get("/spinner/chapter", {
             params: {
-            	course:"id",
-	            name:"zj.Name",
-	            info:"zj.Age"
+              id:this.id
             }
           })
             .then(function(response) {
@@ -95,9 +101,10 @@ export default {
               }
       this.axios
         .post("/teacher/chapter", {
-              course:"id",
-	            name:"zj.Name",
-	            info:"zj.Age"
+              num:this.zjs.Id,
+              id:this.id,
+	            name:this.zjs.Name,
+	            info:this.zjs.Age
         })
         .then(function(response) {
           console.log(response);
@@ -107,10 +114,10 @@ export default {
         });
 
       //还原模板
-      this.zjtemplate = { Id: 0, Name: "", Age: "", School: "", Remark: "" };
+      this.zjtemplate = { Id: "", Name: "", Age: ""};
     },
     Delete: function(id) {
-      let zjId = "zj.Id"
+      let zjId = zj.Id
       for (var i = 0; i < this.zjs.length; i++) {
                   if (this.zjs[i].Id == id) {
                     this.zjs.splice(i, 1);
@@ -119,7 +126,6 @@ export default {
                 }
           this.axios
             .delete("/teacher/chapter/"+zjId, {
-              course:"id",
             })
             .then(function(response) {
               console.log(response);
@@ -131,12 +137,12 @@ export default {
       
     },
     Edit: function(zj) {
+      let zjId = zj.Id;
       this.zjtemplate = zj;
       this.axios
         .put("/teacher/chapter/"+zjId, {
-              course:"id",
-	            name:"zj.Name",
-	            info:"zj.Age"
+	            name:this.zjs.Name,
+	            info:this.zjs.Age
         })
         .then(function(response) {
           console.log(response);
@@ -155,12 +161,7 @@ export default {
     ago() {
       this.$router.go(-1);
     },
-    success(nodesc) {
-      this.$Notice.success({
-        title: "您已经上传成功",
-        desc: nodesc ? "" : "新章节添加成功！ "
-      });
-    }
+
   }
 };
 </script>
