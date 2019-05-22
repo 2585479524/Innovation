@@ -90,6 +90,7 @@ export default {
               console.log(error);
             });  
       },
+      
   methods: {
     Save: function(event) {
       if (this.rowtemplate.Name && this.rowtemplate.Tag != "") {
