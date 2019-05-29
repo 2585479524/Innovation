@@ -36,7 +36,7 @@
       <tbody>
         <tr v-for="row in rows " :key="row.index">
           <td>
-              <font size="4" color="gray">{{row.Id}}</font>
+            <font size="4" color="gray">{{row.Id}}</font>
           </td>
           <td>
             <router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:rows.Id}}">
@@ -47,10 +47,10 @@
             <img :src="row.courseImg" width="150px" height="100px">
           </td>
           <td>
-              <font size="4" color="gray">{{row.Teacher}}</font>
+            <font size="4" color="gray">{{row.Teacher}}</font>
           </td>
           <td>
-              <font size="4" color="gray">{{row.Tag}}</font>
+            <font size="4" color="gray">{{row.Tag}}</font>
           </td>
           <td>
             <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row.Id)">删除</i-button>&nbsp;
@@ -66,31 +66,30 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       rows: [],
-      rowtemplate: { Id: 0, Name: "",Tag:"" },
+      rowtemplate: { Id: 0, Name: "", Tag: "" },
       file: "",
       dialogImageUrl: "",
       dialogVisible: false,
       fileList2: []
     };
   },
-  created(){
-      this.axios
-          .get("/teacher/course/list", {
-          })
-            .then(function(response) {
-              console.log(response);
-              this.rows = response.data
-            })
-            .catch(function(error) {
-              console.log(error);
-            });  
-      },
-      
+  created() {
+    this.axios
+      .get("/teacher/course/list", {})
+      .then(response => {
+        console.log(response.data);
+        this.rows = response.data.data;
+        console.log(this.rows);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+
   methods: {
     Save: function(event) {
       if (this.rowtemplate.Name && this.rowtemplate.Tag != "") {
@@ -98,67 +97,67 @@ export default {
         this.rowtemplate.Id = this.rows.length + 1;
         this.rows.push(this.rowtemplate);
       }
+      console.log(this.rows);
+
       this.axios
-        .post("/teacher/course",{
-          name:this.rows.Name,
-          tag:this.rows.Tag,
+        .post("/teacher/course", {
+          name: this.rows[0].Name,
+          tag: this.rows[0].Tag
         })
         .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-        this.axios
-        .post("/teacher/course/notice",{
-          course:this.rows.Id,
-	        content:this.rows.Ad
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.axios
+        .post("/teacher/course/notice", {
+          course: this.rows.Id,
+          content: this.rows.Ad
         })
         .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-            
-        this.axios
-          .get("/teacher/course/list", {
-          })
-            .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });  
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      this.axios
+        .get("/teacher/course/list", {})
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       //还原模板
-      this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
+      this.rowtemplate = { Id: 0, Name: "", Tag: "", Ad: "" };
     },
     Edit: function(row) {
       this.rowtemplate = row;
       let rowId = row.id;
       this.axios
-        .put("/teacher/course/"+rowId,{
-          name:this.rows.Name,
-          tag:this.rows.Tag,
+        .put("/teacher/course/" + rowId, {
+          name: this.rows.Name,
+          tag: this.rows.Tag
         })
         .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            })
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     Delete: function(id) {
       let rowId = row.id;
       this.axios
-            .delete("/teacher/chapter/"+rowId, {
-            })
-            .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
+        .delete("/teacher/chapter/" + rowId, {})
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       //实际项目中参数操作肯定会涉及到id去后台删除，这里只是展示，先这么处理。
       for (var i = 0; i < this.rows.length; i++) {
         if (this.rows[i].Id == id) {
@@ -167,9 +166,9 @@ export default {
         }
       }
     },
-    success:function() {
-      this.rowtemplate.Id = this.rows.length ;
-      this.rowtemplate = { Id: 0, Name: "" ,Tag:"",Ad:""};
+    success: function() {
+      this.rowtemplate.Id = this.rows.length;
+      this.rowtemplate = { Id: 0, Name: "", Tag: "", Ad: "" };
     },
     ago() {
       this.$router.go(-1);
@@ -186,7 +185,7 @@ export default {
     },
     handlePreview(file) {
       //console.log(file);
-    },
+    }
   }
 };
 </script>

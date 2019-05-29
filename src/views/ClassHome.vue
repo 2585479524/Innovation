@@ -7,25 +7,24 @@
       <!--内容展示块-->
       <Content>
         <div class="Content-navigation">
-        <ClassSwiper class="v-home"></ClassSwiper>
-         
+          <ClassSwiper class="v-home"></ClassSwiper>
+
           <!-- 视频展 -->
           <div class="Content-list">
-            <Course courses="basis" CourseClass="基 / 础 / 课 / 程"></Course>
-            <Course courses="front" CourseClass="前 / 端 / 课 / 程"></Course>
-            <Course courses="back" CourseClass="后 / 端 / 课 / 程"></Course>
+            <Course tag="web;API;开发" CourseClass="基 / 础 / 课 / 程"></Course>
+            <!-- <Course tag="front" CourseClass="前 / 端 / 课 / 程"></Course> -->
+            <!-- <Course tag="back" CourseClass="后 / 端 / 课 / 程"></Course> -->
           </div>
         </div>
       </Content>
       <div class="footer">
-      <Footer></Footer>
+        <Footer></Footer>
       </div>
     </Layout>
   </div>
 </template>
 
 <script>
-
 import Header from "@/components/classpage/Headblock";
 import ClassSwiper from "@/components/classpage/ClassSwiper";
 import Footer from "@/components/classpage/Footer";
@@ -36,28 +35,23 @@ export default {
   data() {
     return {
       img: [],
-      course: "",
-      
+      course: ""
     };
   },
- 
-  methods:{
-     
-  },
+
+  methods: {},
   components: {
     ClassSwiper,
     Header,
     Footer,
     Course,
-    Sign,
-  },
-
+    Sign
+  }
 };
 </script>
 
 <style scoped>
-
-Content{
+content {
   z-index: 1;
 }
 .MenuItem {
@@ -70,12 +64,11 @@ Content{
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 60px;
-  
 }
-.v-home{
+.v-home {
   width: 1080px;
 }
-.footer{
+.footer {
   height: 160px;
   margin-top: 0px;
 }

@@ -3,15 +3,16 @@
     <div class="Content-title">{{CourseClass}}</div>
     <div class="Content-Class">
       <div
-        @click="getclickId(index,i.title,i.url)"
-        v-for="(i,index) in course"
+        @click="getclickId(index,item.title,item.url)"
+        v-for="(item,index) in course"
         :key="index"
         class="Content-video-one"
       >
-        <img :src="i.url" class="course" alt>
-        <p class="course-font">{{i.title}}</p>
-        <p class="teacher-font">教师：{{i.teacher}}</p>
-        <p class="teacher-font">简介：{{i.content}}</p>
+        <img :src="item.image" class="course">
+        <p class="course-font">{{item.title}}</p>
+        <p class="teacher-font">教师：{{item.teacher}}</p>
+        <br>
+        <p class="teacher-font">简介：{{item.content}}</p>
       </div>
     </div>
   </div>
@@ -22,38 +23,56 @@ import axios from "axios";
 export default {
   data() {
     return {
-      course: [],
-      basis: "",
-      front: "",
-      back: ""
+      course: {},
+      fileInfo: ""
     };
   },
   created() {
-    var courses = this.courses;
     axios
-      .get(
-        "https://www.easy-mock.com/mock/5cb48cdd2751d709332e2dd8/Vueproject_copy/classes"
-      )
+      .get("http://39.107.102.246/course/tag/" + this.tag)
       .then(response => {
-        this.basis = response.data.data.basis;
-        this.front = response.data.data.front;
-        this.back = response.data.data.back;
-
-        if (courses == "basis") {
-          this.course = this.basis;
-        } else if (courses == "front") {
-          this.course = this.front;
-        } else {
-          this.course = this.back;
-        }
+        this.course = response.data.data;
+        this.getInfo();
       })
       .catch(error => {
         console.log(error);
       });
   },
-  props: ["CourseClass", "courses"],
+  mounted() {},
+  props: ["CourseClass", "tag"],
 
   methods: {
+    getInfo() {
+      axios
+        .get("http://39.107.102.246/files/info", {
+          params: {
+            file: "8d73c7e27a6244c08a24f9bf93d722e8"
+          }
+        })
+        .then(response => {
+          if (response.data.status == 0) {
+            this.fileInfo = response.data.data;
+            this.getImg();
+          } else {
+            console.log("error");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getImg() {
+      let url =
+        "http://39.107.102.246" +
+        this.fileInfo.mappingPath +
+        this.fileInfo.id +
+        "." +
+        this.fileInfo.suffix;
+      for (let index = 0; index < this.course.length; index++) {
+        this.course[index].image = url;
+      }
+      console.log(this.course[0].image);
+    },
     getclickId(index, course, img) {
       this.$router.push({
         name: "addcourse",

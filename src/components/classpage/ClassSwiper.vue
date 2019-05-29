@@ -31,10 +31,10 @@
       <div class="play">
         <!--轮播器-->
         <el-carousel height="380px" arrow="always">
-        <el-carousel-item v-for="(item,index) in list" :key="index">
-          <img :src="item" style="width:100%">
-        </el-carousel-item>
-      </el-carousel>
+          <el-carousel-item v-for="(item,index) in list" :key="index">
+            <img :src="item" style="width:100%">
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
 
@@ -56,24 +56,24 @@ export default {
     };
   },
   created() {
-    this.axios
-      .get("/rotationPicture/list", {
-        params: {
-          tag: "index"
-        }
-      })
-      .then(res => {
-        for (let i = 0; i < res.data.data.length; i++) {
-          let imgUrl =
-            api.url +
-            res.data.data[i].mappingPath +
-            res.data.data[i].id +
-            "." +
-            res.data.data[i].suffix;
-          Vue.set(this.list, i, imgUrl);
-        }
-      })
-      .catch(err => {});
+    // this.axios
+    //   .get("/rotationPicture/list", {
+    //     params: {
+    //       tag: "index"
+    //     }
+    //   })
+    //   .then(res => {
+    //     for (let i = 0; i < res.data.data.length; i++) {
+    //       let imgUrl =
+    //         api.url +
+    //         res.data.data[i].mappingPath +
+    //         res.data.data[i].id +
+    //         "." +
+    //         res.data.data[i].suffix;
+    //       Vue.set(this.list, i, imgUrl);
+    //     }
+    //   })
+    //   .catch(err => {});
   }
 };
 </script>
