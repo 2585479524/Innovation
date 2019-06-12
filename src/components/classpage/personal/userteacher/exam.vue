@@ -4,7 +4,7 @@
       <b>选择课程：</b>
       <i-select style="width:200px" v-model="option">
         <i-option
-          v-for="goods in listList"
+          v-for="goods in listList.data"
           :value="listList.data[0].name"
           :key="goods.id"
         >{{goods.name}}</i-option>
@@ -17,35 +17,41 @@
       <el-date-picker class="block" v-model="endColoc" type="datetime" placeholder="选择日期时间"></el-date-picker>
       <br>
       <b>选择题：</b>
-      <div class="divone" v-for="(item,index) in customized_descs" :key="index">
-        <br>
-        <br>
-        <b>选择分值：</b>
-        <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
-        <textarea v-model="customized1" class="textarea" cols="10" rows="2" placeholder="请输入选择题题目"></textarea>
-        <br>
+      <b>选择分值：</b>
+      <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
+      <div class="divone" v-for="(item,index) in choiceList">
+        <div class="del">
+          <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSubjectFun">删除选题</Button>
+        </div>
+
+        <!-- 题目框 -->
+        <textarea v-model="item.title" class="textarea" cols="10" rows="2" placeholder="请输入选择题题目"></textarea>
+        {{item.title}}
+        <!-- 选项内容 -->
         <div class="answer">
-          <div class="ans" v-for="(item,index) in optionName">
-            {{item.name}}
-            <el-input type="textarea" autosize v-model="item.optionList" cols="10" rows="2"></el-input>
-            {{item.optionList}}
+          <div class="ans" v-for="(option,i) in item.optionName">
+            {{option.name}}
+            <el-input type="textarea" autosize v-model="option.optionList" cols="10" rows="2"></el-input>
+            {{option.optionList}}
           </div>
         </div>
-        <br>
-        <b>该题的正确答案是：</b>
-        <div class="answer">
-          <div class="ans">
-            <el-radio-group v-model="answerCh">
-              <el-radio :label="3">A</el-radio>
-              <el-radio :label="6">B</el-radio>
-              <el-radio :label="9">C</el-radio>
-              <el-radio :label="12">D</el-radio>
-            </el-radio-group>
+
+        <!-- 选择正确的答案 -->
+        <div class="selectAns">
+          <b>该题的正确答案是：</b>
+          <div class="answer">
+            <div class="ans">
+              <el-radio-group v-model="item.answerCh">
+                <el-radio :label="3">A</el-radio>
+                <el-radio :label="6">B</el-radio>
+                <el-radio :label="9">C</el-radio>
+                <el-radio :label="12">D</el-radio>
+              </el-radio-group>
+            </div>
           </div>
         </div>
-        <br>
-        <br>
       </div>
+
       <i-button style="background-color:aliceblue" @click="addCustomizeDesc">
         <font color="gray">增加选择题</font>
       </i-button>
@@ -54,13 +60,16 @@
       <hr>
       <br>
       <b>判断题：</b>
-      <div class="divone1" v-for="(item,index) in customized_descsone" :key="'divone1-'+index">
-        <b>选择分值：</b>
-        <el-input-number style="height:50px" v-model="numJudgement" :min="1" :max="10" label="描述文字"></el-input-number>
-        <br>
-        <br>
+      <b>选择分值：</b>
+      <el-input-number style="height:50px" v-model="numJudgement" :min="1" :max="10" label="描述文字"></el-input-number>
+      <br>
+      <br>
+      <div class="divone1" v-for="(item,index) in selectList" :key="'divone1-'+index">
+        <div class="del">
+          <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSelect">删除判断题</Button>
+        </div>
         <textarea
-          v-model="jList.customizedone5"
+          v-model="item.selectName"
           class="textarea"
           cols="10"
           rows="2"
@@ -71,7 +80,7 @@
         <b>该题的正确答案是：</b>
         <div class="Answer">
           <div class="ans">
-            <el-radio-group v-model="jList.answerJu">
+            <el-radio-group v-model="item.answerJu">
               <el-radio :label="3">正确</el-radio>
               <el-radio :label="6">错误</el-radio>
             </el-radio-group>
@@ -92,8 +101,8 @@
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 export default {
   data() {
     return {
@@ -103,20 +112,25 @@ export default {
       numSelect: 1,
       numJudgement: 1,
       listList: [],
-      optionName: [
-        { name: "A", optionList: "" },
-        { name: "B", optionList: "" },
-        { name: "C", optionList: "" },
-        { name: "D", optionList: "" }
+
+      choiceList: [
+        {
+          title: "",
+          optionName: [
+            { name: "A", optionList: "" },
+            { name: "B", optionList: "" },
+            { name: "C", optionList: "" },
+            { name: "D", optionList: "" }
+          ],
+          answerCh: 3
+        }
       ],
-      customized1: "",
-      answerCh: 3,
-      jList: {
-        customizedone5: "",
+      selectList: [
+        {
+        selectName: "",
         answerJu: 3
-      },
-      customized_descs: [],
-      customized_descsone: []
+        }
+      ]
     };
   },
   mounted: function() {
@@ -125,19 +139,39 @@ export default {
       .then(Response => {
         console.log(Response);
         this.listList = Response.data;
-        console.log(this.listList.data[0].id);
-        console.log(typeof this.listList.data[0].name);
       })
       .catch(error => {
         console.log(error);
       });
   },
   methods: {
+    // 删除选题
+    deleteSubjectFun: function(index) {
+      var that = this;
+      that.choiceList.splice(index, 1);
+    },
+    deleteSelect(index){
+      var that = this;
+      that.selectList.splice(index,1);
+    },
+
     addCustomizeDesc(index) {
-      this.customized_descs.push(1);
+      var newChoice = {};
+      newChoice.title = "";
+      newChoice.optionName = [
+        { name: "A", optionList: "" },
+        { name: "B", optionList: "" },
+        { name: "C", optionList: "" },
+        { name: "D", optionList: "" }
+      ];
+      newChoice.answerCh = 3;
+      this.choiceList.push(newChoice);
     },
     addCustomizeDescone(index) {
-      this.customized_descsone.push(1);
+      var newSelect = {};
+      newSelect.selectName = "";
+      newSelect.answerJu = 3;
+      this.selectList.push(newSelect); 
     },
     send() {
       axios({
@@ -156,29 +190,27 @@ export default {
       this.creatExam();
     },
     creatExam() {
-      let cho = [
-        {
-          question: this.customized1,
-          optionName: this.optionName,
-          answer: this.answerCh
-        }
-      ];
-      let jud = {
-        question: this.jList.customizedone5,
-        answer: this.jList.answerJu
-      };
-      // let start = "2019-04-21 07:00:00",
-      //     stop = "2019-04-21 09:00:00"
+      let cho = this.choiceList;
+      let jud = this.selectList;
+
+      let timestampStart =
+        this.startColoc.toLocaleDateString().replace(/\//g, "-") +
+        " " +
+        this.startColoc.toTimeString().substr(0, 8);
+      let timestampEnd =
+        this.endColoc.toLocaleDateString().replace(/\//g, "-") +
+        " " +
+        this.endColoc.toTimeString().substr(0, 8);
       this.axios
         .post("/exam/final", {
           name: this.option,
           course: this.listList.data.id,
-          startTime: parseInt(this.startColoc),
-          stopTime: parseInt(this.endColoc),
+          startTime: timestampStart,
+          stopTime: timestampEnd,
           choiceScoreWeight: this.numSelect,
           judgementScoreWeight: this.numJudgement,
           choiceList: cho,
-          judgementList: this.jud
+          judgementList: jud
         })
         .then(Response => {
           console.log(Response);
@@ -190,8 +222,8 @@ export default {
   }
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 #exam {
   width: 0 auto;
   height: 500px;
@@ -216,13 +248,20 @@ export default {
 }
 .textarea {
   border: 1px gray solid;
-  width: 800px;
+  width: 850px;
   height: 50px;
   padding-left: 20px;
   padding-top: 10px;
+  margin-top: 20px;
 }
 .textarea::-webkit-input-placeholder {
   color: rgb(204, 202, 202);
+}
+.del {
+  margin-top: 20px;
+}
+.selectAns {
+  margin-top: 20px;
 }
 .answer {
   display: flex;
