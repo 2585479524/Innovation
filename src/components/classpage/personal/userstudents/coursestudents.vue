@@ -33,8 +33,7 @@ export default {
       .get("/student/course/list")
       .then(Response => {
         console.log(Response);
-        console.log(Response.data.status);
-        this.oftenGoods = Response.data;
+        this.oftenGoods = Response.data.data;
       })
       .catch(error => {
         console.log(error);
