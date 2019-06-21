@@ -49,19 +49,21 @@ export default {
         method: "post"
       })
         .then(response => {
-          this.ID = response.data.data.identity;
+          if (response.data.status == 0) {
+            this.ID = response.data.data.identity;
+          }
         })
         .catch();
     },
     identity() {
       console.log(this.$store.state.userName);
-       if (this.$store.state.userName != "") {
+      if (this.$store.state.userName != "") {
         if (this.ID == 0) {
           this.$router.push("/students/coursestudents");
         } else {
           this.$router.push("/teacher/courseteacher");
         }
-      }else{
+      } else {
         this.$elementMessage("请您先登录！", "error");
       }
     },

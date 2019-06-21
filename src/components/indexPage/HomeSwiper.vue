@@ -1,5 +1,5 @@
 <template>
-  <div class="block">
+  <div class="swiper">
     <div class="imgDiv">
       <el-carousel height="380px" arrow="always">
         <el-carousel-item v-for="(item,index) in list" :key="index">
@@ -42,8 +42,8 @@ export default {
 };
 </script>
 
-<style>
-.block {
+<style scoped>
+.swiper {
   width: 100%;
   display: flex;
   justify-content: center;

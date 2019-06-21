@@ -34,8 +34,8 @@ export default {
       examinationTime: 90,
       examinationScore: 100,
       candidateName: "大李",
-      choice:50,
-      judge:20
+      choice: 50,
+      judge: 20
     };
   },
   methods: {
@@ -65,11 +65,11 @@ export default {
   height: 130%;
   background-color: rgb(255, 255, 255);
 }
-.textFirst{
-  width:100%;
+.textFirst {
+  width: 100%;
 }
-.textSecond{
-  width:100%;
+.textSecond {
+  width: 100%;
   height: 400px;
 }
 .right {

@@ -203,9 +203,17 @@ export default {
     },
     addCustomizeDescone(index) {
       var newSelect = {};
-      newSelect.question = "";
-      newSelect.answer = "true";
+      newSelect.selectName = "";
+      newSelect.answerJu = 3;
       this.selectList.push(newSelect);
+    },
+    send() {
+      axios({
+        method: "get",
+        url: ""
+      }).then(function(res) {
+        console.log(res.data.name);
+      });
     },
     success(nodesc) {
       this.$Notice.success({

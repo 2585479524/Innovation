@@ -2,7 +2,7 @@
   <div>
     <Header class="v-navbar"></Header>
     <div class="content">
-     <Regist class="v-regist"></Regist>
+      <Regist class="v-regist"></Regist>
       <HomeSwiper></HomeSwiper>
       <Divider class="v-divider"></Divider>
       <Feature class="v-feature"></Feature>
@@ -43,6 +43,7 @@ export default {
   text-align: center;
   position: relative;
   top: 100px;
+  margin: 0;
 }
 .v-navbar {
   position: fixed;

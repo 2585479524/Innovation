@@ -20,7 +20,7 @@
 <script>
 import Header from "@/components/classpage/Headblock";
 import Footer from "@/components/classpage/Footer";
-import Courseleft from "@/components/classpage/video/Courseleft";
+import Courseleft from "@/components/classpage/video/CourseLeft";
 
 export default {
   components: {

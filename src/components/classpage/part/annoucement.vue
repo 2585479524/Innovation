@@ -13,12 +13,13 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      index:" ",
       course:"",
       tableData: [],
     };
   },
   created:function() {
+    console.log(this.course);
+    
     this.axios
       .get("/course/notice", {
         params: {
@@ -31,7 +32,6 @@ export default {
           api.url +
           res.data.data[i].content +
           res.data.data[i].createTime;
-          //this.tableData[i]=affiche;
           Vue.set(this.tableData,i,affiche);
       }
     })
