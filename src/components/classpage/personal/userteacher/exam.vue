@@ -2,13 +2,14 @@
   <div id="exam">
     <div class="contain">
       <b>选择课程：</b>
-      <i-select style="width:200px" v-model="option">
-        <i-option
-          v-for="goods in listList.data"
-          :value="listList.data[0].name"
+      <Select style="width:200px" v-model="option">
+        <Option
+          v-for="(goods,index) in listList.data"
+          :value="goods.id"
           :key="goods.id"
-        >{{goods.name}}</i-option>
-      </i-select>
+        >{{goods.name}}</Option>
+      </Select>
+      {{option}}
       <br>
       <br>
       <b>选择开始时间：</b>
@@ -18,6 +19,7 @@
       <br>
       <b>选择题：</b>
       <b>选择分值：</b>
+
       <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
       <div class="divone" v-for="(item,index) in choiceList">
         <div class="del">
@@ -25,14 +27,31 @@
         </div>
 
         <!-- 题目框 -->
-        <textarea v-model="item.title" class="textarea" cols="10" rows="2" placeholder="请输入选择题题目"></textarea>
-        {{item.title}}
+        <div class="in">
+          <textarea
+            v-model="item.question"
+            class="textarea"
+            cols="10"
+            rows="2"
+            placeholder="请输入选择题题目"
+          ></textarea>
+          {{item.question}}
+        </div>
         <!-- 选项内容 -->
         <div class="answer">
-          <div class="ans" v-for="(option,i) in item.optionName">
-            {{option.name}}
-            <el-input type="textarea" autosize v-model="option.optionList" cols="10" rows="2"></el-input>
-            {{option.optionList}}
+          <div class="ansOp" v-for="le in choiceListName">{{le.name}}</div>
+        </div>
+        <div class="answer">
+          <div v-for="content in item.optionName">
+            <el-input
+              type="textarea"
+              autosize
+              v-model="content.optionList"
+              cols="10"
+              rows="2"
+              style="width:150px"
+            ></el-input>
+            {{content.optionList}}
           </div>
         </div>
 
@@ -41,11 +60,11 @@
           <b>该题的正确答案是：</b>
           <div class="answer">
             <div class="ans">
-              <el-radio-group v-model="item.answerCh">
-                <el-radio :label="3">A</el-radio>
-                <el-radio :label="6">B</el-radio>
-                <el-radio :label="9">C</el-radio>
-                <el-radio :label="12">D</el-radio>
+              <el-radio-group v-model="item.answer">
+                <el-radio label="A">A</el-radio>
+                <el-radio label="B">B</el-radio>
+                <el-radio label="C">C</el-radio>
+                <el-radio label="D">D</el-radio>
               </el-radio-group>
             </div>
           </div>
@@ -69,7 +88,7 @@
           <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSelect">删除判断题</Button>
         </div>
         <textarea
-          v-model="item.selectName"
+          v-model="item.question"
           class="textarea"
           cols="10"
           rows="2"
@@ -80,9 +99,9 @@
         <b>该题的正确答案是：</b>
         <div class="Answer">
           <div class="ans">
-            <el-radio-group v-model="item.answerJu">
-              <el-radio :label="3">正确</el-radio>
-              <el-radio :label="6">错误</el-radio>
+            <el-radio-group v-model="item.answer">
+              <el-radio label="true">正确</el-radio>
+              <el-radio label="false">错误</el-radio>
             </el-radio-group>
           </div>
         </div>
@@ -106,6 +125,7 @@
 export default {
   data() {
     return {
+      diandian: "",
       startColoc: "",
       endColoc: "",
       option: "",
@@ -113,22 +133,28 @@ export default {
       numJudgement: 1,
       listList: [],
 
+      choiceListName: [
+        { name: "A" },
+        { name: "B" },
+        { name: "C" },
+        { name: "D" }
+      ],
       choiceList: [
         {
-          title: "",
+          question: "",
           optionName: [
-            { name: "A", optionList: "" },
-            { name: "B", optionList: "" },
-            { name: "C", optionList: "" },
-            { name: "D", optionList: "" }
+            { optionList: "" },
+            { optionList: "" },
+            { optionList: "" },
+            { optionList: "" }
           ],
-          answerCh: 3
+          answer: "A"
         }
       ],
       selectList: [
         {
-          selectName: "",
-          answerJu: 3
+          question: "",
+          answer: "true"
         }
       ]
     };
@@ -156,16 +182,24 @@ export default {
     },
 
     addCustomizeDesc(index) {
-      var newChoice = {};
-      newChoice.title = "";
-      newChoice.optionName = [
-        { name: "A", optionList: "" },
-        { name: "B", optionList: "" },
-        { name: "C", optionList: "" },
-        { name: "D", optionList: "" }
+      var newChoice1 = {};
+      newChoice1.choiceListName = [
+        { name: "A" },
+        { name: "B" },
+        { name: "C" },
+        { name: "D" }
       ];
-      newChoice.answerCh = 3;
-      this.choiceList.push(newChoice);
+      var newChoice2 = {};
+      newChoice2.question = "";
+      newChoice2.optionName = [
+        { optionList: "" },
+        { optionList: "" },
+        { optionList: "" },
+        { optionList: "" }
+      ];
+      newChoice2.answer = "A";
+      this.choiceListName.push(newChoice1);
+      this.choiceList.push(newChoice2);
     },
     addCustomizeDescone(index) {
       var newSelect = {};
@@ -183,13 +217,15 @@ export default {
     },
     success(nodesc) {
       this.$Notice.success({
-        title: "您已经上传成功",
+        question: "您已经上传成功",
         desc: nodesc ? "" : "该科目考试上传成功！ "
       }),
         this.$router.go(-1);
       this.creatExam();
     },
     creatExam() {
+      console.log(this.choiceList);
+      
       let cho = this.choiceList;
       let jud = this.selectList;
 
@@ -203,8 +239,8 @@ export default {
         this.endColoc.toTimeString().substr(0, 8);
       this.axios
         .post("/exam/final", {
-          name: this.option,
-          course: this.listList.data.id,
+          name: "jfaief",
+          course: "4d2e26d712f64778a4fd50bd6486df96",
           startTime: timestampStart,
           stopTime: timestampEnd,
           choiceScoreWeight: this.numSelect,
@@ -267,6 +303,9 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.ansOp {
+  margin-left: -20px;
 }
 .Answer {
   width: 600px;

@@ -89,6 +89,7 @@ export default {
         this.rows.push(this.rowtemplate);
       }
 
+
       this.axios
         .post("/teacher/course", {
           name: this.rowtemplate.Name,
@@ -96,11 +97,12 @@ export default {
         })
         .then(response => {
           console.log(response);
-          
+
         })
         .catch(function(error) {
           console.log(error);
         });
+
       this.axios
         .get("/teacher/course/list", {})
         .then(response => {
@@ -111,6 +113,7 @@ export default {
         });
       //还原模板
       this.rowtemplate = { Id: 0, Name: "", Tag: "" };
+
 
       // this.axios({
       //   method: "post",
@@ -123,10 +126,14 @@ export default {
       //     image: ,
       //   })
       // });
+
     },
     Edit: function(row) {
       this.rowtemplate.Name = row.name;
       this.rowtemplate.Tag = row.tag;
+
+      this.show = false;
+      this.isshow = true;
     },
     Delete: function(row) {
       let rowId = row.id;
@@ -143,17 +150,21 @@ export default {
     success: function(row) {
       let rowId = row.id;
       this.axios
+
         .put("/teacher/course/" + rowId, {
           name: this.rowtemplate.Name,
           tag: this.rowtemplate.Tag
         })
-        .then(function(response) {
-          console.log(response);
+        .then(response => {
+          console.log(response.data);
         })
         .catch(function(error) {
           console.log(error);
         });
       this.rowtemplate = { Id: 0, Name: "", Tag: "" };
+
+      this.isshow = false;
+      this.show = true;
     },
     ago() {
       this.$router.go(-1);

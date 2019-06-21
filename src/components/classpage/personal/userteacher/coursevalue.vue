@@ -63,6 +63,7 @@
       <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回课程界面</i-button>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -159,11 +160,13 @@ export default {
       this.$router.go(-1);
     }
   }
+
 };
 </script>
 
 <style scoped>
 #app {
+
   width: 0 auto;
   height: 500px;
   margin-top: -850px;
