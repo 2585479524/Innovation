@@ -60,138 +60,158 @@ list-type="picture-card"
 </template>
 
 <script>
-
 export default {
-data() {
-return {
-rows: [],
-rowtemplate: { Id: 0, Name: "",Tag:""},
-file: "",
-dialogImageUrl: "",
-dialogVisible: false,
-fileList2: []
-};
-},
-created(){
-this.axios
-.get("/teacher/course/list", {
-})
-.then(response => {
-console.log(response.data);
-this.rows = response.data.data;
-console.log(this.rows);
-})
-.catch(function(error) {
-console.log(error);
-}); 
-},
-methods: {
-Save: function(event) {
-if (this.rowtemplate.Name && this.rowtemplate.Tag != "") {
-//设置当前新增行的Id
-this.rowtemplate.Id = this.rows.length + 1;
-this.rows.push(this.rowtemplate);
-}
+  data() {
+    return {
+      rows: [],
+      rowtemplate: { Id: 0, Name: "", Tag: "" },
+      file: "",
+      dialogImageUrl: "",
+      dialogVisible: false,
+      fileList2: [],
+      cityList: [
+                    {
+                        value: 'web前端',
+                        label: 'web前端'
+                    },
+                    {
+                        value: 'web后端',
+                        label: 'web后端'
+                    },],
+      word:'修改',
+      show:true,
+      isshow:false
+    }
+  },
+     created() {
+       this.$router.push({path:'/teacher/coursevalue',query:{id:row.id}})
 
-this.axios
-.post("/teacher/course",{
-name:this.rowtemplate.Name,
-tag:this.rowtemplate.Tag,
-})
-.then(response => {
-console.log(response);
-})
-.catch(function(error) {
-console.log(error);
-});
-this.axios
-.get("/teacher/course/list", {
-})
-.then(response => {
-console.log(response.data);
-this.rows = response.data.data;
-})
-.catch(function(error) {
-console.log(error);
-}); 
-//还原模板
-this.rowtemplate = { Id: 0, Name: "" ,Tag:""};
-},
-Edit: function(row) {
-this.rowtemplate.Name = row.name;
-this.rowtemplate.Tag = row.tag;
-},
-Delete: function(row) {
-let rowId = row.id;
-this.axios
-.delete("/teacher/course/"+rowId, {
-})
-.then(function(response) {
-console.log(response);
-this.created();
-})
-.catch(function(error) {
-console.log(error);
-});
-},
-success:function(row) {
-let rowId = row.id;
-this.axios
-.put("/teacher/course/"+rowId,{
-name:this.rowtemplate.Name,
-tag:this.rowtemplate.Tag,
-})
-.then(function(response) {
-console.log(response);
-})
-.catch(function(error) {
-console.log(error);
-})
-this.rowtemplate = { Id: 0, Name: "" ,Tag:""};
-},
-ago() {
-this.$router.go(-1);
-},
-handleRemove(file, fileList) {
-//console.log(file, fileList);
-},
-handlePictureCardPreview(file) {
-this.dialogImageUrl = file.url;
-this.dialogVisible = true;
-},
-handleRemoveone(file, fileList) {
-//console.log(file, fileList);
-},
-handlePreview(file) {
-//console.log(file);
-},
-}
+       this.axios
+       .get("/teacher/course/list", {
+
+       })
+      .then(response => {
+        console.log(response.data);
+        this.rows = response.data.data;
+        console.log(this.rows);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+  methods: {
+    Save: function(event) {
+      if (this.rowtemplate.Name != "") {
+        //设置当前新增行的Id
+        this.rowtemplate.Id = this.rows.length + 1;
+        this.rows.push(this.rowtemplate);
+      }
+      console.log(this.rowtemplate.Tag);
+
+      this.axios
+        .post("/teacher/course", {
+          name: this.rowtemplate.Name,
+          tag: this.rowtemplate.Tag
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      this.axios
+        .get("/teacher/course/list", {})
+        .then(response => {
+          console.log(response.data);
+          this.rows = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      //还原模板
+      this.rowtemplate = { Id: 0, Name: "", Tag: "" };
+    },
+    Edit: function(row) {
+      this.rowtemplate.Name = row.name;
+      this.rowtemplate.Tag = row.tag;
+      this.show = false;
+      this.isshow = true;
+    },
+    Delete: function(row) {
+      let rowId = row.id;
+      this.axios
+        .delete("/teacher/course/" + rowId, {})
+        .then(function(response) {
+          console.log(response);
+          this.created();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    success: function(row) {
+      console.log(this.rows)
+      let rowId = row.id;
+      this.axios 
+        .put("/teacher/course/" + rowId, {
+          name: this.rowtemplate.Name,
+          tag: this.rowtemplate.Tag
+        })
+        .then(response => {
+          console.log(response.data);
+  
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.rowtemplate = { Id: 0, Name: "", Tag: "" };
+      this.isshow = false;
+      this.show = true;
+    },
+    ago() {
+      this.$router.go(-1);
+    },
+    handleRemove(file, fileList) {
+      //console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleRemoveone(file, fileList) {
+      //console.log(file, fileList);
+    },
+    handlePreview(file) {
+      //console.log(file);
+    }
+  }
 };
 </script>
 
 <style scoped>
 #app {
-width: 0 auto;
-height: 500px;
-margin-top: -830px;
-margin-left: 300px;
+  width: 0 auto;
+  height: 500px;
+  margin-top: -830px;
+  margin-left: 300px;
 }
 .table {
-font-family: verdana, arial, sans-serif;
-font-size: 12px;
-width: 700px;
-padding-top: 40px;
+  font-family: verdana, arial, sans-serif;
+  font-size: 12px;
+  width: 700px;
+  padding-top: 40px;
 }
 .table td {
-padding: 7px;
+  padding: 7px;
 }
 .newcon {
-text-align: start;
-padding-left: 50px;
+  text-align: start;
+  padding-left: 50px;
 }
 .but {
-padding-left: 500px;
-margin-top: -80px;
+  padding-left: 500px;
+  margin-top: -80px;
 }
 </style>
 
