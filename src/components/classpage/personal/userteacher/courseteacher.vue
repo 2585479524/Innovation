@@ -33,7 +33,7 @@ list-type="picture-card"
 <tbody>
 <tr v-for="row in rows " :key="row.index">
 <td>
-<router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:rows.id}}">
+<router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:row.id}}">
 <font size="4" color="gray">{{row.name}}</font>
 </router-link>
 </td>
