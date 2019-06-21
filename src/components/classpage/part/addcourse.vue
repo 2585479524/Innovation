@@ -50,8 +50,8 @@ export default {
 };
 </script>
 
-<style>
-.content {
+<style scoped>
+.addCourse .content {
   padding: 50px 100px;
   background-color: white;
 }

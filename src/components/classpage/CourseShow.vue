@@ -35,11 +35,9 @@ export default {
 </script>
 
 <style scoped>
-courseShow {
+.courseShow {
   background-color: white;
   margin: 30px;
-  display: flex;
-  flex-direction: column;
 }
 .courseShow .title {
   font-size: 24px;
@@ -51,10 +49,14 @@ courseShow {
 .courseShow .modelList {
   width: 1080px;
   display: flex;
-  padding: 0 10px;
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-around;
+}
+.courseShow .modelList * {
+  justify-content: flex-start;
+  margin: 15px 0 15px 20px;
+}
+.courseShow .modelList :last-child {
+  margin: 15px 20px;
 }
 </style>

@@ -8,7 +8,7 @@ import ClassPage from '@/views/ClassHome'
 import SignIn from '@/components/login/Register'
 //teaher
 import teacher from '@/components/classpage/personal/teacher'
-import courseteacher from '@/components/classpage/personal/userteacher/courseteacher'
+import courseTeacher from '@/components/classpage/personal/userteacher/courseTeacher'
 import cselection from '@/components/classpage/personal/userteacher/cselection'
 import eselection from '@/components/classpage/personal/userteacher/eselection'
 import tselection from '@/components/classpage/personal/userteacher/tselection'
@@ -53,9 +53,9 @@ export default new Router({
       component: teacher,
       children: [
         {
-          path: '/teacher/courseteacher',
-          name: 'courseteacher',
-          component: courseteacher
+          path: '/teacher/courseTeacher',
+          name: 'courseTeacher',
+          component: courseTeacher
         }, {
           path: '/teacher/coursevalue/cselection',
           name: 'cselection',

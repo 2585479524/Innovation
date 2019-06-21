@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="courseTeacher">
     <div class="newcon">
       <font size="2">课程名称</font>
       <font color="red" size="4">*</font>：
@@ -7,12 +7,10 @@
       <font size="2">课程标签</font>
       <font color="red" size="4">*</font>：
       <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Tag"/>
-      <br>
-      <br>
       <font size="2">选择课程封面</font>
       <font color="red" size="4">*</font>：
       <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action="http://39.107.102.246/upload/course/image"
         list-type="picture-card"
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"
@@ -60,6 +58,7 @@
 </template>
 
 <script>
+import qs from "qs";
 export default {
   data() {
     return {
@@ -77,7 +76,6 @@ export default {
       .then(response => {
         console.log(response.data);
         this.rows = response.data.data;
-        console.log(this.rows);
       })
       .catch(function(error) {
         console.log(error);
@@ -98,6 +96,7 @@ export default {
         })
         .then(response => {
           console.log(response);
+          
         })
         .catch(function(error) {
           console.log(error);
@@ -105,7 +104,6 @@ export default {
       this.axios
         .get("/teacher/course/list", {})
         .then(response => {
-          console.log(response.data);
           this.rows = response.data.data;
         })
         .catch(function(error) {
@@ -113,6 +111,18 @@ export default {
         });
       //还原模板
       this.rowtemplate = { Id: 0, Name: "", Tag: "" };
+
+      // this.axios({
+      //   method: "post",
+      //   url: "https://jsonplaceholder.typicode.com/posts",
+      //   headers: {
+      //     "Content-Type": "application/x-www-form-urlencoded"
+      //   },
+      //   data: qs.stringify({
+      //     course: this.rows.id,
+      //     image: ,
+      //   })
+      // });
     },
     Edit: function(row) {
       this.rowtemplate.Name = row.name;
@@ -166,26 +176,26 @@ export default {
 </script>
 
 <style scoped>
-#app {
+#courseTeacher {
   width: 0 auto;
   height: 500px;
   margin-top: -830px;
   margin-left: 300px;
 }
-.table {
+.courseTeacher .table {
   font-family: verdana, arial, sans-serif;
   font-size: 12px;
   width: 700px;
   padding-top: 40px;
 }
-.table td {
+.courseTeacher .table td {
   padding: 7px;
 }
-.newcon {
+.courseTeacher .newcon {
   text-align: start;
   padding-left: 50px;
 }
-.but {
+.courseTeacher .but {
   padding-left: 500px;
   margin-top: -80px;
 }

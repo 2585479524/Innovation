@@ -1,34 +1,30 @@
 <template>
-  <div id="body">
+  <div class="teacher">
     <div class="direct">
       <Layout>
         <Header></Header>
-
-        <!--其他课程页头选择部分-->
-        <Content>
-          <div id="userbody">
-            <i-menu
-              @on-select="changeTabbar"
-              :theme="theme3"
-              :active-name="activeName"
-              ref="activeName"
-              style="width:250px;background-color:rgb(247, 247, 247)"
-            >
-              <menu-item name="0">
-                <font size="3" color="black">
-                  <br>
-                  <div class="user">
-                    <img src="@/assets/personalimg/timg.jpg">
-                  </div>
-                  <br>
-                  {{userName}}
-                </font>
-              </menu-item>
-              <menu-item name="teacher/courseteacher">
-                <font size="2" color="gray">课程界面</font>
-              </menu-item>
-            </i-menu>
-          </div>
+        <Content class="userbody">
+          <i-menu
+            @on-select="changeTabbar"
+            :theme="theme3"
+            :active-name="activeName"
+            ref="activeName"
+            style="width:250px;background-color:rgb(247, 247, 247)"
+          >
+            <menu-item name="0">
+              <font size="3" color="black">
+                <br>
+                <div class="user">
+                  <img src="@/assets/personalimg/timg.jpg">
+                </div>
+                <br>
+                {{userName}}
+              </font>
+            </menu-item>
+            <menu-item name="teacher/courseteacher">
+              <font size="2" color="gray">课程界面</font>
+            </menu-item>
+          </i-menu>
         </Content>
         <Footer></Footer>
       </Layout>
@@ -42,7 +38,7 @@
 import Header from "@/components/classpage/personal/personalheader";
 import Footer from "@/components/classpage/Footer";
 export default {
-  name: "Teacher",
+  name: "teacher",
   data() {
     return {
       userName: "userName",
@@ -70,18 +66,18 @@ export default {
 </script>
 
 <style scoped>
-#userbody {
+.teacher .userbody {
   text-align: center;
   margin-top: 70px;
   height: 600px;
 }
 
-.user {
+.teacher .user {
   width: 50px;
   height: 50px;
   margin-left: 76px;
 }
-.user img {
+.teacher .user img {
   border-radius: 50%;
   width: 100%;
   height: 100%;

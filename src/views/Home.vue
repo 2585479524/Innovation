@@ -43,6 +43,7 @@ export default {
   text-align: center;
   position: relative;
   top: 100px;
+  margin: 0;
 }
 .v-navbar {
   position: fixed;

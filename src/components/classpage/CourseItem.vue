@@ -54,15 +54,14 @@ export default {
 
 <style scoped>
 .courseItem {
-  height: 260px;
+  height: 280px;
   background-color: rgba(228, 228, 228, 0.452);
-  margin: 15px 0 30px;
   border-radius: 5px;
   cursor: pointer;
 }
 .courseItem img {
-  height: 160px;
-  width: 200px;
+  height: 170px;
+  width: 220px;
   border-radius: 5px;
   margin: 10px;
 }
