@@ -1,64 +1,62 @@
 <template>
-  <div id="app">
-    <div class="newcon">
-      <font size="2">课程名称</font>
-      <font color="red" size="4">*</font>：
-      <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Name"/>
-      <font size="2">课程标签</font>
-      <font color="red" size="4">*</font>：
-      <i-select style="width:150px" v-model="rowtemplate.Tag">
-        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{  item.label }}</i-option>
-      </i-select>
-      <br>
-      <br>
-      <font size="2">选择课程封面</font>
-      <font color="red" size="4">*</font>：
-      <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
-        list-type="picture-card"
-        :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
-      >
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt>
-      </el-dialog>
-      <div class="but">
-        <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加课程</i-button>
-      </div>
-    </div>
-    <br>
-    <br>
-    <table cellspacing="0" class="table table-bordered table-striped text-center">
-      <thead></thead>
-      <tbody>
-        <tr v-for="row in rows " :key="row.index">
-          <td>
-            <router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:row.id}}">
-              <font size="4" color="gray">{{row.name}}</font>
-            </router-link>
-          </td>
-          <td>
-            <img :src="row.courseImg" width="150px" height="100px">
-          </td>
-          <td>
-            <font size="4" color="gray">{{row.teacher}}</font>
-          </td>
-          <td>
-            <font size="4" color="gray">{{row.tag}}</font>
-          </td>
-          <td>
-            <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row)">删除</i-button>&nbsp;
-            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)" v-show="show">{{word}}</i-button>&nbsp;
-            <i-button style="color:white;background-color:#3d6ea7" @click="success(row)" v-show="isshow">确定课程</i-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    <br>
-  </div>
+<div id="app">
+<div class="newcon">
+<font size="2">课程名称</font>
+<font color="red" size="4">*</font>：
+<i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Name"/>
+<font size="2">课程标签</font>
+<font color="red" size="4">*</font>：
+<i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Tag"/>
+<br>
+<br>
+<font size="2">选择课程封面</font>
+<font color="red" size="4">*</font>：
+<el-upload
+action="https://jsonplaceholder.typicode.com/posts/"
+list-type="picture-card"
+:on-preview="handlePictureCardPreview"
+:on-remove="handleRemove"
+>
+<i class="el-icon-plus"></i>
+</el-upload>
+<el-dialog :visible.sync="dialogVisible">
+<img width="100%" :src="dialogImageUrl" alt>
+</el-dialog>
+<div class="but">
+<i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加课程</i-button>
+</div>
+</div>
+<br>
+<br>
+<table cellspacing="0" class="table table-bordered table-striped text-center">
+<thead></thead>
+<tbody>
+<tr v-for="row in rows " :key="row.index">
+<td>
+<router-link tag="a" :to="{path:'/teacher/coursevalue',query:{id:row.id}}">
+<font size="4" color="gray">{{row.name}}</font>
+</router-link>
+</td>
+<td>
+<img :src="row.courseImg" width="150px" height="100px">
+</td>
+<td>
+<font size="4" color="gray">{{row.teacher}}</font>
+</td>
+<td>
+<font size="4" color="gray">{{row.tag}}</font>
+</td>
+<td>
+<i-button style="color:white;background-color:#ec6c6c" @click="Delete(row)">删除</i-button>&nbsp;
+<i-button style="color:gray;background-color:aliceblue" @click="Edit(row)">修改</i-button>&nbsp;
+<i-button style="color:white;background-color:#3d6ea7" @click="success(row)">确定</i-button>&nbsp;
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+</div>
 </template>
 
 <script>
