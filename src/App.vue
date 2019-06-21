@@ -17,5 +17,6 @@ export default {
 body {
   width: 100%;
   margin: 0%;
+  height: 100%;
 }
 </style>

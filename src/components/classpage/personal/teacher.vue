@@ -1,41 +1,46 @@
 <template>
   <div class="teacher">
+    <Header></Header>
     <div class="direct">
-      <Layout>
-        <Header></Header>
-        <Content class="userbody">
-          <i-menu
-            @on-select="changeTabbar"
-            :theme="theme3"
-            :active-name="activeName"
-            ref="activeName"
-            style="width:250px;background-color:rgb(247, 247, 247)"
-          >
-            <menu-item name="0">
-              <font size="3" color="black">
-                <br>
-                <div class="user">
-                  <img src="@/assets/personalimg/timg.jpg">
-                </div>
-                <br>
-                {{userName}}
-              </font>
-            </menu-item>
-            <menu-item name="teacher/courseteacher">
-              <font size="2" color="gray">课程界面</font>
-            </menu-item>
-          </i-menu>
-        </Content>
-        <Footer></Footer>
-      </Layout>
+      <div class="userbody">
+        <el-row>
+          <el-col :span="4">
+            <i-menu
+              @on-select="changeTabbar"
+              :theme="theme3"
+              :active-name="activeName"
+              ref="activeName"
+              style="width:250px;background-color:rgb(247, 247, 247)"
+            >
+              <menu-item name="0">
+                <font size="3" color="black">
+                  <br>
+                  <div class="user">
+                    <img src="@/assets/personalimg/timg.jpg">
+                  </div>
+                  <br>
+                  {{userName}}
+                </font>
+              </menu-item>
+              <menu-item name="teacher/courseteacher">
+                <font size="2" color="gray">课程界面</font>
+              </menu-item>
+            </i-menu>
+          </el-col>
+          <el-col :span="20">
+            <router-view/>
+          </el-col>
+        </el-row>
+      </div>
+
+      <Footer class="v-footer"></Footer>
     </div>
-    <router-view/>
   </div>
 </template>
 
 
 <script>
-import Header from "@/components/classpage/personal/personalheader";
+import Header from "@/components/classpage/Headblock";
 import Footer from "@/components/classpage/Footer";
 export default {
   name: "teacher",
@@ -57,7 +62,7 @@ export default {
   },
   methods: {
     changeTabbar(selection, row) {
-      if (selection == "teacher/courseteacher") {
+      if (selection == "activeName") {
         this.$router.push({ name: "courseteacher" });
       }
     }
@@ -81,5 +86,12 @@ export default {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+.v-footer {
+  bottom: 0px;
+  width: 100%;
+  position: relative;
+
+  top: 100px;
 }
 </style>
