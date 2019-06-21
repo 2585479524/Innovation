@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import HOME from '@/views/Home'
 import ClassPage from '@/views/ClassHome'
 //longin
-import Signi from '@/components/classpage/sign/sign_in'
+import Signi from '@/components/login/Register'
 //teaher
 import teacher from '@/components/classpage/personal/teacher'
 import courseteacher from '@/components/classpage/personal/userteacher/courseteacher'

@@ -3,17 +3,13 @@
     <!--页头块-->
     <Layout>
       <Header></Header>
-
       <!--内容展示块-->
       <Content>
         <div class="Content-navigation">
           <ClassSwiper class="v-home"></ClassSwiper>
-
-          <!-- 视频展 -->
+          <!-- 视频展示 -->
           <div class="Content-list">
-            <Course tag="web;API;开发" CourseClass="基 / 础 / 课 / 程"></Course>
-            <!-- <Course tag="front" CourseClass="前 / 端 / 课 / 程"></Course> -->
-            <!-- <Course tag="back" CourseClass="后 / 端 / 课 / 程"></Course> -->
+            <CourseShow v-for="(item,index) in courseList" :key="index" :tag="item"></CourseShow>
           </div>
         </div>
       </Content>
@@ -28,14 +24,15 @@
 import Header from "@/components/classpage/Headblock";
 import ClassSwiper from "@/components/classpage/ClassSwiper";
 import Footer from "@/components/classpage/Footer";
-import Course from "@/components/classpage/CourseShow";
-import Sign from "@/components/classpage/sign/sign";
+import CourseShow from "@/components/classpage/CourseShow";
+import Sign from "@/components/login/Sign";
 export default {
   name: "ClassPage",
   data() {
     return {
       img: [],
-      course: ""
+      course: "",
+      courseList: ["web前端", "web后端", "人工智能"]
     };
   },
 
@@ -44,7 +41,7 @@ export default {
     ClassSwiper,
     Header,
     Footer,
-    Course,
+    CourseShow,
     Sign
   }
 };

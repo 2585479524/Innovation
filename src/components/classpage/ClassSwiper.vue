@@ -50,30 +50,31 @@ export default {
   name: "HomeSwiper",
   data() {
     return {
+      
       list: [],
       course: "",
       login: false
     };
   },
   created() {
-    // this.axios
-    //   .get("/rotationPicture/list", {
-    //     params: {
-    //       tag: "index"
-    //     }
-    //   })
-    //   .then(res => {
-    //     for (let i = 0; i < res.data.data.length; i++) {
-    //       let imgUrl =
-    //         api.url +
-    //         res.data.data[i].mappingPath +
-    //         res.data.data[i].id +
-    //         "." +
-    //         res.data.data[i].suffix;
-    //       Vue.set(this.list, i, imgUrl);
-    //     }
-    //   })
-    //   .catch(err => {});
+    this.axios
+      .get("/rotationPicture/list", {
+        params: {
+          tag: "index"
+        }
+      })
+      .then(res => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          let imgUrl =
+            api.url +
+            res.data.data[i].mappingPath +
+            res.data.data[i].id +
+            "." +
+            res.data.data[i].suffix;
+          Vue.set(this.list, i, imgUrl);
+        }
+      })
+      .catch(err => {});
   }
 };
 </script>

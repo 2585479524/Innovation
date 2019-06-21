@@ -1,6 +1,6 @@
 <template>
   <div class="Content-list">
-    <div class="Content-title">{{CourseClass}}</div>
+    <div class="Content-title">{{tag}}</div>
     <div class="Content-Class">
       <div
         @click="getclickId(index,item.title,item.url)"
@@ -28,8 +28,8 @@ export default {
     };
   },
   created() {
-    axios
-      .get("http://39.107.102.246/course/tag/" + this.tag)
+    this.axios
+      .get("/course/tag/" + this.tag)
       .then(response => {
         this.course = response.data.data;
         this.getInfo();
@@ -39,12 +39,12 @@ export default {
       });
   },
   mounted() {},
-  props: ["CourseClass", "tag"],
+  props: ["tag"],
 
   methods: {
     getInfo() {
-      axios
-        .get("http://39.107.102.246/files/info", {
+      this.axios
+        .get("/files/info", {
           params: {
             file: "8d73c7e27a6244c08a24f9bf93d722e8"
           }
@@ -53,8 +53,6 @@ export default {
           if (response.data.status == 0) {
             this.fileInfo = response.data.data;
             this.getImg();
-          } else {
-            console.log("error");
           }
         })
         .catch(error => {
@@ -71,12 +69,15 @@ export default {
       for (let index = 0; index < this.course.length; index++) {
         this.course[index].image = url;
       }
-      console.log(this.course[0].image);
     },
     getclickId(index, course, img) {
       this.$router.push({
         name: "addcourse",
-        params: { courseTitle: course, courseimg: img }
+        params: {
+          courseTitle: course,
+          courseimg: img,
+          courserId: this.course[index].id
+        }
       });
     }
   }

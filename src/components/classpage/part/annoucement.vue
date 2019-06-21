@@ -13,7 +13,6 @@ import Vue from "vue";
 export default {
   data() {
     return {
-      index:" ",
       course:"",
       tableData: [],
     };
