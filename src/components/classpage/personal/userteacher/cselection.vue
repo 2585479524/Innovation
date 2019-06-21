@@ -30,29 +30,29 @@ export default {
         }
       ],
       data1: [],
-      num: "",
+      num: ""
     };
   },
-  created(){
-    this.id = this.$route.query.id
-      this.axios
-          .get("/teacher/statistics/student", {
-            params: {
-            	course:this.id,
-            }
-          })
-            .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-      },
-      methods:{
-        ago() {
-            this.$router.go(-1);
-          },
-      }
+  created() {
+    this.id = this.$route.query.id;
+    this.axios
+      .get("/teacher/statistics/student", {
+        params: {
+          course: this.id
+        }
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+  methods: {
+    ago() {
+      this.$router.go(-1);
+    }
+  }
 };
 </script>
 

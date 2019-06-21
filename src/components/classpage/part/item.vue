@@ -47,20 +47,20 @@ export default {
       stopTime: "2019-04-20 09:00:00"
     };
   },
-  created(){
+  created() {
     this.getdata();
   },
   methods: {
-    getdata(){
-      let courseId="a0f94e7f7e9945735f3e7e52d665a1db"
-     this.axios
-      .get("/exam/final/"+courseId)
-      .then(Response => {
-        console.log(Response);
-      })
-      .catch(error => {
-        console.log(error);
-      })
+    getdata() {
+      let courseId = "a0f94e7f7e9945735f3e7e52d665a1db";
+      this.axios
+        .get("/exam/final/" + courseId)
+        .then(Response => {
+          console.log(Response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };
@@ -85,7 +85,7 @@ export default {
   background-color: rgb(255, 255, 255);
 }
 
-.rightFloat{
+.rightFloat {
   width: 80%;
   color: black;
   left: 80px;

@@ -13,13 +13,6 @@ export default {};
 .footer {
   background-color: #0b2747;
   color: aliceblue;
-  height: 100px;
-  margin-top: 140px;
   text-align: center;
-}
-hr {
-  width: 50%;
-  margin: 0 auto;
-  opacity: 20%;
 }
 </style>

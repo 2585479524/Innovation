@@ -2,7 +2,7 @@
   <div>
     <Header class="v-navbar"></Header>
     <div class="content">
-     <Regist class="v-regist"></Regist>
+      <Regist class="v-regist"></Regist>
       <HomeSwiper></HomeSwiper>
       <Divider class="v-divider"></Divider>
       <Feature class="v-feature"></Feature>

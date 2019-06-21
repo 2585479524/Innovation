@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       oftenGoods: [],
-      score:''
+      score: ""
     };
   },
   created: function() {
@@ -38,18 +38,18 @@ export default {
       })
       .catch(error => {
         console.log(error);
+      });
+    let courseId = "d4daf49c80cb4e548b9711720c319bcb";
+    this.axios
+      .get("/exam/final/score/" + courseId)
+      .then(Response => {
+        console.log;
+        console.log(Response);
+        this.score = Response.score;
       })
-      let courseId = "d4daf49c80cb4e548b9711720c319bcb"
-      this.axios
-        .get("/exam/final/score/"+courseId)
-        .then(Response => {
-          console.log
-          console.log(Response);
-          this.score=Response.score;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>

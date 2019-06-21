@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //Pages
-import HOME from '@/views/Home'
+import Home from '@/views/Home'
 import ClassPage from '@/views/ClassHome'
 //longin
-import Signi from '@/components/login/Register'
+import SignIn from '@/components/login/Register'
 //teaher
 import teacher from '@/components/classpage/personal/teacher'
 import courseteacher from '@/components/classpage/personal/userteacher/courseteacher'
@@ -20,7 +20,7 @@ import students from '@/components/classpage/personal/students'
 import coursestudents from '@/components/classpage/personal/userstudents/coursestudents'
 //Coursevideo
 import Coursevideo from '@/components/classpage/video/Coursevideo'
-import addcourse from '@/components/classpage/part/addcourse'
+import addCourse from '@/components/classpage/part/addCourse'
 import annoucement from '@/components/classpage/part/annoucement'
 import list from '@/components/classpage/part/list'
 import test from '@/components/classpage/part/test'
@@ -34,8 +34,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HOME',
-      component: HOME
+      name: 'Home',
+      component: Home
     },
     {
       path: '/classpage',
@@ -45,7 +45,7 @@ export default new Router({
         {
           path: '/sign_in',
           name: 'in',
-          component: Signi
+          component: SignIn
         },
       ]
     }, {
@@ -121,9 +121,9 @@ export default new Router({
       ]
     },
     {
-      path: '/coursevideo/addcourse',
-      name: 'addcourse',
-      component: addcourse
+      path: '/coursevideo/addCourse',
+      name: 'addCourse',
+      component: addCourse
   }
 
   ]

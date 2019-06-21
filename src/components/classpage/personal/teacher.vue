@@ -56,15 +56,14 @@ export default {
   },
   updated() {
     this.$nextTick(() => {
-      this.activeName= this.$route.path.slice(1)
-      
+      this.activeName = this.$route.path.slice(1);
     });
   },
   methods: {
     changeTabbar(selection, row) {
-      if (selection == 'teacher/courseteacher') {
+      if (selection == "teacher/courseteacher") {
         this.$router.push({ name: "courseteacher" });
-      } 
+      }
     }
   }
 };

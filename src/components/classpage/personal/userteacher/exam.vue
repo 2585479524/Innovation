@@ -127,8 +127,8 @@ export default {
       ],
       selectList: [
         {
-        selectName: "",
-        answerJu: 3
+          selectName: "",
+          answerJu: 3
         }
       ]
     };
@@ -150,9 +150,9 @@ export default {
       var that = this;
       that.choiceList.splice(index, 1);
     },
-    deleteSelect(index){
+    deleteSelect(index) {
       var that = this;
-      that.selectList.splice(index,1);
+      that.selectList.splice(index, 1);
     },
 
     addCustomizeDesc(index) {
@@ -171,7 +171,7 @@ export default {
       var newSelect = {};
       newSelect.selectName = "";
       newSelect.answerJu = 3;
-      this.selectList.push(newSelect); 
+      this.selectList.push(newSelect);
     },
     send() {
       axios({

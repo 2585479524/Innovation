@@ -50,7 +50,6 @@ export default {
   name: "HomeSwiper",
   data() {
     return {
-      
       list: [],
       course: "",
       login: false

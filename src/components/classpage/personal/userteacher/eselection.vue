@@ -3,9 +3,11 @@
     <div class="contain">
       <br>
       <b>考试人数：</b>
-      {{num}}<br>
+      {{num}}
+      <br>
       <b>及格人数：</b>
-      {{numup}}<br>
+      {{numup}}
+      <br>
       <b>及格率：</b>
       {{score}}
       <br>
@@ -31,20 +33,20 @@ export default {
       score: "%"
     };
   },
-  created(){
-      this.axios
-          .get("/statistics/score", {
-            params: {
-            	exam:"id",
-            }
-          })
-            .then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
-      },
+  created() {
+    this.axios
+      .get("/statistics/score", {
+        params: {
+          exam: "id"
+        }
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
   mounted() {
     // 绘制图表
     this.echartPie();
@@ -99,23 +101,23 @@ export default {
             },
             data: [
               {
-                value: '',
+                value: "",
                 name: "60分以下"
               },
               {
-                value: '',
+                value: "",
                 name: "60~70分"
               },
               {
-                value: '',
+                value: "",
                 name: "70~80分"
               },
               {
-                value: '',
+                value: "",
                 name: "80~90分"
               },
               {
-                value: '',
+                value: "",
                 name: "90分以上"
               }
             ],
@@ -173,8 +175,8 @@ export default {
       this.echart();
     },
     ago() {
-        this.$router.go(-1);
-      },
+      this.$router.go(-1);
+    }
   }
 };
 </script>
