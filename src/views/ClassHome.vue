@@ -1,22 +1,21 @@
 <template>
   <div id="classpage">
     <!--页头块-->
-    <Layout>
-      <Header></Header>
-      <!--内容展示块-->
-      <Content>
-        <div class="Content-navigation">
-          <ClassSwiper class="v-home"></ClassSwiper>
-          <!-- 视频展示 -->
-          <div class="Content-list">
-            <CourseShow v-for="(item,index) in courseList" :key="index" :tag="item"></CourseShow>
-          </div>
-        </div>
-      </Content>
-      <div class="footer">
-        <Footer></Footer>
+
+    <Header></Header>
+    <!--内容展示块-->
+
+    <div class="Content-navigation">
+      <ClassSwiper class="v-home"></ClassSwiper>
+      <!-- 视频展示 -->
+      <div class="Content-list">
+        <CourseShow v-for="(item,index) in courseList" :key="index" :tag="item"></CourseShow>
       </div>
-    </Layout>
+    </div>
+
+    <div class="footer">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -48,6 +47,15 @@ export default {
 </script>
 
 <style scoped>
+.classpage {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  position: relative;
+  top: 100px;
+  margin: 0;
+}
 content {
   z-index: 1;
 }
@@ -66,7 +74,10 @@ content {
   width: 1080px;
 }
 .footer {
-  height: 160px;
-  margin-top: 0px;
+  bottom: 0px;
+  width: 100%;
+  position: relative;
+  clear: both;
+  top: 100px;
 }
 </style>

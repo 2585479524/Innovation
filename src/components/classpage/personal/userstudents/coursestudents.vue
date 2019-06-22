@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <el-row>
-      <el-col :span="23" class="pos-order" id="order-list">
+   
         <div class="often-goods-list">
           <ul>
             <li v-for="course in oftenGoods" :key="course.id">
@@ -15,8 +14,7 @@
             </li>
           </ul>
         </div>
-      </el-col>
-    </el-row>
+      
   </div>
 </template>
 

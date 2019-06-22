@@ -4,7 +4,10 @@
     <div class="content">
       <Regist class="v-regist"></Regist>
       <HomeSwiper></HomeSwiper>
-      <Divider class="v-divider"></Divider>
+
+      <div class="v-divider">
+        <Divider ></Divider>
+      </div>
       <Feature class="v-feature"></Feature>
       <Pricing class="v-pricing"></Pricing>
       <FirstPageFooter class="v-footer"></FirstPageFooter>
@@ -59,7 +62,7 @@ export default {
   top: 100px;
 }
 .v-divider {
-  height: 100%;
+  height: 380px;
 }
 .v-feature {
   width: 100%;

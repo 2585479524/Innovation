@@ -145,6 +145,7 @@ export default {
   }
 }
 /* end media 360 */
+
 .container.container-divider {
   padding: 50px auto;
   position: relative;

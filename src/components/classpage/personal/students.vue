@@ -1,12 +1,11 @@
 <template>
-  <div id="app">
+  <div class="student">
     <div class="direct">
-      <Layout>
-        <Header></Header>
-
-        <!--其他课程页头选择部分-->
-        <Content>
-          <div id="userbody">
+      <!--其他课程页头选择部分-->
+      <Header></Header>
+      <div class="userbody">
+        <el-row>
+          <el-col :span="4">
             <i-menu
               @on-select="changeTabbar"
               :theme="theme3"
@@ -28,12 +27,16 @@
                 <font size="2" color="gray">我上的课</font>
               </menu-item>
             </i-menu>
-          </div>
-        </Content>
-        <Footer></Footer>
-      </Layout>
+          </el-col>
+         
+            <router-view/>
+    
+        </el-row>
+      
+      </div>
+
+      <Footer class="v-footer"></Footer>
     </div>
-    <router-view/>
   </div>
 </template>
 
@@ -43,7 +46,7 @@ import Header from "@/components/classpage/Headblock";
 import Footer from "@/components/classpage/Footer";
 
 export default {
-  name: "App",
+  name: "coursestudents",
   data() {
     return {
       userName: "userName",
@@ -66,19 +69,10 @@ export default {
 </script>
 
 <style scoped>
-#userbody {
+.userbody {
   text-align: center;
   margin-top: 70px;
   height: 600px;
-}
-.coursename {
-  width: 400px;
-  height: 50px;
-  font-size: 36px;
-  color: darkslategrey;
-  position: absolute;
-  margin-left: 1200px;
-  margin-top: 220px;
 }
 .user {
   width: 50px;
@@ -89,5 +83,12 @@ export default {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+.v-footer {
+  bottom: 0px;
+  width: 100%;
+  position: relative;
+
+  top: 100px;
 }
 </style>
