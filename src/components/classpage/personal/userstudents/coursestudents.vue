@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-   
         <div class="often-goods-list">
           <ul>
             <li v-for="course in oftenGoods" :key="course.id">
@@ -14,7 +13,6 @@
             </li>
           </ul>
         </div>
-      
   </div>
 </template>
 

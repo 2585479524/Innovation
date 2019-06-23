@@ -55,8 +55,8 @@ export default {
 <style scoped>
 .courseItem {
   height: 280px;
-  background-color: rgba(228, 228, 228, 0.452);
-  border-radius: 5px;
+  background-color: rgb(240, 246, 252);
+  box-shadow: 2px 2px 2px #888888;
   cursor: pointer;
 }
 .courseItem img {

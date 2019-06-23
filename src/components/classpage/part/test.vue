@@ -1,28 +1,25 @@
 <template>
-  <div id="test">
-    <div class="contain">
-      <h1>{{textName}}期末考核</h1>
-      <Row>
-        <i-col>
-          <Card dis-hover class="textFirst">
-            <p slot="title">
-              考试时间：{{examinationTime}}分钟
-              试卷总分值：{{examinationScore}}
-            </p>
-            <p>考生姓名：{{candidateName}}</p>
-            <Card dis-hover class="textSecond">
-              <div class="right">
-                <h1>{{textName}}试卷</h1>
-                <br>
-                <i-button style="color:white;background-color:#3d6ea7" @click="startAnswer">开始考试</i-button>
-                <h4>选择题：{{choice}}个 判断题：{{judge}}个</h4>
-              </div>
-            </Card>
+  <div class="contain">
+    <h1>{{textName}}期末考核</h1>
+    <Row>
+      <i-col>
+        <Card dis-hover class="textFirst">
+          <p slot="title">
+            考试时间：{{examinationTime}}分钟
+            试卷总分值：{{examinationScore}}
+          </p>
+          <p>考生姓名：{{candidateName}}</p>
+          <Card dis-hover class="textSecond">
+            <div class="right">
+              <h1>{{textName}}试卷</h1>
+              <br>
+              <i-button style="color:white;background-color:#3d6ea7" @click="startAnswer">开始考试</i-button>
+              <h4>选择题：{{choice}}个 判断题：{{judge}}个</h4>
+            </div>
           </Card>
-        </i-col>
-      </Row>
-      <br>
-    </div>
+        </Card>
+      </i-col>
+    </Row>
   </div>
 </template>
 
@@ -48,32 +45,11 @@ export default {
 </script>
 
 <style scoped>
-#test {
-  width: 0 auto;
-  height: 500px;
-  margin-top: -700px;
-  margin-left: 250px;
-}
-
 .contain {
   padding: 30px;
   text-align: start;
   color: gray;
   font-size: 10px;
-  overflow: scroll;
-  width: 75%;
-  height: 130%;
   background-color: rgb(255, 255, 255);
-}
-.textFirst {
-  width: 100%;
-}
-.textSecond {
-  width: 100%;
-  height: 400px;
-}
-.right {
-  width: 0 auto;
-  text-align: center;
 }
 </style>

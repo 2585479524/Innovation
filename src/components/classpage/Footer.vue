@@ -15,9 +15,5 @@ export default {};
   background-color: #0b2747;
   color: aliceblue;
   text-align: center;
-  position:absolute;
-  left: 0;
-  bottom:0;
-  width:100%;
 }
 </style>

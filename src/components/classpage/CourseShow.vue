@@ -22,7 +22,6 @@ export default {
       .get("/course/tag/" + this.tag)
       .then(response => {
         this.course = response.data.data;
-        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -36,8 +35,8 @@ export default {
 
 <style scoped>
 .courseShow {
-  background-color: white;
-  margin: 30px;
+  background-color: #fff;
+  margin: 0 0 30px;
 }
 .courseShow .title {
   font-size: 24px;

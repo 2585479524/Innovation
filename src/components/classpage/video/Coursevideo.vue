@@ -1,19 +1,11 @@
 <template>
-  <!--页头以及导航部分-->
-  <div class="direct">
+  <div class="courseVideo">
     <Layout>
       <Header></Header>
-
-      <!--其他课程页头选择部分-->
       <Content>
-        <div class="test">
-          <Courseleft></Courseleft>
-        </div>
+        <Courseleft></Courseleft>
       </Content>
-
-      <div>
-        <Footer></Footer>
-      </div>
+      <Footer class="footer"></Footer>
     </Layout>
   </div>
 </template>
@@ -31,7 +23,9 @@ export default {
 };
 </script>
 <style scoped>
-.test {
-  height: 900px;
+.courseVideo .footer {
+  width: 100%;
+  padding: 15px;
+  bottom: 0;
 }
 </style>

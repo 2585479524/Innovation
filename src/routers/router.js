@@ -24,6 +24,7 @@ import addCourse from '@/components/classpage/part/addCourse'
 import annoucement from '@/components/classpage/part/annoucement'
 import list from '@/components/classpage/part/list'
 import test from '@/components/classpage/part/test'
+import ShowVideo from '@/components/classpage/part/ShowVideo'
 import item from '@/components/classpage/part/item'
 import score from '@/components/classpage/part/score'
 
@@ -114,6 +115,10 @@ export default new Router({
           name: 'item',
           component: item
         }, {
+          path: '/coursevideo/ShowVideo',
+          name: 'ShowVideo',
+          component: ShowVideo
+        }, {
           path: '/coursevideo/score',
           name: 'score',
           component: score
@@ -124,7 +129,7 @@ export default new Router({
       path: '/coursevideo/addCourse',
       name: 'addCourse',
       component: addCourse
-  }
+    }
 
   ]
 })

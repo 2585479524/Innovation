@@ -1,73 +1,70 @@
 <template>
-  <div id="app">
-    <div class="contain">
-      <h1>‘XXXXX’期末考核</h1>
-      <Row>
-        <i-col span="7" push="17">
-          <Card dis-hover style="width:350px">
-            <p slot="title">总成绩：{{totalScore}}</p>
-            <p>单选题：</p>
-            <Card dis-hover style="width:315px">
-              <div>
-                <p>题目类型：XXX</p>
-                <i class="el-icon-circle-check"></i>
-                <i class="el-icon-circle-check"></i>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-              </div>
-            </Card>
-            <p>判断题：</p>
-            <Card dis-hover style="width:315px">
-              <div>
-                <p>题目类型：XXX</p>
-                <i class="el-icon-circle-check"></i>
-                <i class="el-icon-circle-check"></i>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-              </div>
-            </Card>
-            <br>
-            <Card dis-hover style="width:315px">
-              <div>
-                <span>
-                  未答题：
-                  <Icon type="ios-checkmark" v-model="tubiao"></Icon>
-                </span>
-                <span>
-                  已答题：
-                  <i class="el-icon-circle-check"></i>
-                </span>
-              </div>
-            </Card>
+  <div class="contain">
+    <h1>‘XXXXX’期末考核</h1>
+    <Row>
+      <i-col span="7" push="17">
+        <Card dis-hover style="width:350px">
+          <p slot="title">总成绩：{{totalScore}}</p>
+          <p>单选题：</p>
+          <Card dis-hover style="width:315px">
+            <div>
+              <p>题目类型：XXX</p>
+              <i class="el-icon-circle-check"></i>
+              <i class="el-icon-circle-check"></i>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+            </div>
           </Card>
-        </i-col>
-
-        <i-col span="17" pull="7">
-          <Card dis-hover style="width:800px">
-            <p slot="title">'XXXX'试卷 &nbsp;&nbsp;&nbsp;考试时间：xxxx&nbsp;&nbsp;&nbsp;试卷总分值：XXX</p>
-            <p>姓名：XXX&nbsp;&nbsp;&nbsp;班级：XXX</p>
-            <Card dis-hover style="width:765px;height: 400px;">
-              <div>
-                <p>题目类型：XXX</p>
-                <div>
-                  <h4>{{itemDetail[itemNum-1].answer_index}}</h4>
-                  <p>{{itemDetail[itemNum-1].answer_title}}</p>
-                  <p>答案：XX</p>
-                  <p>解析：</p>
-
-                  <br>
-                </div>
-              </div>
-            </Card>
+          <p>判断题：</p>
+          <Card dis-hover style="width:315px">
+            <div>
+              <p>题目类型：XXX</p>
+              <i class="el-icon-circle-check"></i>
+              <i class="el-icon-circle-check"></i>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+            </div>
           </Card>
-        </i-col>
-      </Row>
-      <br>
-    </div>
+          <br>
+          <Card dis-hover style="width:315px">
+            <div>
+              <span>
+                未答题：
+                <Icon type="ios-checkmark" v-model="tubiao"></Icon>
+              </span>
+              <span>
+                已答题：
+                <i class="el-icon-circle-check"></i>
+              </span>
+            </div>
+          </Card>
+        </Card>
+      </i-col>
+
+      <i-col span="17" pull="7">
+        <Card dis-hover style="width:800px">
+          <p slot="title">'XXXX'试卷 &nbsp;&nbsp;&nbsp;考试时间：xxxx&nbsp;&nbsp;&nbsp;试卷总分值：XXX</p>
+          <p>姓名：XXX&nbsp;&nbsp;&nbsp;班级：XXX</p>
+          <Card dis-hover style="width:765px;height: 400px;">
+            <div>
+              <p>题目类型：XXX</p>
+              <div>
+                <h4>{{itemDetail[itemNum-1].answer_index}}</h4>
+                <p>{{itemDetail[itemNum-1].answer_title}}</p>
+                <p>答案：XX</p>
+                <p>解析：</p>
+
+                <br>
+              </div>
+            </div>
+          </Card>
+        </Card>
+      </i-col>
+    </Row>
   </div>
 </template>
 
@@ -89,13 +86,6 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  width: 0 auto;
-  height: 500px;
-  margin-top: -650px;
-  margin-left: 300px;
-}
-
 .contain {
   padding: 30px;
   text-align: start;

@@ -1,6 +1,6 @@
 <template>
-  <div class="navigation">
-    <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+  <div class="headBlock">
+    <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="headBlock">
       <div class="container container-navbar">
         <div class="navbar-header">
           <a @click="backIndex" class="navbar-brand">
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "navigation",
+  name: "headBlock",
   data() {
     return {
       ID: ""

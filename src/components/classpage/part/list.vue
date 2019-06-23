@@ -1,8 +1,8 @@
 <template>
   <div id="list">
-    <el-menu default-active="2" class="el-menu-vertical-demo">
-      <el-menu-item index="2" v-for="(item,index) in chapter" :key="index">
-        <span slot="title">{{chapter[index].name}}</span>
+    <el-menu class="el-menu-vertical-demo" @select="jumpMovie">
+      <el-menu-item :index="i" v-for="(item, i) in chapter" :key="i">
+        <span slot="title">{{item.name}}</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -29,14 +29,16 @@ export default {
         console.log(error);
       });
   },
-  methods: {}
+  methods: {
+    jumpMovie(index) {
+      // console.log(index);
+      this.$router.push({ name: "ShowVideo" });
+      // if (index == 1) {
+      //
+      // }
+    }
+  }
 };
 </script>
 <style scoped>
-#list {
-  width: 0 auto;
-  height: 500px;
-  margin-top: -650px;
-  margin-left: 300px;
-}
 </style>
