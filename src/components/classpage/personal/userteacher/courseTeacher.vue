@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div class="newcon">
+  <div id="courseteacher">
+    <div class="courseteachernewcon">
       <font size="2">课程名称</font>
       <font color="red" size="4">*</font>：
       <i-input type="text" class="form-control" style="width:150px" v-model="rowtemplate.Name"/>
@@ -13,24 +13,18 @@
       <br>
       <font size="2">选择课程封面</font>
       <font color="red" size="4">*</font>：
-      <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
-        list-type="picture-card"
-        :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
-      >
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt>
-      </el-dialog>
-      <div class="but">
+  <Upload action="//jsonplaceholder.typicode.com/posts/"
+        :format="['jpg','jpeg','png']"
+        :max-size="2048">
+        <Button icon="ios-camera" style="width:58px;height:58px"></Button>
+    </Upload>
+      <div class="courseteacherbut">
         <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加课程</i-button>
       </div>
     </div>
     <br>
     <br>
-    <table cellspacing="0" class="table table-bordered table-striped text-center">
+    <table cellspacing="0" class="courseteachertable">
       <thead></thead>
       <tbody>
         <tr v-for="row in rows " :key="row.index">
@@ -86,8 +80,6 @@ export default {
     }
   },
      created() {
-       this.$router.push({path:'/teacher/coursevalue',query:{id:row.id}})
-
        this.axios
        .get("/teacher/course/list", {
 
@@ -192,26 +184,24 @@ export default {
 </script>
 
 <style scoped>
-#app {
+#courseteacher {
   width: 0 auto;
   height: 500px;
-  margin-top: -830px;
-  margin-left: 300px;
+  margin-left: 80px;
 }
-.table {
+.courseteachertable {
   font-family: verdana, arial, sans-serif;
   font-size: 12px;
   width: 700px;
   padding-top: 40px;
 }
-.table td {
+.courseteachertable td {
   padding: 7px;
 }
-.newcon {
-  text-align: start;
-  padding-left: 50px;
+.courseteachernewcon {
+  margin-left: -580px;
 }
-.but {
+.courseteacherbut {
   padding-left: 500px;
   margin-top: -80px;
 }
