@@ -1,5 +1,5 @@
 <template>
-  <div class="contain">
+  <div class="test">
     <h1>{{textName}}期末考核</h1>
     <Row>
       <i-col>
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-.contain {
+.test {
   padding: 30px;
   text-align: start;
   color: gray;
