@@ -41,10 +41,20 @@ export default {
   },
   methods: {
     getclickId() {
-      this.$router.push({
-        name: "annoucement",
-        params: { courseInfo: this.courseInfo }
-      });
+      this.axios
+        .post("/student/course/" + this.courseInfo.id)
+        .then(Response => {
+          console.log(Response);
+          if (Response.data.status == -1) {
+            this.$router.push({
+              name: "annoucement",
+              params: { courseInfo: this.courseInfo }
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

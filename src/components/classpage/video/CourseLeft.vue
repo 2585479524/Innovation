@@ -50,6 +50,7 @@ export default {
   width: 100%;
 }
 .courseLeft .right {
-  margin: 0 40px;
+  margin: 0 -170px;
+  width: 86.5%;
 }
 </style>
