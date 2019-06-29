@@ -15,8 +15,10 @@
       <font color="red" size="4">*</font>：
   <Upload action="//jsonplaceholder.typicode.com/posts/"
         :format="['jpg','jpeg','png']"
-        :max-size="2048">
-        <Button icon="ios-camera" style="width:58px;height:58px"></Button>
+        :max-size="2048"
+        :before-upload="handleUpload"
+        v-model="rowtemplate.Image">
+        <Button icon="ios-camera" style="width:100px;height:100px"></Button>
     </Upload>
       <div class="courseteacherbut">
         <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加课程</i-button>
@@ -34,7 +36,7 @@
             </router-link>
           </td>
           <td>
-            <img :src="row.courseImg" width="150px" height="100px">
+            <img :src="row.imageFile" width="150px" height="100px">
           </td>
           <td>
             <font size="4" color="gray">{{row.teacher}}</font>
@@ -60,11 +62,7 @@ export default {
   data() {
     return {
       rows: [],
-      rowtemplate: { Id: 0, Name: "", Tag: "" },
-      file: "",
-      dialogImageUrl: "",
-      dialogVisible: false,
-      fileList2: [],
+      rowtemplate: { Id: 0, Name: "", Tag: "",Image:""},
       cityList: [
                     {
                         value: 'web前端',
@@ -73,6 +71,10 @@ export default {
                     {
                         value: 'web后端',
                         label: 'web后端'
+                    },
+                    {
+                        value: '人工智能',
+                        label: '人工智能'
                     },],
       word:'修改',
       show:true,
@@ -95,20 +97,19 @@ export default {
   },
   methods: {
     Save: function(event) {
-      if (this.rowtemplate.Name != "") {
-        //设置当前新增行的Id
         this.rowtemplate.Id = this.rows.length + 1;
         this.rows.push(this.rowtemplate);
-      }
-      console.log(this.rowtemplate.Tag);
+        console.log(this.rowtemplate);
 
       this.axios
         .post("/teacher/course", {
           name: this.rowtemplate.Name,
-          tag: this.rowtemplate.Tag
+          tag: this.rowtemplate.Tag,
+          imageFile:this.rowtemplate.Image
         })
         .then(response => {
           console.log(response);
+          console.log(this.rowtemplate);
         })
         .catch(function(error) {
           console.log(error);
@@ -166,19 +167,6 @@ export default {
     ago() {
       this.$router.go(-1);
     },
-    handleRemove(file, fileList) {
-      //console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    handleRemoveone(file, fileList) {
-      //console.log(file, fileList);
-    },
-    handlePreview(file) {
-      //console.log(file);
-    }
   }
 };
 </script>
@@ -187,7 +175,7 @@ export default {
 #courseteacher {
   width: 0 auto;
   height: 500px;
-  margin-left: 80px;
+  padding-left: 80px;
 }
 .courseteachertable {
   font-family: verdana, arial, sans-serif;
@@ -199,7 +187,8 @@ export default {
   padding: 7px;
 }
 .courseteachernewcon {
-  margin-left: -580px;
+  text-align: start;
+  padding-left: 30px;
 }
 .courseteacherbut {
   padding-left: 500px;
