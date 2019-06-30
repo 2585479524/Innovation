@@ -7,19 +7,21 @@
       <font size="2">课程标签</font>
       <font color="red" size="4">*</font>：
       <i-select style="width:150px" v-model="rowtemplate.Tag">
-        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{  item.label }}</i-option>
+        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
       </i-select>
       <br>
       <br>
       <font size="2">选择课程封面</font>
       <font color="red" size="4">*</font>：
-  <Upload action="//jsonplaceholder.typicode.com/posts/"
+      <Upload
+        action="//jsonplaceholder.typicode.com/posts/"
         :format="['jpg','jpeg','png']"
         :max-size="2048"
         :before-upload="handleUpload"
-        v-model="rowtemplate.Image">
+        v-model="rowtemplate.Image"
+      >
         <Button icon="ios-camera" style="width:100px;height:100px"></Button>
-    </Upload>
+      </Upload>
       <div class="courseteacherbut">
         <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加课程</i-button>
       </div>
@@ -46,8 +48,16 @@
           </td>
           <td>
             <i-button style="color:white;background-color:#ec6c6c" @click="Delete(row)">删除</i-button>&nbsp;
-            <i-button style="color:gray;background-color:aliceblue" @click="Edit(row)" v-show="show">{{word}}</i-button>&nbsp;
-            <i-button style="color:white;background-color:#3d6ea7" @click="success(row)" v-show="isshow">确定课程</i-button>
+            <i-button
+              style="color:gray;background-color:aliceblue"
+              @click="Edit(row)"
+              v-show="show"
+            >{{word}}</i-button>&nbsp;
+            <i-button
+              style="color:white;background-color:#3d6ea7"
+              @click="success(row)"
+              v-show="isshow"
+            >确定课程</i-button>
           </td>
         </tr>
       </tbody>
@@ -62,30 +72,29 @@ export default {
   data() {
     return {
       rows: [],
-      rowtemplate: { Id: 0, Name: "", Tag: "",Image:""},
+      rowtemplate: { Id: 0, Name: "", Tag: "", Image: "" },
       cityList: [
-                    {
-                        value: 'web前端',
-                        label: 'web前端'
-                    },
-                    {
-                        value: 'web后端',
-                        label: 'web后端'
-                    },
-                    {
-                        value: '人工智能',
-                        label: '人工智能'
-                    },],
-      word:'修改',
-      show:true,
-      isshow:false
-    }
+        {
+          value: "web前端",
+          label: "web前端"
+        },
+        {
+          value: "web后端",
+          label: "web后端"
+        },
+        {
+          value: "人工智能",
+          label: "人工智能"
+        }
+      ],
+      word: "修改",
+      show: true,
+      isshow: false
+    };
   },
-     created() {
-       this.axios
-       .get("/teacher/course/list", {
-
-       })
+  created() {
+    this.axios
+      .get("/teacher/course/list", {})
       .then(response => {
         console.log(response.data);
         this.rows = response.data.data;
@@ -97,15 +106,15 @@ export default {
   },
   methods: {
     Save: function(event) {
-        this.rowtemplate.Id = this.rows.length + 1;
-        this.rows.push(this.rowtemplate);
-        console.log(this.rowtemplate);
+      this.rowtemplate.Id = this.rows.length + 1;
+      this.rows.push(this.rowtemplate);
+      console.log(this.rowtemplate);
 
       this.axios
         .post("/teacher/course", {
           name: this.rowtemplate.Name,
           tag: this.rowtemplate.Tag,
-          imageFile:this.rowtemplate.Image
+          imageFile: this.rowtemplate.Image
         })
         .then(response => {
           console.log(response);
@@ -146,16 +155,15 @@ export default {
         });
     },
     success: function(row) {
-      console.log(this.rows)
+      console.log(this.rows);
       let rowId = row.id;
-      this.axios 
+      this.axios
         .put("/teacher/course/" + rowId, {
           name: this.rowtemplate.Name,
           tag: this.rowtemplate.Tag
         })
         .then(response => {
           console.log(response.data);
-  
         })
         .catch(function(error) {
           console.log(error);
@@ -166,7 +174,7 @@ export default {
     },
     ago() {
       this.$router.go(-1);
-    },
+    }
   }
 };
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <!--页头部分-->
   <div class="courseLeft">
     <Row>
       <Col span="6" class="left">
@@ -48,9 +47,5 @@ export default {
 }
 .courseLeft .img {
   width: 100%;
-}
-.courseLeft .right {
-  margin: 0 -170px;
-  width: 86.5%;
 }
 </style>
