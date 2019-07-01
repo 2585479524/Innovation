@@ -2,6 +2,8 @@
   <div id="exam">
     <div class="contain">
       <b>选择课程：</b>
+      <!-- <Options></Options>
+      <Judges></Judges>-->
       <Select style="width:200px" v-model="option">
         <Option
           v-for="(goods,index) in listList.data"
@@ -10,24 +12,42 @@
         >{{goods.name}}</Option>
       </Select>
       {{option}}
-      <br>
-      <br>
+      <br />
+      <br />
       <b>选择开始时间：</b>
-      <el-date-picker class="block" v-model="startColoc" type="datetime" placeholder="选择日期时间"></el-date-picker>
+      <DatePicker
+        type="datetime"
+        class="block"
+        v-model="startColoc"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择日期时间"
+      ></DatePicker>
       <b>选择结束时间：</b>
-      <el-date-picker class="block" v-model="endColoc" type="datetime" placeholder="选择日期时间"></el-date-picker>
-      <br>
-      <b>选择题：</b>
-      <b>选择分值：</b>
+      <DatePicker
+        class="block"
+        v-model="endColoc"
+        type="datetime"
+        format="yyyy-MM-dd HH:mm"
+        placeholder="选择日期时间"
+      ></DatePicker>
+      <br />
+      <div>
+        <Button to="/teacher/coursevalue/exam/options">添加选择题</Button>
+        <Button to="/teacher/coursevalue/exam/judges">添加判断题</Button>
+      </div>
+      <router-view></router-view>
 
-      <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
+      <!-- <b>选择题：</b>
+      <b>选择分值：</b> -->
+
+      <!-- <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
       <div class="divone" v-for="(item,index) in choiceList">
         <div class="del">
           <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSubjectFun">删除选题</Button>
-        </div>
+        </div> -->
 
         <!-- 题目框 -->
-        <div class="in">
+        <!-- <div class="in">
           <textarea
             v-model="item.question"
             class="textarea"
@@ -36,27 +56,27 @@
             placeholder="请输入选择题题目"
           ></textarea>
           {{item.question}}
-        </div>
+        </div> -->
         <!-- 选项内容 -->
-        <div class="answer">
+        <!-- <div class="answer">
           <div class="ansOp" v-for="le in choiceListName">{{le.name}}</div>
         </div>
         <div class="answer">
-          <div v-for="content in item.optionName">
+          <div v-for="(content,index) in item.optionName">
             <el-input
               type="textarea"
               autosize
-              v-model="content.optionList"
+              :value="content[index]"
               cols="10"
               rows="2"
               style="width:150px"
             ></el-input>
-            {{content.optionList}}
+            {{content}}
           </div>
-        </div>
+        </div> -->
 
         <!-- 选择正确的答案 -->
-        <div class="selectAns">
+        <!-- <div class="selectAns">
           <b>该题的正确答案是：</b>
           <div class="answer">
             <div class="ans">
@@ -69,20 +89,20 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <i-button style="background-color:aliceblue" @click="addCustomizeDesc">
+      <!-- <i-button style="background-color:aliceblue" @click="addCustomizeDesc">
         <font color="gray">增加选择题</font>
       </i-button>
-      <br>
-      <br>
-      <hr>
-      <br>
+      <br />
+      <br />
+      <hr />
+      <br />
       <b>判断题：</b>
       <b>选择分值：</b>
       <el-input-number style="height:50px" v-model="numJudgement" :min="1" :max="10" label="描述文字"></el-input-number>
-      <br>
-      <br>
+      <br />
+      <br />
       <div class="divone1" v-for="(item,index) in selectList" :key="'divone1-'+index">
         <div class="del">
           <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSelect">删除判断题</Button>
@@ -94,8 +114,8 @@
           rows="2"
           placeholder="请输入判断题题目"
         ></textarea>
-        <br>
-        <br>
+        <br />
+        <br />
         <b>该题的正确答案是：</b>
         <div class="Answer">
           <div class="ans">
@@ -106,15 +126,15 @@
           </div>
         </div>
       </div>
-      <br>
-      <br>
+      <br /> -->
+      <!-- <br />
       <i-button style="background-color:aliceblue" @click="addCustomizeDescone">
         <font color="gray">增加判断题</font>
       </i-button>
-      <br>
-      <br>
+      <br />
+      <br /> -->
     </div>
-    <br>
+    <br />
     <div class="right">
       <i-button style="color:white;background-color:#3d6ea7" @click="success(false)">上传考试</i-button>
     </div>
@@ -122,7 +142,7 @@
 </template>
   
   <script>
-export default {
+export default {  
   data() {
     return {
       diandian: "",
@@ -142,12 +162,7 @@ export default {
       choiceList: [
         {
           question: "",
-          optionName: [
-            { optionList: "" },
-            { optionList: "" },
-            { optionList: "" },
-            { optionList: "" }
-          ],
+          optionName: ["1", "2", "3", "4"],
           answer: "A"
         }
       ],
@@ -191,12 +206,7 @@ export default {
       ];
       var newChoice2 = {};
       newChoice2.question = "";
-      newChoice2.optionName = [
-        { optionList: "" },
-        { optionList: "" },
-        { optionList: "" },
-        { optionList: "" }
-      ];
+      newChoice2.optionName = ["1", "2", "3", "4"];
       newChoice2.answer = "A";
       this.choiceListName.push(newChoice1);
       this.choiceList.push(newChoice2);
@@ -225,7 +235,7 @@ export default {
     },
     creatExam() {
       console.log(this.choiceList);
-      
+
       let cho = this.choiceList;
       let jud = this.selectList;
 
@@ -260,20 +270,14 @@ export default {
 </script>
   
   <style scoped>
-#exam {
-  width: 0 auto;
-  height: 500px;
-  margin-top: -850px;
-  margin-left: 300px;
-}
 .contain {
   padding: 30px;
   text-align: start;
   color: gray;
   font-size: 10px;
   overflow: scroll;
-  width: 960px;
-  height: 660px;
+  width: 73.5%;
+  height: 600px;
   background-color: rgb(255, 255, 255);
 }
 .block {
