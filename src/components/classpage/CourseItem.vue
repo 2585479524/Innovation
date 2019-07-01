@@ -41,12 +41,31 @@ export default {
         });
     },
     getclickId() {
-      this.$router.push({
-        name: "addCourse",
-        params: {
-          courseInfo: this.courseInfo
-        }
-      });
+      this.axios
+        .get("/course/isStudent", {
+          params: {
+            course: this.courseInfo.id
+          }
+        })
+        .then(Response => {
+          console.log(Response);
+          if (Response.data.data.isStudent == true) {
+            this.$router.push({
+              name: "annoucement",
+              params: { courseInfo: this.courseInfo }
+            });
+          } else {
+            this.$router.push({
+              name: "addCourse",
+              params: {
+                courseInfo: this.courseInfo
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

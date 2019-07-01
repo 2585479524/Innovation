@@ -167,10 +167,6 @@ export default {
 <style scoped>
 #app {
 
-  width: 0 auto;
-  height: 500px;
-  margin-top: -850px;
-  margin-left: 300px;
 }
 .table {
   font-family: verdana, arial, sans-serif;
