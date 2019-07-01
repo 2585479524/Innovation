@@ -142,13 +142,7 @@
 </template>
   
   <script>
-import Options from "@/components/classpage/personal/userteacher/options";
-import Judges from "@/components/classpage/personal/userteacher/judges";
-export default {
-  components: {
-    Options,
-    Judges
-  },
+export default {  
   data() {
     return {
       diandian: "",
