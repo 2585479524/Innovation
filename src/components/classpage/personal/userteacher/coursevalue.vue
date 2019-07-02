@@ -165,9 +165,6 @@ export default {
 </script>
 
 <style scoped>
-#app {
-
-}
 .table {
   font-family: verdana, arial, sans-serif;
   font-size: 12px;

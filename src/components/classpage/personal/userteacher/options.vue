@@ -1,7 +1,7 @@
 <template>
   <div id="options">
-    <b>选择分值：</b>
-    <InputNumber v-model="numSelect" :min="1" :max="10"></InputNumber>
+    <b class="subject">选择分值：</b>
+    <InputNumber class="subject" v-model="numSelect" :min="1" :max="10"></InputNumber>
 
     <div class="divone" v-for="(item,index) in choiceList">
       <div class="del">
@@ -25,7 +25,15 @@
         <div class="ansOp" v-for="le in choiceListName">{{le.name}}</div>
       </div>
       <div class="answer">
-        <div v-for="(content,index) in item.optionName">
+        <div>
+            <RadioGroup class="ans" v-model="item.answer">
+              <Radio class="label" label="A">A</Radio>
+              <Radio class="label" label="B">B</Radio>
+              <Radio class="label"label="C">C</Radio>
+              <Radio class="label" label="D">D</Radio>
+            </RadioGroup>
+        </div>
+        <div class="ans1" v-for="(content,index) in item.optionName">
           <Input
             type="textarea"
             autosize
@@ -70,7 +78,7 @@ export default {
       choiceList: [
         {
           question: "",
-          optionName: ["1", "2", "3", "4"],
+          optionName: ["", "", "", ""],
           answer: "A"
         }
       ]
@@ -100,4 +108,23 @@ export default {
   }
 };
 </script>
+<style>
+#options,.label{
+  margin-top:10px;
+}
+.subject,.in{
+  margin-top: 5px;
+}
+.del{
+  margin-top: 20px;
+}
+.ans{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+</style>
+
 
