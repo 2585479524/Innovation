@@ -1,6 +1,6 @@
 <template>
   <div class="judges">
-    <b>选择分值：</b>
+    <b class="subject">选择分值：</b>
     <InputNumber v-model="numJudgement" :min="1" :max="10"></InputNumber>
     <div class="divone1" v-for="(item,index) in selectList" :key="'divone1-'+index">
       <div class="del">
@@ -54,3 +54,9 @@ export default {
 };
 </script>
 
+<style>
+.judges{
+  position: relative;
+  top: 10px;
+}
+</style>

@@ -178,19 +178,14 @@ data() {
 </script>
 
 <style scoped>
-#coursevalue {
-    width: 1000px;
-    height: 500px;
-    padding-left: 100px;
-
-}
-.coursevaluetable {
-    font-family: verdana, arial, sans-serif;
-    font-size: 12px;
-    border-width: 1px;
-    border-color: #cfcece;
-    width: 0 auto;
-    height: 0 auto;
+.table {
+  font-family: verdana, arial, sans-serif;
+  font-size: 12px;
+  border-width: 1px;
+  border-color: #cfcece;
+  border-collapse: collapse;
+  width: 0 auto;
+  height: 0 auto;
 }
 .coursevaluetable th {
     border-width: 1px;
