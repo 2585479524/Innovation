@@ -64,15 +64,15 @@
 <script>
 import Axios from 'axios'
 import qs from 'qs'
-Axios.interceptors.request.use( (config) => {
-    if (config.method=="post"){
-        config.data = qs.stringify(config.data)
-        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    }
-    return config
-},  (error) => {
-    return Promise.reject(error)
-});
+// Axios.interceptors.request.use( (config) => {
+//     if (config.method=="post"){
+//         config.data = qs.stringify(config.data)
+//         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+//     }
+//     return config
+// },  (error) => {
+//     return Promise.reject(error)
+// });
 export default {
 data() {
     return {
