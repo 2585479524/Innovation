@@ -56,7 +56,6 @@ export default {
         .catch();
     },
     identity() {
-      console.log(this.$store.state.userName);
       if (this.$store.state.userName != "") {
         if (this.ID == 0) {
           this.$router.push("/students/coursestudents");
