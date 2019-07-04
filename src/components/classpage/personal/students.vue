@@ -73,6 +73,7 @@ export default {
   text-align: center;
   margin-top: 70px;
   height: 600px;
+  padding-left: 50px;
 }
 .user {
   width: 50px;
