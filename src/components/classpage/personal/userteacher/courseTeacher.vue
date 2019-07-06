@@ -57,17 +57,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import qs from 'qs'
-Axios.interceptors.request.use( (config) => {
-    if (config.method=="post"){
-        config.data = qs.stringify(config.data)
-        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-    }
-    return config
-},  (error) => {
-    return Promise.reject(error)
-});
 export default {
     data() {
         return {
@@ -91,40 +81,40 @@ export default {
             isshow:false
         }
     },
-    created() {
-        this.axios
-        .get("/teacher/course/list", {
-        })
-        .then(response => {
-            console.log(response.data);
-            this.rows = response.data.data;
-            console.log(this.rows);
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+    mounted:function(){
+        this.created();
     },
     methods: {
+        created:function() {
+            this.axios
+            .get("/teacher/course/list", {
+            })
+            .then(response => {
+                console.log(response.data);
+                this.rows = response.data.data;
+                console.log(this.rows);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        },
         Save: function(event) {
             if (this.rowtemplate.Name != "") {
                 this.rowtemplate.Id = this.rows.length + 1;
                 this.rows.push(this.rowtemplate);
             }
                 console.log(this.rowtemplate.Tag);
-            this.axios
-            .post("/teacher/course", {
-                name: this.rowtemplate.Name,
-                tag: this.rowtemplate.Tag
-            },
-            {headers: {'Content-Type':'application/x-www-form-urlencoded'}})
-            .then(response => {
-                console.log(response);
-                console.log(this.rowtemplate.Tag);
-                console.log(this.rows)
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+
+            this.axios.post("/teacher/course",qs .stringify(
+                {
+                name:this.rowtemplate.Name, 
+                tag: this.rowtemplate.Tag}
+                ), 
+                {headers: {'Content-Type':'application/x-www-form-urlencoded'}})
+                .then(response =>{
+                    console.log(this.created())
+                    this.created();
+                });
         //还原模板
             this.rowtemplate = { Id: 0, Name: "", Tag: "" };
             },
@@ -138,37 +128,28 @@ export default {
             let rowId = row.id;
             this.axios
             .delete("/teacher/course/" + rowId, {})
-            .then(function(response) {
-                console.log(response);
+            .then(response => {
+                console.log(this.created())
+                this.created();
             })
             .catch(function(error) {
                 console.log(error);
             });
             },
         success: function(row) {
-                console.log(this.rows)
             let rowId = row.id;
             this.axios 
             .put("/teacher/course/" + rowId, {
                 name: this.rowtemplate.Name,
                 tag: this.rowtemplate.Tag
                 })
-            .then(function(response) {
+            .then(response => {
                 console.log(response);
+                this.created();
             })
             .catch(function(error) {
                 console.log(error);
             });
-            
-             this.axios
-                .get("/teacher/course/list", {
-                })
-                .then(response => {
-                    this.rows = response.data.data;
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
         //还原
         this.rowtemplate = { Id: 0, Name: "", Tag: "" };
         this.isshow = false;
