@@ -31,108 +31,12 @@
         placeholder="选择日期时间"
       ></DatePicker>
       <br />
-      <div>
+      <div class="btn">
         <Button to="/teacher/coursevalue/exam/options">添加选择题</Button>
         <Button to="/teacher/coursevalue/exam/judges">添加判断题</Button>
       </div>
       <router-view></router-view>
 
-      <!-- <b>选择题：</b>
-      <b>选择分值：</b> -->
-
-      <!-- <el-input-number style="height:50px" v-model="numSelect" :min="1" :max="10" label="描述文字"></el-input-number>
-      <div class="divone" v-for="(item,index) in choiceList">
-        <div class="del">
-          <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSubjectFun">删除选题</Button>
-        </div> -->
-
-        <!-- 题目框 -->
-        <!-- <div class="in">
-          <textarea
-            v-model="item.question"
-            class="textarea"
-            cols="10"
-            rows="2"
-            placeholder="请输入选择题题目"
-          ></textarea>
-          {{item.question}}
-        </div> -->
-        <!-- 选项内容 -->
-        <!-- <div class="answer">
-          <div class="ansOp" v-for="le in choiceListName">{{le.name}}</div>
-        </div>
-        <div class="answer">
-          <div v-for="(content,index) in item.optionName">
-            <el-input
-              type="textarea"
-              autosize
-              :value="content[index]"
-              cols="10"
-              rows="2"
-              style="width:150px"
-            ></el-input>
-            {{content}}
-          </div>
-        </div> -->
-
-        <!-- 选择正确的答案 -->
-        <!-- <div class="selectAns">
-          <b>该题的正确答案是：</b>
-          <div class="answer">
-            <div class="ans">
-              <el-radio-group v-model="item.answer">
-                <el-radio label="A">A</el-radio>
-                <el-radio label="B">B</el-radio>
-                <el-radio label="C">C</el-radio>
-                <el-radio label="D">D</el-radio>
-              </el-radio-group>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <i-button style="background-color:aliceblue" @click="addCustomizeDesc">
-        <font color="gray">增加选择题</font>
-      </i-button>
-      <br />
-      <br />
-      <hr />
-      <br />
-      <b>判断题：</b>
-      <b>选择分值：</b>
-      <el-input-number style="height:50px" v-model="numJudgement" :min="1" :max="10" label="描述文字"></el-input-number>
-      <br />
-      <br />
-      <div class="divone1" v-for="(item,index) in selectList" :key="'divone1-'+index">
-        <div class="del">
-          <Button type="error" class="col-sm-2" v-if="index>0" @click="deleteSelect">删除判断题</Button>
-        </div>
-        <textarea
-          v-model="item.question"
-          class="textarea"
-          cols="10"
-          rows="2"
-          placeholder="请输入判断题题目"
-        ></textarea>
-        <br />
-        <br />
-        <b>该题的正确答案是：</b>
-        <div class="Answer">
-          <div class="ans">
-            <el-radio-group v-model="item.answer">
-              <el-radio label="true">正确</el-radio>
-              <el-radio label="false">错误</el-radio>
-            </el-radio-group>
-          </div>
-        </div>
-      </div>
-      <br /> -->
-      <!-- <br />
-      <i-button style="background-color:aliceblue" @click="addCustomizeDescone">
-        <font color="gray">增加判断题</font>
-      </i-button>
-      <br />
-      <br /> -->
     </div>
     <br />
     <div class="right">
@@ -145,33 +49,10 @@
 export default {  
   data() {
     return {
-      diandian: "",
       startColoc: "",
       endColoc: "",
-      option: "",
-      numSelect: 1,
-      numJudgement: 1,
+      option: "",  
       listList: [],
-
-      choiceListName: [
-        { name: "A" },
-        { name: "B" },
-        { name: "C" },
-        { name: "D" }
-      ],
-      choiceList: [
-        {
-          question: "",
-          optionName: ["1", "2", "3", "4"],
-          answer: "A"
-        }
-      ],
-      selectList: [
-        {
-          question: "",
-          answer: "true"
-        }
-      ]
     };
   },
   mounted: function() {
@@ -186,37 +67,7 @@ export default {
       });
   },
   methods: {
-    // 删除选题
-    deleteSubjectFun: function(index) {
-      var that = this;
-      that.choiceList.splice(index, 1);
-    },
-    deleteSelect(index) {
-      var that = this;
-      that.selectList.splice(index, 1);
-    },
-
-    addCustomizeDesc(index) {
-      var newChoice1 = {};
-      newChoice1.choiceListName = [
-        { name: "A" },
-        { name: "B" },
-        { name: "C" },
-        { name: "D" }
-      ];
-      var newChoice2 = {};
-      newChoice2.question = "";
-      newChoice2.optionName = ["1", "2", "3", "4"];
-      newChoice2.answer = "A";
-      this.choiceListName.push(newChoice1);
-      this.choiceList.push(newChoice2);
-    },
-    addCustomizeDescone(index) {
-      var newSelect = {};
-      newSelect.selectName = "";
-      newSelect.answerJu = 3;
-      this.selectList.push(newSelect);
-    },
+    
     send() {
       axios({
         method: "get",
@@ -325,5 +176,10 @@ hr {
 .right {
   width: 0 auto;
   margin-left: -80px;
+}
+.btn{
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
 }
 </style>
