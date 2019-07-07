@@ -5,38 +5,33 @@
                 <tr>
                 <th>章节</th>
                 <th>上传视频文件</th>
-                <th>章节简介</th>
                 <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="zj in zjs" :key="zj.index">
-                <td>{{zj.name}}</td>
+                <tr v-for="chapter in chapters" :key="chapter.index">
+                <td>{{chapter.name}}</td>
                 <td>
                 <Upload action="//jsonplaceholder.typicode.com/posts/"
                 >
                 <Button icon="ios-cloud-upload-outline">Upload files</Button>
                 </Upload>
                 </td>
-                <td>{{zj.info}}</td>
                 <td>
-                    <i-button style="color:gray;background-color:aliceblue" @click="Edit(zj)" v-show="show">修改</i-button>&nbsp;
-                    <i-button style="color:white;background-color:#3d6ea7" @click="success(zj)" v-show="isshow">确定</i-button>&nbsp;
-                    <i-button style="color:white;background-color:#ec6c6c" @click="Delete(zj)">删除</i-button>&nbsp;
+                    <i-button style="color:gray;background-color:aliceblue" @click="Edit(chapter)" v-show="show">修改</i-button>&nbsp;
+                    <i-button style="color:white;background-color:#3d6ea7" @click="success(chapter)" v-show="isshow">确定</i-button>&nbsp;
+                    <i-button style="color:white;background-color:#ec6c6c" @click="Delete(chapter)">删除</i-button>&nbsp;
                 </td>
                 </tr>
                 <tr>
                 <td>
-                    <i-input type="text" v-model="zjtemplate.Name"/>
+                    <i-input type="text" v-model="chaptertemplate.Name"/>
                 </td>
                 <td>
                 <Upload action="//jsonplaceholder.typicode.com/posts/"
                 >
                 <Button icon="ios-cloud-upload-outline">Upload files</Button>
                 </Upload>
-                </td>
-                <td>
-                    <textarea class="form-control" v-model="zjtemplate.Info"/>
                 </td>
                 <td>
                     <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加章节</i-button>
@@ -62,30 +57,23 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import qs from 'qs'
-// Axios.interceptors.request.use( (config) => {
-//     if (config.method=="post"){
-//         config.data = qs.stringify(config.data)
-//         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-//     }
-//     return config
-// },  (error) => {
-//     return Promise.reject(error)
-// });
 export default {
 data() {
     return {
-        zjs: [],
-        zjtemplate: { Id: 0, Name: "", Info: "" },
+        chapters: [],
+        chaptertemplate: { Id: 0, Name: "", Info: "" },
         file: "",
         id:this.$route.query.id,
         show:true,
         isshow:false,
         };
     },
-    created(){
-        console.log(this.id)
+    mounted:function(){
+        this.created();
+    },
+    methods: {
+        created(){
         this.axios
         .get("/spinner/chapter", {
             params:{
@@ -94,71 +82,67 @@ data() {
         })
         .then(response => {
             console.log(response)
-            this.zjs = response.data.data;
-            console.log(this.zjs);
+            this.chapters = response.data.data;
+            console.log(this.chapters);
         })
         .catch(function(error) {
             console.log(error);
             });
         },
-    methods: {
         Save: function(event) {
-            if (this.zjtemplate.Name != "") {
-        //设置当前新增行的Id
-                this.zjtemplate.Id = this.zjs.length + 1;
-                this.zjs.push(this.zjtemplate);
+            if (this.chaptertemplate.Name != "") {
+                this.chaptertemplate.Id = this.chapters.length + 1;
+                this.chapters.push(this.chaptertemplate);
         }
-        this.axios
-        .post("/teacher/chapter", {
-           name:this.zjtemplate.Name,
-           info:this.zjtemplate.Info,
+       this.axios.post("/teacher/chapter",qs.stringify(
+                {
+                course:this.id,
+                name:this.chaptertemplate.Name,
+                info:'0'
+                }
+                 ), 
+                {headers: {'Content-Type':'application/x-www-form-urlencoded'}})
+                .then(function(response){
+                    console.log(this.created())
+                    this.created()
+                });
+        //还原模板
+        this.chaptertemplate = { Id: 0, Name: "", Info: ""};
         },
-        {headers: {'Content-Type':'application/x-www-form-urlencoded'}})
+
+    Delete: function(chapter,index) {
+        let chapterId = chapter.id
+        this.axios
+        .delete("/teacher/chapter/"+chapterId, {
+        })
         .then(response => {
             console.log(response);
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
-
-        //还原模板
-        this.zjtemplate = { Id: 0, Name: "", Info: ""};
-        },
-
-    Delete: function(zj) {
-        let zjId = zj.id
-        this.axios
-        .delete("/teacher/chapter/"+zjId, {
-        })
-        .then(function(response) {
-            console.log(response);
+            this.created();
         })
         .catch(function(error) {
             console.log(error);
             });
         },
-    Edit: function(zj) {
-            this.zjtemplate.Info = zj.info;
-            this.zjtemplate.Name = zj.name;
+    Edit: function(chapter) {
+            this.chaptertemplate.Name = chapter.name;
             this.show = false;
             this.isshow = true;
         },
-    success: function(zj) {
-        console.log(zj.id)
-        let zjId = zj.id;
+    success: function(chapter) {
+        let chapterId = chapter.id;
         this.axios 
-        .put("/teacher/chapter/" + zjId, {
-            name: this.zjtemplate.Name,
-            info: this.zjtemplate.Info
+        .put("/teacher/chapter/" + chapterId, {
+            name: this.chaptertemplate.Name,
+            info: '0'
         })
         .then(response => {
             console.log(response.data);
+            this.created();
         })
         .catch(function(error) {
             console.log(error);
         });
-
-        this.rowtemplate = { Id: 0, Name: "", Info: "" };
+        this.chaptertemplate = { Id: 0, Name: "", Info: "" };
         this.isshow = false;
         this.show = true;
         },
