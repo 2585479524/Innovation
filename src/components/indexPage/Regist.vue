@@ -412,7 +412,7 @@ export default {
     }
 
     
-  } //methods
+  }
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div class="bg">
-    <!-- <p>如果没有账号请先去注册</p> -->
     <div class="ipt">
       <Select prefix="ios-pricetag" placeholder="请选择你的身份" style="width:300px" v-model="item">
         <Option v-for="item in cityList" :value="item" :key="item">{{ item }}</Option>
