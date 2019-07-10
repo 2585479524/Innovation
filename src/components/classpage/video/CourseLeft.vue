@@ -4,7 +4,7 @@
       <Col span="6" class="left">
         <i-menu @on-select="changeTabbar" active-name="1">
           <menu-item name="0">
-            <img class="img" src="../../../assets/indeximg/course1.jpg">
+            <img class="img" :src=this.$route.params.courseInfo.id>
           </menu-item>
           <menu-item :name="index + 1" v-for="(item, index) in leftMenu" :key="index">
             <font size="2" color="gray">{{leftMenu[index]}}</font>

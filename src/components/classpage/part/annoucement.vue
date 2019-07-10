@@ -3,6 +3,7 @@
     <el-table>
       <el-table-column prop="annouce" label="公告"></el-table-column>
       <el-table-column v-for="(item,index) in tableData" :key="index"></el-table-column>
+      
     </el-table>
   </div>
 </template>
@@ -16,10 +17,11 @@ export default {
     };
   },
   created: function() {
+    const courseId = this.$route.params.courseInfo.id;
     this.axios
       .get("/course/notice", {
         params: {
-          course: "81f88387543743328b30d7b299f33c01"
+          course: courseId
         }
       })
       .then(res => {

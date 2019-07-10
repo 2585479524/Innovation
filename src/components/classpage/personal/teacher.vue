@@ -8,27 +8,30 @@
             <i-menu
               @on-select="changeTabbar"
               :theme="theme3"
-              :active-name="activeName"
-              ref="activeName"
+              :active-name="1"
+              
               style="width:250px;background-color:rgb(247, 247, 247)"
             >
               <menu-item name="0">
                 <font size="3" color="black">
-                  <br>
+                  <br />
                   <div class="user">
-                    <img src="@/assets/personalimg/timg.jpg">
+                    <img src="@/assets/personalimg/timg.jpg" />
                   </div>
-                  <br>
+                  <br />
                   {{userName}}
                 </font>
               </menu-item>
-              <menu-item name="teacher/courseteacher">
+              <menu-item name="1">
                 <font size="2" color="gray">课程界面</font>
+              </menu-item>
+              <menu-item name="2">
+                <font size="2" color="gray">上传期末考试</font>
               </menu-item>
             </i-menu>
           </el-col>
           <el-col :span="20">
-            <router-view/>
+            <router-view />
           </el-col>
         </el-row>
       </div>
@@ -62,8 +65,10 @@ export default {
   },
   methods: {
     changeTabbar(selection, row) {
-      if (selection == "activeName") {
-        this.$router.push({ name: "courseteacher" });
+      if (selection == "1") {
+        this.$router.push({ name: "courseTeacher" });
+      } else {
+        this.$router.push({ name: "exam" });
       }
     }
   }

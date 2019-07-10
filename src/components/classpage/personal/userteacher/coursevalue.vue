@@ -48,11 +48,23 @@
             <router-link to="/teacher/coursevalue/eselection">
                 <i-button style="color:white;background-color:#3d6ea7">考试情况</i-button>
             </router-link>
-            <router-link to="/teacher/coursevalue/exam">
-                <i-button style="color:white;background-color:#3d6ea7">上传期末测试</i-button>
-            </router-link>
-                <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回课程界面</i-button>
-        </div>
+          </td>
+          <td>
+            <i-button style="color:white;background-color:#3d6ea7" v-on:click="Save">添加/修改章节</i-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="but">
+      <router-link tag="a" :to="{path:'/teacher/coursevalue/cselection',query:{id:id}}">
+        <i-button style="color:white;background-color:#3d6ea7">选课情况</i-button>
+      </router-link>
+      <router-link to="/teacher/coursevalue/eselection">
+        <i-button style="color:white;background-color:#3d6ea7">考试情况</i-button>
+      </router-link>
+      <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回课程界面</i-button>
     </div>
 </template>
 
