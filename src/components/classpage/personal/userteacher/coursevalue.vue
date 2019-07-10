@@ -57,9 +57,6 @@
       <router-link to="/teacher/coursevalue/eselection">
         <i-button style="color:white;background-color:#3d6ea7">考试情况</i-button>
       </router-link>
-      <router-link to="/teacher/coursevalue/exam">
-        <i-button style="color:white;background-color:#3d6ea7">上传期末测试</i-button>
-      </router-link>
       <i-button style="color:white;background-color:#3d6ea7" @click="ago">返回课程界面</i-button>
     </div>
   </div>

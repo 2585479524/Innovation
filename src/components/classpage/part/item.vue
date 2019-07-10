@@ -70,8 +70,7 @@ export default {
 #item {
   width: 0 auto;
   height: 500px;
-  margin-top: -700px;
-  margin-left: 250px;
+  
 }
 
 .contain {

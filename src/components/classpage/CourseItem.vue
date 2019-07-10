@@ -1,5 +1,5 @@
 <template>
-  <div class="courseItem" @click="getclickId()">
+  <div class="courseItem" @click="getclickId">
     <img class="image" :src="courseInfo.image">
     <p class="courseName">{{courseInfo.name}}</p>
     <p class="mainTeacher">主讲老师：{{courseInfo.teacher}}</p>
