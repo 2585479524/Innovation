@@ -22,9 +22,11 @@
         </div>
 
         <!-- 选项内容 -->
-        <div class="answer">
+        <!-- <div class="answer">
           <div class="ansOp" v-for="le in choiceListName">{{le.name}}</div>
-        </div>
+        </div> -->
+        <br/>
+        <br/>
         <div class="answer">
 
 
@@ -33,13 +35,10 @@
             {{item.optionList.content}}
           </div> -->
           
-          <div class="ans1" v-for="(item1,index) in originalList">
-            
-              
+          <div class="ans1" v-for="(item1,index) in originalList">   
             <Input type="textarea" autosize :rows="2" v-model="originalList[index].value1"></Input>
             {{originalList[index].value1}}
           </div>
-          {{originalList}}
         </div>
 
         <!-- 选择正确的答案 -->
