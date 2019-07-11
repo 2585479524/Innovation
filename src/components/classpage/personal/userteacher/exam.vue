@@ -2,8 +2,6 @@
   <div id="exam">
     <div class="contain">
       <b>选择课程：</b>
-      <!-- <Options></Options>
-      <Judges></Judges>-->
       <Select style="width:200px" v-model="option">
         <Option
           v-for="(goods,index) in listList.data"
@@ -32,11 +30,9 @@
       ></DatePicker>
       <br />
       <div class="btn">
-        <Button to="/teacher/coursevalue/exam/options">添加选择题</Button>
-        <Button to="/teacher/coursevalue/exam/judges">添加判断题</Button>
+        <topicTest ref="child"></topicTest>
       </div>
       <router-view></router-view>
-
     </div>
     <br />
     <div class="right">
@@ -45,35 +41,38 @@
   </div>
 </template>
   
-  <script>
-export default {  
+<script>
+import topicTest from "@/components/classpage/personal/userteacher/topicTest";
+export default {
+  components: {
+    topicTest
+  },
   data() {
     return {
       startColoc: "",
       endColoc: "",
-      option: "",  
-      listList: [],
+      option: "",
+      listList: []
     };
   },
   mounted: function() {
     this.axios
       .get("/teacher/course/spinner")
       .then(Response => {
-        console.log(Response);
+        // console.log(Response);
         this.listList = Response.data;
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
   },
   methods: {
-    
     send() {
       axios({
         method: "get",
         url: ""
       }).then(function(res) {
-        console.log(res.data.name);
+        // console.log(res.data.name);
       });
     },
     success(nodesc) {
@@ -85,10 +84,13 @@ export default {
       this.creatExam();
     },
     creatExam() {
-      console.log(this.choiceList);
+      let child1 = this.$refs.child.op()
+      let ju = this.$refs.child.se()
 
-      let cho = this.choiceList;
-      let jud = this.selectList;
+      let choScore= this.$refs.child.opGrade()
+      let judScore = this.$refs.child.seGrade()
+      let cho = child1;
+      let jud = ju;
 
       let timestampStart =
         this.startColoc.toLocaleDateString().replace(/\//g, "-") +
@@ -100,12 +102,12 @@ export default {
         this.endColoc.toTimeString().substr(0, 8);
       this.axios
         .post("/exam/final", {
-          name: "jfaief",
-          course: "4d2e26d712f64778a4fd50bd6486df96",
+          name: "课程1",
+          course: "38a23d7a2aac4a9ebd7af1ed50789dbb",
           startTime: timestampStart,
           stopTime: timestampEnd,
-          choiceScoreWeight: this.numSelect,
-          judgementScoreWeight: this.numJudgement,
+          choiceScoreWeight: choScore,
+          judgementScoreWeight: judScore,
           choiceList: cho,
           judgementList: jud
         })
@@ -121,6 +123,11 @@ export default {
 </script>
   
   <style scoped>
+#exam {
+  width: 0 auto;
+  height: 500px;
+  padding-left: 80px;
+}
 .contain {
   padding: 30px;
   text-align: start;
@@ -177,9 +184,5 @@ hr {
   width: 0 auto;
   margin-left: -80px;
 }
-.btn{
-  display: flex;
-  justify-content: space-between;
-  width: 300px;
-}
+
 </style>
