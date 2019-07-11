@@ -8,13 +8,12 @@
             考试时间：{{examinationTime}}分钟
             试卷总分值：{{examinationScore}}
           </p>
-          <p>考生姓名：{{candidateName}}</p>
+          <p>考生姓名：{{$store.state.userName}}</p>
           <Card dis-hover class="textSecond">
             <div class="right">
               <h1>{{textName}}试卷</h1>
               <br>
               <i-button style="color:white;background-color:#3d6ea7" @click="startAnswer">开始考试</i-button>
-              <h4>选择题：{{choice}}个 判断题：{{judge}}个</h4>
             </div>
           </Card>
         </Card>
@@ -24,21 +23,19 @@
 </template>
 
 <script>
+import store from '@/stores/store'
 export default {
   data() {
     return {
-      textName: "Java",
-      examinationTime: 90,
-      examinationScore: 100,
-      candidateName: "大李",
-      choice: 50,
-      judge: 20
+      textName: this.$route.params.msg.name,
+      examinationTime: 120,
+      examinationScore: 100
     };
   },
   methods: {
     startAnswer() {
       alert("该试卷只能打开一次，中途不能退出，否则成绩作废");
-      this.$router.push({ name: "item" });
+      this.$router.push({ name: "item",params: { msg1: this.msg } });
     }
   }
 };

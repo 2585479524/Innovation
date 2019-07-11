@@ -14,8 +14,6 @@ import eselection from '@/components/classpage/personal/userteacher/eselection'
 import tselection from '@/components/classpage/personal/userteacher/tselection'
 import coursevalue from '@/components/classpage/personal/userteacher/coursevalue'
 import exam from '@/components/classpage/personal/userteacher/exam'
-import judges from '@/components/classpage/personal/userteacher/judges'
-import options from '@/components/classpage/personal/userteacher/options'
 import uptest from '@/components/classpage/personal/userteacher/uptest'
 //student
 import students from '@/components/classpage/personal/students'
@@ -75,15 +73,6 @@ export default new Router({
                     path: '/teacher/coursevalue/exam',
                     name: 'exam',
                     component: exam,
-                    children: [{
-                        path: 'judges',
-                        name: 'judges',
-                        component: judges
-                    }, {
-                        path: 'options',
-                        name: 'options',
-                        component: options
-                    }]
                 }, {
                     path: '/teacher/coursevalue/uptest',
                     name: 'uptest',
