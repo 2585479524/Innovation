@@ -3,7 +3,6 @@
     <el-table>
       <el-table-column prop="annouce" label="公告"></el-table-column>
       <el-table-column v-for="(item,index) in tableData" :key="index"></el-table-column>
-      
     </el-table>
   </div>
 </template>

@@ -37,10 +37,11 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     },
     getclickId() {
+      console.log(this.courseInfo)
       this.axios
         .get("/course/isStudent", {
           params: {
@@ -64,7 +65,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     }
   }

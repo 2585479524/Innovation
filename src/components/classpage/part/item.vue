@@ -13,13 +13,13 @@
         </i-col>
 
         <i-col span="17" pull="7">
-          <Card dis-hover style="width:800px">
+          <Card dis-hover>
             <p slot="title">
               考试时间：{{examinationTime}}分钟
               试卷总分值：{{examinationScore}}
             </p>
-            <p>考生姓名：{{candidateName}}</p>
-            <Card dis-hover style="width:765px;height: 400px;">
+            <p>考生姓名：{{$store.state.userName}}</p>
+            <Card dis-hover>
               <div>
                 <p>题目类型：{{choices}}</p>
               </div>
@@ -33,13 +33,14 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       tubiao: 0,
       choosedResult: null,
       textName: "Java",
-      examinationTime: 90,
+      examinationTime: 120,
       examinationScore: 100,
       candidateName: "大李",
       choices: "选择题",
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     getdata() {
-      let courseId = "a0f94e7f7e9945735f3e7e52d665a1db";
+      let courseId = "e24da4d2cecc421abfd929691adbd205";
       this.axios
         .get("/exam/final/" + courseId)
         .then(Response => {
@@ -68,8 +69,8 @@ export default {
 
 <style scoped>
 #item {
-  width: 0 auto;
-  height: 500px;
+  width: 1000px auto;
+  height: 80%;
   
 }
 
@@ -79,8 +80,6 @@ export default {
   color: gray;
   font-size: 10px;
   overflow: scroll;
-  width: 75%;
-  height: 130%;
   background-color: rgb(255, 255, 255);
 }
 

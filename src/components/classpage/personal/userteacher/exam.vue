@@ -182,7 +182,7 @@ hr {
 }
 .right {
   width: 0 auto;
-  margin-left: -80px;
+  left: 150px;
 }
 
 </style>

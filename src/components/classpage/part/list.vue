@@ -5,6 +5,7 @@
         <span slot="title">{{item.name}}</span>
       </el-menu-item>
     </el-menu>
+    {{this.$route.params.msg}}
   </div>
 </template>
 <script>
