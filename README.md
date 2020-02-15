@@ -1,10 +1,9 @@
 # Innovation
 🎉创新创业教育平台项目
 
-项目基于Vue CLI重新架构，需要卸载旧版的vue-cli，本项目统一使用node.js 10.15.3(LTS)
+项目采用前后端分离架构，基于Vue CLI，需要卸载旧版的vue-cli，本项目统一使用node.js 10.15.3(LTS)
 
-#### 本项目使用的依赖 element-ui iview echarts axois 
-
+#### 本项目使用的部分依赖 element-ui iview echarts axois 
 
 ### 安装Vue-CLI
 ```
